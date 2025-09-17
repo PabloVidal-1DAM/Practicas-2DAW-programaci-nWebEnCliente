@@ -1,6 +1,6 @@
 //Ejercicio 1: Números y meses
 function comprobarMes(numero){
-    if (isNaN(numero)){  // En caso de que el dato es númerico, no devuelve nada
+    if (isNaN(numero)){  // En caso de que el dato no es númerico, no devuelve nada
         console.log("Para comprobar el més se ha de pasar un valor númerico")
         return;
     }
