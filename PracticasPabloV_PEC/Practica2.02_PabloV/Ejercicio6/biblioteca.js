@@ -13,6 +13,9 @@ function calculadora(numero1, numero2, operador){
         multiplicar(numero1, numero2);
     }else if(operador === "/" ){
         dividir(numero1, numero2);
+    }else{
+        console.log("No se aceptarán operadores que no sean: Sumar, Restar, Multiplicar o Dividir.")
+        return;
     }
 }
 function sumar(numero1, numero2){
