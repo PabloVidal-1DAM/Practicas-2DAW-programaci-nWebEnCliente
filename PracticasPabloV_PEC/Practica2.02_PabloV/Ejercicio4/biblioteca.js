@@ -5,14 +5,14 @@ function calcularPotencia(base, exponente){
         return;
     }else{
 
-        //Caso especial: si el exponiente = 0, el resultado siempre es 1
+        //Caso especial: si el exponente = 0, el resultado siempre es 1
         if (exponente == 0){
             return 1;
         }
 
         let resultadoPotencia = 1;
         let contador = 0;
-        while(contador < exponente){
+        while(contador < exponente){ // se ejecutará hasta que la base se termine de multiplicar por el exponente el n de veces que pase el usuario
             resultadoPotencia *= base
             contador ++;
         }
