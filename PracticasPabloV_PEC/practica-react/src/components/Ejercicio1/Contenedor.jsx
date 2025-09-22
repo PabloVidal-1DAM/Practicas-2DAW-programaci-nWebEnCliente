@@ -7,7 +7,8 @@ const Contenedor= (props) => {
     return (
         <>
         <div className="contenedor_css">
-            {props.children}
+            {props.children} {/*Para que se puedan localizar a los elementos aninados en App dentro de contenedor, 
+            se pasa children a contenedor para que los muestre*/}
         </div>
         </>
     );

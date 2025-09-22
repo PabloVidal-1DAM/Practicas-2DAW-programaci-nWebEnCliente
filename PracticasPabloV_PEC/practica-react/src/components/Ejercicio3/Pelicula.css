@@ -9,6 +9,12 @@
 .estilo_p{
     font-family: 'Courier New', Courier, monospace;
 }
+.Img{
+  width: 100%;
+  max-width: 280px;
+  border-radius: 8px;
+  object-fit: cover;
+}
 
 h2{
     margin-bottom: 15px;

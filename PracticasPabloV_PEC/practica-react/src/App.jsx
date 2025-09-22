@@ -36,6 +36,7 @@ function App() {
            actuación contenida pero intensa de Ryan Gosling.
         </Pelicula>
 
+        {/*Primer interprete de la película */}
         <Interprete nombre='Carey Mulligan' 
         src="https://i.pinimg.com/736x/02/54/92/025492cda5f554e862760768877cc8e2.jpg"
         >
@@ -46,6 +47,7 @@ function App() {
           consolidándose como una de las actrices británicas más respetadas de su generación.
         </Interprete>
 
+        {/*Segundo interprete de la película */}
         <Interprete nombre='Ryan Gosling' 
         src="https://i.pinimg.com/736x/d4/75/4b/d4754bee1c877e3388a502411373acb5.jpg"
         >
@@ -58,6 +60,7 @@ function App() {
           carisma natural, convirtiéndolo en uno de los actores más destacados de su generación.
         </Interprete>
 
+        {/*Tercer interprete de la película */}
         <Interprete nombre='Oscar Isaac' 
         src="https://i.pinimg.com/1200x/7e/ca/16/7eca16bc0bc92c146cd3ba7ea15d0133.jpg"
         >
