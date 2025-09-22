@@ -6,11 +6,12 @@ const Pelicula = (props) =>{
 
     return(
         <>
-            <h2>{props.titulo}</h2>
-            <p>Dirigida por: {props.direccion}</p>
-            <p>cartela: {props.cartela}</p>
-            <p>{props.children}</p>
-            <Contenedor></Contenedor>
+            <div className="Pelicula_css">
+                <h2>{props.titulo}</h2>
+                <p className="estilo_p">Dirigida por: {props.direccion}</p>
+                <p>cartela: {props.cartela}</p>
+                <p>{props.children}</p>
+            </div>
         </>
     );
 };
