@@ -18,13 +18,18 @@ const crearCurso =(nombre, anio, descripcion = "Por defecto",alumnado = []) =>{
         nombre = undefined;
     }
 
-
-    return{
+    let curso = {
         nombreCurso: nombre,
         anio: anio,
         descripcion: descripcion,
-        alumnado: [...alumnado]
-    };
+        alumnado: [...alumnado],
+        //Ejercicio4: 
+        matricular: function matricular(objeto){
+            this.alumnado.push(objeto);
+        }
+    }
+
+    return(curso);
 }
 
 export {crearCurso};
