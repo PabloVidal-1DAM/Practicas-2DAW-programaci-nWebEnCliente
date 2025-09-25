@@ -1,5 +1,5 @@
 "use strict";
-// Ejercicio 3: Recorriendo Objetos
+// Ejercicio 3: Recorriendo Objetos.
 
 const crearJSON = () => {
     let discente = {
@@ -13,9 +13,8 @@ const crearJSON = () => {
             tercera: 9.2
         },
         calcularMedia: function calcularMedia(){
-            return(
-                ((this.notas.primera + this.notas.segunda + this.notas.tercera) / 3)
-            );
+            let media = ((this.notas.primera + this.notas.segunda + this.notas.tercera) / 3)
+            return(media.toLocaleString("es-ES",{style: "decimal"}));
         },
         imprimirAficiones: function imprimirAficiones(){
             this.aficiones.forEach((aficion,indice,array) =>{
@@ -24,16 +23,17 @@ const crearJSON = () => {
             
         },
         imprimirInforme: function imprimirInforme(){
-            console.log("Informe del alumno: "+this.nombre);
+            console.log("-/*******Informe del alumno: "+this.nombre + "*******/-");
             console.log("ID: " + this.id);
             console.log("Nombre: " + this.nombre + " " + this.apellidos);
             console.log("Notas:");
-            console.log("Primera: " + this.notas.primera);
-            console.log("Segunda: " + this.notas.segunda);
-            console.log("Tercera: " + this.notas.tercera);
+            console.log("Primera: " + this.notas.primera.toLocaleString("es-ES"));
+            console.log("Segunda: " + this.notas.segunda.toLocaleString("es-ES"));
+            console.log("Tercera: " + this.notas.tercera.toLocaleString("es-ES"));
             console.log("Media: " + this.calcularMedia());
             console.log("Aficiones:");
             this.imprimirAficiones();
+            console.log("-/****************************************/-")
         }
     }
     return(discente);
