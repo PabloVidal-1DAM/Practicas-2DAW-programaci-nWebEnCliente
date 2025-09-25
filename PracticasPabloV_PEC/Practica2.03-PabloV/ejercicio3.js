@@ -18,7 +18,24 @@ const crearJSON = () => {
             );
         },
         imprimirAficiones: function imprimirAficiones(){
-            console.log(this.aficiones)
+            this.aficiones.forEach((aficion,indice,array) =>{
+                console.log("Afición "+indice +": "+aficion);
+            });
+            
+        },
+        imprimirInforme: function imprimirInforme(){
+            console.log("Informe del alumno: "+this.nombre);
+            console.log("ID: " + this.id);
+            console.log("Nombre: " + this.nombre + " " + this.apellidos);
+            console.log("Notas:");
+            console.log("Primera: " + this.notas.primera);
+            console.log("Segunda: " + this.notas.segunda);
+            console.log("Tercera: " + this.notas.tercera);
+            console.log("Media: " + this.calcularMedia());
+            console.log("Aficiones:");
+            this.imprimirAficiones();
         }
     }
+    return(discente);
 }
+export {crearJSON};
