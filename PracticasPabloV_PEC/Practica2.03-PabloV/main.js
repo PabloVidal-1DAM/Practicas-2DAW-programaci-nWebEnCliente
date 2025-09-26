@@ -2,6 +2,7 @@
 import {crearCurso} from "./ejercicio1.js";
 import {recorrerObjeto} from "./ejercicio2.js";
 import {crearJSON} from "./ejercicio3.js";
+import {recorrerObjetoII} from "./ejercicio5.js";
 
 //Ejercicio 1:
 let objetoCurso = crearCurso("Desarrollo Aplicaciones Web.", 2005, "Curso para ser desarrollador web.", ["juan", "Maria", "Pepe", "jimenez"]);
@@ -17,3 +18,6 @@ objetoDisciente.imprimirInforme();
 
 //Ejercicio4:
 console.log(objetoCurso.matricular(objetoDisciente));
+
+//Ejercicio5:
+console.log(recorrerObjetoII(objetoDisciente));
