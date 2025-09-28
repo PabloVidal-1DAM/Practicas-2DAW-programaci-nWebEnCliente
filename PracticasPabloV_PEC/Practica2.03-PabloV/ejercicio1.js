@@ -1,8 +1,8 @@
 "use strict";
 //Ejercicio 1: Constructor de Objetos.
 
- /* si a descripción no se le pasa nada, pondrá "por defecto" al inicializarlo en el constructor, y este
- constructor se vuelve a usar para inicializar alumnado como un array vacío, como pide el ejercicio*/
+ /* si a descripción no se le pasa nada, pondrá "por defecto" al inicializarlo en el constructor, además 
+ de inicializar alumnado como un array vacío, como pide el ejercicio*/
 const crearCurso =(nombre, anio, descripcion = "Por defecto.",alumnado = []) =>{
 
     /* función callback que recorrerá el array alumnado para ver si todo lo que contiene son Strings*/

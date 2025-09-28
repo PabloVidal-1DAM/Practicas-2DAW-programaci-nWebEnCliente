@@ -2,6 +2,7 @@
 //Ejercicio 5: Mostrando objetos II
 const recorrerObjetoII = (objeto) =>{
     console.log(".......Mostrando ObjetosII........")
+    // Uso un for in, ya que solo tengo que recorrer el objeto, no tengo que devolver ningún dato
     for (let clave in objeto){
 
         if (typeof objeto[clave] == "string"){
