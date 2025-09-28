@@ -23,7 +23,8 @@ const crearCurso =(nombre, anio, descripcion = "Por defecto.",alumnado = []) =>{
         anio: anio,
         descripcion: descripcion,
         alumnado: [...alumnado],
-        //Ejercicio4: 
+        //Ejercicio4:
+        // Función que devuelve una copia del array de alumnado + el objeto que se le pase como parámetro
         matricular: function matricular(objeto){
             return(this.alumnado = [...this.alumnado, objeto]);
         }
