@@ -11,11 +11,24 @@ const mezclandoObjetos = (array) =>{
     // se hace una copia del array pasado por parámetro, se ordena son .sort() y se da la vuelta al orden con .reverse()
     let arrayOrdenado = [...array].sort().reverse(); 
 
-    console.log("Array Ordenado Alfabeticamente y al revés:")
+    console.log(`Array Ordenado Alfabeticamente y al revés:`)
     
     arrayOrdenado.forEach((valor,indice,array) =>{
         console.log(`Valor ${indice + 1}: ${valor}`);
     });
+
+    //punto 3:
+    let arrayObjetos = array.map((valor,indice,array)=>{
+        return{
+            id: indice,
+            nombre: valor
+        };
+    });
+    console.log(`Array de objetos por cada nombre:`);
+    arrayObjetos.forEach((valor,indice,array) =>{
+        console.log(`Valor ${indice +1}: Id: ${valor.id}, Nombre: ${valor.nombre} `)
+    });
+
 
 
 }
