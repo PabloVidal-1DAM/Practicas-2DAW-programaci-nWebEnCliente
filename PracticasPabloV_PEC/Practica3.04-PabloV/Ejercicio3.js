@@ -1,3 +1,4 @@
+"use strict";
 const usuarios = [
   {
     nombre: "Luis",
@@ -93,7 +94,7 @@ const usuarios = [
 ];
 
 const aniadirUsuario = (usuario) =>{
-  // Devuelve una copia del array usuarios con el cambio del nuevo objeto.
+  // Devuelve una copia del array de objetos "usuarios" con el cambio del nuevo objeto.
   return [...usuarios, usuario]
 }
 
@@ -132,13 +133,39 @@ const valorVacio = (usuarios) =>{
   let arrayDatoNull = usuarios.filter((valor,indice,array) =>{
     return(
       !valor.nombre ||
-      !valor.preferencias ||
+      !valor.preferencias ||               // El operador "!" busca que no se deje vacío, null o undefined
+      valor.preferencias.edad == null ||   
       !valor.contacto ||
-      !valor.correoelectronico ||
-      !valor.telefono 
+      !valor.contacto.correoelectronico ||
+      !valor.contacto.telefono
     );
   });
   return arrayDatoNull;
 }
 
-export {usuarios,aniadirUsuario,mayoresDeEdad,correoYahoo, filtradoMultiple, valorVacio};
+const usuariosApellido = (usuarios) =>{
+  let nuevoArray = usuarios.map((valor,indice,array) =>{
+    return{
+      ...valor, apellidos: "Por defecto" // Se almacena en una nueva  copia donde se guardan todos los objetos y se añade el apellido como nuevo atributo.
+    };
+  });
+  return nuevoArray;
+}
+
+const nuevaDireccion = (usuarios) =>{
+  let nuevoArray = usuarios.map((valor,indice,array) =>{
+    return{ // Lógica similar a la anterior, pero esta vez:
+      ...valor, // Se hace una copia del objeto "usuario"
+      contacto: {
+        ...valor.contacto, // se copia todo el objeto contacto
+          direccion: {
+            ...valor.contacto.direccion, // se copia todo el objeto dirección
+            codigo: "00000" // se añade el nuevo atributo
+          }
+      }
+    };
+  });
+  return nuevoArray;
+}
+
+export {usuarios,aniadirUsuario,mayoresDeEdad,correoYahoo, filtradoMultiple, valorVacio, usuariosApellido, nuevaDireccion};
