@@ -1,7 +1,7 @@
 "use strict";
 import {mezclandoObjetos} from "./ejercicio1.js";
 import {filtrandoObjetos,generarNumAleatorio} from "./ejercicio2.js";
-import {usuarios, aniadirUsuario,mayoresDeEdad,correoYahoo, filtradoMultiple} from "./Ejercicio3.js";
+import {usuarios, aniadirUsuario,mayoresDeEdad,correoYahoo, filtradoMultiple, valorVacio} from "./Ejercicio3.js";
 
 //Ejercicio 1:
 let array = ["Pablo", "Miguel", "Javier", "Juanfran", "María José"];
@@ -30,3 +30,4 @@ console.log(usuariosNuevos);
 console.log(mayoresDeEdad(usuariosNuevos));
 console.log(correoYahoo(usuariosNuevos));
 console.log(filtradoMultiple(usuariosNuevos));
+console.log(valorVacio(usuariosNuevos));

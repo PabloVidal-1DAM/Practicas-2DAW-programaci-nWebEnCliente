@@ -131,10 +131,14 @@ const filtradoMultiple = (usuarios) =>{
 const valorVacio = (usuarios) =>{
   let arrayDatoNull = usuarios.filter((valor,indice,array) =>{
     return(
-      valor.nombre !== null
+      !valor.nombre ||
+      !valor.preferencias ||
+      !valor.contacto ||
+      !valor.correoelectronico ||
+      !valor.telefono 
     );
   });
   return arrayDatoNull;
 }
 
-export {usuarios,aniadirUsuario,mayoresDeEdad,correoYahoo, filtradoMultiple};
+export {usuarios,aniadirUsuario,mayoresDeEdad,correoYahoo, filtradoMultiple, valorVacio};
