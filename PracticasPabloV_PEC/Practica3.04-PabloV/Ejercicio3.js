@@ -133,7 +133,7 @@ const valorVacio = (usuarios) =>{
   let arrayDatoNull = usuarios.filter((valor,indice,array) =>{
     return(
       !valor.nombre ||
-      !valor.preferencias ||               // El operador "!" busca que no se deje vacío, null o undefined
+      !valor.preferencias ||               // El operador "!" busca que ese dato que no se deje vacío, null o undefined
       valor.preferencias.edad == null ||   
       !valor.contacto ||
       !valor.contacto.correoelectronico ||
