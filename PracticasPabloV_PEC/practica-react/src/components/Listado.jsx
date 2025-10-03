@@ -1,26 +1,18 @@
-import React, {useState} from 'react'
-import "./Listado.css"
+import React from "react";
 
-const Listado = () => {
-    
-    let [listado, setListado] =useState();
+const Listado = (props) => {
 
-    const anyadirNumero = () =>{
-        let numeroRandom = Math.floor(Math.random(0 * 100) +1);
-        setListado(...listado, numeroRandom);
-    }
+    const {key, dato} = props.datos;
 
   return (
-    <>
-     <div className="Listado_css">
-        <h1>Listado</h1>
-        <button onClick={() =>{
-            anyadirNumero();
-        }}>Generar</button>
-        <button>Eliminar</button>
-     </div>
-    </>
-  )
-}
+    <div className="elementosComponente">
+      <ul>
+        <li key={key}>
+          {dato}
+        </li>
+      </ul>
+    </div>
+  );
+};
 
-export default Listado
+export default Listado;

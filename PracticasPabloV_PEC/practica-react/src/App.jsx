@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import './App.css'
-import Listado from './components/Listado.jsx'
+import Listados from './components/Listados.jsx'
 
 function App() {
 
   return (
     <>
-      <Listado/>
+      <Listados/>
     </>
   );
 }
