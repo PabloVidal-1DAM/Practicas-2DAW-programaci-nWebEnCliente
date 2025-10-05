@@ -2,15 +2,13 @@ import React from "react";
 
 const Listado = (props) => {
 
-    const {key, dato} = props.datos;
+    const dato = props.dato;
 
   return (
     <div className="elementosComponente">
-      <ul>
-        <li key={key}>
+        <li>
           {dato}
         </li>
-      </ul>
     </div>
   );
 };

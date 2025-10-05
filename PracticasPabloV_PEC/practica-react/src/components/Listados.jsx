@@ -3,7 +3,6 @@ import Listado from "./Listado.jsx";
 import "./Listados.css";
 
 const Listados = () => {
-
   let [listado, setListado] = useState([]);
 
   const anyadirNumero = () => {
@@ -25,13 +24,15 @@ const Listados = () => {
         <button>Eliminar</button>
       </div>
 
-      {Array.isArray(listado) && listado.length
-        ? listado.map((numero, indice, array) => {
-            return (
-              <Listado key={crypto.randomUUID()} dato={numero} />
-            );
-          })
-        : "No hay números en listado"}
+      {Array.isArray(listado) && listado.length > 0 ? (
+        <ul>
+          {listado.map((numero, indice) => (
+            <Listado key={indice} dato={numero} />
+          ))}
+        </ul>
+      ) : (
+        "No hay números en listado"
+      )}
     </>
   );
 };
