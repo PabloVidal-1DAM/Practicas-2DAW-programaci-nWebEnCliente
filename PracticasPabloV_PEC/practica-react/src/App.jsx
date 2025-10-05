@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import './App.css'
-import Listados from './components/Listados.jsx'
+import Listados from './components/Ej3_08/Ejercicio1/Listados.jsx'
+import ContadorLimite from './components/Ej3_08/Ejercicio2/ContadorLimite.jsx';
 
 function App() {
 
   return (
     <>
-      <Listados/>
+      {/*Ejercicio1*/}
+      {/*<Listados/>*/}
+      <ContadorLimite/>
     </>
   );
 }
