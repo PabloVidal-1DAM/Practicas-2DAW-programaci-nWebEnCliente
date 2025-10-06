@@ -4,18 +4,18 @@ import "./Listados.css";
 
 const Listados = () => {
 
-  // se crea un estado llamado "listado" y empieza siendo un arrat vacío
+  // Se crea un estado llamado "listado" y empieza siendo un arrat vacío.
   let [listado, setListado] = useState([]);
 
   const anyadirNumero = () => {
-    // se genera un numero random del 1 al 100 que se añade al estado usando su setter
+    // Se genera un numero random del 1 al 100 que se añade al estado usando su setter.
     let numeroRandom = Math.floor(Math.random() * 100) + 1;
-    // shallow copy para copiar todo lo anterior del estado + el número nuevo generado
+    // Shallow copy para copiar todo lo anterior del estado + el número nuevo generado.
     setListado([...listado, numeroRandom]);
   };
 
   const borrarNumeros = () =>{
-    // se borra toda la anterior información cambiando el valor del estado en un array vacío
+    // Se borra toda la anterior información cambiando el valor del estado en un array vacío.
     setListado([]);
   }
 
@@ -35,10 +35,10 @@ const Listados = () => {
         }}>Eliminar</button>
       </div>
       
-      {/*Antes de recorrer el estado, se comprueba que es un array y que contiene datos*/}
+      {/*Antes de recorrer el estado, se comprueba que es un array y que contiene datos.*/}
       {Array.isArray(listado) && listado.length > 0 ? (
         <ul>
-          {/* se usa el componente que representa a cada dato contenido dentro del estado llamado "Listado"*/}
+          {/* Se recorre el array y se llama al componente "Listado", que representa a cada elemento del array.*/}
           {listado.map((numero, indice) => (
             <Listado key={indice} dato={numero} />
           ))}
