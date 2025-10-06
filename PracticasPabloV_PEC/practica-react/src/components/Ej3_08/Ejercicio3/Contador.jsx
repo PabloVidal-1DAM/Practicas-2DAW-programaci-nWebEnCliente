@@ -1,9 +1,12 @@
 import React from 'react'
 
-const Contador = () => {
+const Contador = (props) => {
+
+  const dato = props.dato;
+
   return (
-    <div>
-      
+    <div className="elementosContador">
+      <p>{dato}</p>
     </div>
   )
 }

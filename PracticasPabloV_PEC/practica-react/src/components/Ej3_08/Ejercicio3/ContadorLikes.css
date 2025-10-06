@@ -1,0 +1,40 @@
+img {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 50px;
+}
+button{
+    margin-bottom: 30px;
+}
+
+.ContadorLimite {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 100vh;
+}
+
+.btnLike {
+  background-color: rgb(6, 133, 17);
+}
+
+.btnDislike{
+  background-color: rgb(122, 0, 0);
+}
+
+.botones{
+  display: flex;
+  margin-left: 20px;
+  gap: 100px;
+}
+
+.likes{
+  color: rgb(6, 133, 17);
+  font-weight: bold;
+}
+
+.dislikes{
+  color: rgb(122, 0, 0);
+  font-weight: bold;
+}
