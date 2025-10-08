@@ -1,21 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import Listados from './components/Ej3_08/Ejercicio1/Listados.jsx'
-import ContadorLimite from './components/Ej3_08/Ejercicio2/ContadorLimite.jsx';
-import ContadorLikes from './components/Ej3_08/Ejercicio3/ContadorLikes.jsx';
+import Matricula from './components/Ej3_09/Matricula';
 
-function App() {
+
+function App(props) {
 
   return (
     <>
-      {/*Ejercicio1:*/}
-      {/*<Listados/>*/}
-
-      {/*Ejercicio2:*/}
-      {/*<ContadorLimite/>*/}
-
-      {/*Ejercicio3:*/}
-      <ContadorLikes/>
+      <Matricula>{props.children}</Matricula>
     </>
   );
 }
