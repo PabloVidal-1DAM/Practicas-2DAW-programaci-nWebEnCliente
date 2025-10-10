@@ -46,6 +46,15 @@ const Matriculados = () => {
 
   }
 
+  const eliminarDiscente = (id) =>{
+    let discentesFiltrado = discentes.filter((valor,indice,array) =>{
+      return(
+        valor.id !== id
+      )
+    })
+    setDiscentes(discentesFiltrado);
+  }
+
   return (
     <>
       <div>
@@ -82,7 +91,7 @@ const Matriculados = () => {
         </button>
 
         {discentes.map((discente, indice, array) => {
-          return <Matriculado key={indice} dato={discente} />;
+          return <Matriculado key={indice} dato={discente} funcion={eliminarDiscente} />;
         })}
       </div>
     </>
