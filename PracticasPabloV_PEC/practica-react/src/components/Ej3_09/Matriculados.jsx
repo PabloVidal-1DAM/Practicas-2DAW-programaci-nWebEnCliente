@@ -3,57 +3,35 @@ import discente from "../../json/matriculados.json";
 import Matriculado from "./Matriculado";
 import "./Matriculados.css";
 
+import {
+  filtrar2DAW,
+  filtrarPrimerCurso,
+  filtrarDAW,
+  ordenarPorApellidos,
+  eliminarPorId,
+} from "./biblioteca/biblioteca.js";
+
 const Matriculados = () => {
   const [discentes, setDiscentes] = useState(discente.discentes);
   const [ordenAscendente, setOrdenAscendente] = useState(true);
 
-  const solo2DAW = () => {
-    let discentesFiltrado = discentes.filter((valor, indice, array) => {
-      return valor.curso === "2DAW";
-    });
+  const solo2DAW = () => setDiscentes(filtrar2DAW(discente.discentes));
+  const soloPrimerCurso = () =>
+    setDiscentes(filtrarPrimerCurso(discente.discentes));
+  const soloDAW = () => setDiscentes(filtrarDAW(discente.discentes));
 
-    setDiscentes(discentesFiltrado);
-  };
-
-  const soloPrimerCurso = () => {
-    let discentesFiltrado = discentes.filter((valor, indice, array) => {
-      return valor.curso.includes("1");
-    });
-    setDiscentes(discentesFiltrado);
-  };
-
-  const soloDAW = () =>{
-    let discentesFiltrado = discentes.filter((valor,indice,array) =>{
-        return(
-            valor.curso.includes("DAW")
-        )
-    })
-    setDiscentes(discentesFiltrado);
-  }
-
-  const ordenarApellidos = () =>{
-    let discentesOrdenado = discentes.sort((a,b) =>{
-        if (a.apellidos < b.apellidos){
-            return ordenAscendente ? -1 : 1
-        }
-        if (a.apellidos > b.apellidos){
-            return ordenAscendente ? 1: -1
-        }
-        return 0;
-    })
-    setDiscentes(discentesOrdenado);
+  const ordenarApellidos = () => {
+    setDiscentes(ordenarPorApellidos(discentes, ordenAscendente));
     setOrdenAscendente(!ordenAscendente);
+  };
 
-  }
+  const eliminarDiscente = (id) => {
+    setDiscentes(eliminarPorId(discentes, id));
+  };
 
-  const eliminarDiscente = (id) =>{
-    let discentesFiltrado = discentes.filter((valor,indice,array) =>{
-      return(
-        valor.id !== id
-      )
-    })
-    setDiscentes(discentesFiltrado);
-  }
+  const reiniciarDiscente = () =>{
+    setDiscentes(discente.discentes);
+  };
 
   return (
     <>
@@ -82,7 +60,7 @@ const Matriculados = () => {
           Mostrar curso DAW
         </button>
 
-                <button
+        <button
           onClick={() => {
             ordenarApellidos();
           }}
@@ -90,8 +68,22 @@ const Matriculados = () => {
           Cambiar Orden
         </button>
 
+        <button
+          onClick={() => {
+            reiniciarDiscente();
+          }}
+        >
+          Reiniciar
+        </button>
+
         {discentes.map((discente, indice, array) => {
-          return <Matriculado key={indice} dato={discente} funcion={eliminarDiscente} />;
+          return (
+            <Matriculado
+              key={indice}
+              dato={discente}
+              funcion={eliminarDiscente}
+            />
+          );
         })}
       </div>
     </>
