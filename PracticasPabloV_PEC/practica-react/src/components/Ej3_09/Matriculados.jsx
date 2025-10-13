@@ -12,33 +12,28 @@ import {
 } from "./biblioteca/biblioteca.js";
 
 const Matriculados = () => {
+  // Estado que almacena el array de objetos discentes.
   const [discentes, setDiscentes] = useState(discente.discentes);
+
+  // Estado que almacen el orden actual del objeto, empieza en ascendente.
   const [ordenAscendente, setOrdenAscendente] = useState(true);
 
-  const solo2DAW = () => setDiscentes(filtrar2DAW(discente.discentes));
-  const soloPrimerCurso = () =>
-    setDiscentes(filtrarPrimerCurso(discente.discentes));
-  const soloDAW = () => setDiscentes(filtrarDAW(discente.discentes));
-
-  const ordenarApellidos = () => {
-    setDiscentes(ordenarPorApellidos(discentes, ordenAscendente));
-    setOrdenAscendente(!ordenAscendente);
-  };
-
+  // Función que se pasará como atributo al componente "Matriculado", ya que aquí no se puede acceder a su id.
   const eliminarDiscente = (id) => {
     setDiscentes(eliminarPorId(discentes, id));
   };
-
-  const reiniciarDiscente = () =>{
+  // Esta función no es importada desde biblioteca.js porque no ocupa mucho, me he aclarado mejor aquí.
+  const reiniciarDiscente = () => {
     setDiscentes(discente.discentes);
   };
 
   return (
     <>
+    {/*A partir de aquí, el resto de funciones se importan y se usan desde "biblioteca.js".*/}
       <div>
         <button
           onClick={() => {
-            solo2DAW();
+            setDiscentes(filtrar2DAW(discente.discentes));
           }}
         >
           Mostrar solo 2DAW
@@ -46,7 +41,7 @@ const Matriculados = () => {
 
         <button
           onClick={() => {
-            soloPrimerCurso();
+            setDiscentes(filtrarPrimerCurso(discente.discentes));
           }}
         >
           Mostrar solo primer curso
@@ -54,7 +49,7 @@ const Matriculados = () => {
 
         <button
           onClick={() => {
-            soloDAW();
+            setDiscentes(filtrarDAW(discente.discentes));
           }}
         >
           Mostrar curso DAW
@@ -62,7 +57,9 @@ const Matriculados = () => {
 
         <button
           onClick={() => {
-            ordenarApellidos();
+            setDiscentes(ordenarPorApellidos(discentes, ordenAscendente));
+            // El orden cambia al pulsar el boton, alternando entre ascendente y descendente.
+            setOrdenAscendente(!ordenAscendente);
           }}
         >
           Cambiar Orden
@@ -75,7 +72,8 @@ const Matriculados = () => {
         >
           Reiniciar
         </button>
-
+        
+        {/* Se recorre la información del estado y se llama al componente "Matriculado" para dar forma a esos datos.*/}
         {discentes.map((discente, indice, array) => {
           return (
             <Matriculado
