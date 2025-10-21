@@ -23,7 +23,7 @@ const Taquilla = () => {
         {taquilla.Peliculas.length > 0 ? (
             taquilla.Peliculas.map((pelicula,indice,array) =>{
                 return (
-                    <p ref={referenciaTaquilla}>{pelicula.taquilla}</p>
+                    <p key={indice} ref={referenciaTaquilla} className="ocultar">{pelicula.taquilla}</p>
                 )
             })
         ) : ("No hay Información")}
