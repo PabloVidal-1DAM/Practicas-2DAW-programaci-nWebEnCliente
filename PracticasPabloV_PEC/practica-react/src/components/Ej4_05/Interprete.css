@@ -1,0 +1,13 @@
+.Interprete_css{
+  border: 2px solid green;
+  border-radius: 8px;
+  width: 975px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.Img{
+  width: 100%;
+  max-width: 280px;
+  border-radius: 8px;
+  object-fit: cover;
+}
