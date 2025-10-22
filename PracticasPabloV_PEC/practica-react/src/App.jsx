@@ -12,6 +12,7 @@ function App() {
         <Peliculas />
 
         <Interpretes />
+        {/*Nuevo componente que pide el ejercicio para mostrar la taquilla de la película.*/}
         <Taquilla/>
       </Contenedor>
     </>
