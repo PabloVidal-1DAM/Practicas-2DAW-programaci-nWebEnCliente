@@ -1,20 +1,14 @@
 import { useState } from "react";
 import "./App.css";
-import Contenedor from "./components/Ej4_05/Contenedor";
-import Interpretes from "./components/Ej4_05/Interpretes";
-import Peliculas from "./components/Ej4_05/Peliculas";
-import Taquilla from "./components/Ej4_05/Taquilla";
+import Menu from "./components/Ej4_06/Menu.jsx";
+import Rutas from "./components/Ej4_06/Rutas.jsx";
 
 function App() {
   return (
     <>
-      <Contenedor>
-        <Peliculas />
-
-        <Interpretes />
-        {/*Nuevo componente que pide el ejercicio para mostrar la taquilla de la película.*/}
-        <Taquilla/>
-      </Contenedor>
+      <h2>Practica 4.02: Rutas en React</h2>
+      <Menu/>
+      <Rutas/>
     </>
   );
 }
