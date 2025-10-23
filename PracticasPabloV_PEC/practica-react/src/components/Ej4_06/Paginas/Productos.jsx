@@ -1,11 +1,43 @@
-import React from 'react'
+import React from "react";
+import productos from "../../../json/productos.json";
+import "./Productos.css";
+import { useNavigate } from "react-router-dom";
+import {navegarInicio} from "./biblioteca.js";
 
 const Productos = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div>
-      
-    </div>
-  )
-}
+      <h1>Página de Productos</h1>
 
-export default Productos
+      {productos.Productos.length > 0 ? (
+        <ul>
+          {productos.Productos.map((producto, indice, array) => {
+            return (
+              <div className="elementosLista">
+                <li key={producto.id}>
+                  <strong>ID:</strong> {producto.id} <br />
+                  <strong>Nombre:</strong> {producto.nombre} <br />
+                  <strong>Precio:</strong> ${producto.precio} <br />
+                  <strong>Categoría:</strong> {producto.categoria} <br />
+                  <strong>Stock:</strong> {producto.stock}
+                </li>
+              </div>
+            );
+          })}
+        </ul>
+      ) : (
+        "No hay productos Disponibles"
+      )}
+
+      <button onClick={() => {
+        navegarInicio(navigate)
+      }
+      }>Volver a Inicio</button>
+    </div>
+  );
+};
+
+export default Productos;

@@ -1,0 +1,39 @@
+{
+  "Productos": [
+    {
+      "id": 1,
+      "nombre": "Laptop Lenovo IdeaPad",
+      "precio": 850.99,
+      "categoria": "Electrónica",
+      "stock": 12
+    },
+    {
+      "id": 2,
+      "nombre": "Mouse Logitech M220",
+      "precio": 19.99,
+      "categoria": "Accesorios",
+      "stock": 45
+    },
+    {
+      "id": 3,
+      "nombre": "Monitor Samsung 24''",
+      "precio": 129.5,
+      "categoria": "Electrónica",
+      "stock": 8
+    },
+    {
+      "id": 4,
+      "nombre": "Teclado Mecánico Redragon",
+      "precio": 59.99,
+      "categoria": "Accesorios",
+      "stock": 20
+    },
+    {
+      "id": 5,
+      "nombre": "Silla Gamer Cougar Armor",
+      "precio": 249.99,
+      "categoria": "Muebles",
+      "stock": 5
+    }
+  ]
+}

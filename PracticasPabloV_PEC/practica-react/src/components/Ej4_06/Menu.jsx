@@ -1,17 +1,20 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Menu.css";
 
 const Menu = () => {
   return (
-    <div>
+    <>
+      <div>
         <nav>
-            <Link to={"/"}>Inicio</Link>
-            <Link to={"/contacto"}>Contacto</Link>
-            <Link to={"/acerca-de"}>Acerda de</Link>
-            <Link to={"/productos"}>Productos</Link>
+          <Link to={"/"} className="botonNav">Inicio</Link>
+          <Link to={"/contacto"} className="botonNav">Contacto</Link>
+          <Link to={"/acerca-de"} className="botonNav">Acerca de</Link>
+          <Link to={"/productos"} className="botonNav">Productos</Link>
         </nav>
-    </div>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default Menu
+export default Menu;
