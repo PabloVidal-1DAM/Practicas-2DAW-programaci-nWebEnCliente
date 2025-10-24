@@ -1,4 +1,5 @@
 import React from "react";
+// He optado por importar un objeto JSON externo que almacena los productos.
 import productos from "../../../json/productos.json";
 import "./Productos.css";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +12,7 @@ const Productos = () => {
   return (
     <div>
       <h1>Página de Productos</h1>
-
+      {/*Se recorre el objeto añadiendolo a una lista*/}
       {productos.Productos.length > 0 ? (
         <ul>
           {productos.Productos.map((producto, indice, array) => {
@@ -32,6 +33,7 @@ const Productos = () => {
         "No hay productos Disponibles"
       )}
 
+      {/*Llamada a función externa que navega a la página de inicio.*/}
       <button onClick={() => {
         navegarInicio(navigate)
       }

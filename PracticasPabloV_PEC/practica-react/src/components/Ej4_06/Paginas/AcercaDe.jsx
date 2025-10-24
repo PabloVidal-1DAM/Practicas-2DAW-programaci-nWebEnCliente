@@ -10,6 +10,7 @@ const AcercaDe = () => {
     <div>
       <h1>Página de Acerca-de</h1>
 
+      {/*Llamada a función externa que navega a la página de inicio.*/}
       <button
         onClick={() => {
           navegarInicio(navigate);

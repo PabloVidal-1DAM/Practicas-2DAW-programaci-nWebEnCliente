@@ -7,6 +7,7 @@ import Rutas from "./components/Ej4_06/Rutas.jsx";
 function App() {
   return (
     <>
+    {/*Sin BrowserRouter no me funcionaban las rutas, no se pintaba el Menú.jsx.*/}
       <BrowserRouter>
         <h2>Practica 4.06: Rutas en React</h2>
         <Menu />

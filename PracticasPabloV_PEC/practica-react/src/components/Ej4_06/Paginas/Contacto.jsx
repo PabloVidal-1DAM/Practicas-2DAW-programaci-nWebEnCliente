@@ -10,6 +10,7 @@ const Contacto = () => {
     <div>
       <h1>Página de Contacto</h1>
 
+      {/*Llamada a función externa que navega a la página de inicio.*/}
       <button
         onClick={() => {
           navegarInicio(navigate);

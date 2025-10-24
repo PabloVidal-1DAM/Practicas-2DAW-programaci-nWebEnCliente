@@ -9,6 +9,8 @@ const Error = () => {
   return (
     <div>
       <h1>Error 404: Página no encontrada.</h1>
+
+      {/*Llamada a función externa que navega a la página de inicio.*/}
       <button
         onClick={() => {
           navegarInicio(navigate);

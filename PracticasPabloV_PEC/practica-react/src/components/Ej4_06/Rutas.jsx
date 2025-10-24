@@ -10,6 +10,7 @@ const Rutas = () => {
   return (
     <>
       <div>
+        {/*Rutas creadas para el proyecto, enlazadas con componentes que representan las páginas.*/}
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/contacto" element={<Contacto />} />

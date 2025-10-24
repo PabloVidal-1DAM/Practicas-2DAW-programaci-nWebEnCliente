@@ -6,6 +6,7 @@ const Menu = () => {
   return (
     <>
       <div>
+        {/*Links para ir accediendo a las distintas rutas definidas en "Rutas.jsx".*/}
         <nav>
           <Link to={"/"} className="botonNav">Inicio</Link>
           <Link to={"/contacto"} className="botonNav">Contacto</Link>
