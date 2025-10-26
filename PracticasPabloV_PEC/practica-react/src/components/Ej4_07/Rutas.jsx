@@ -1,8 +1,12 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Inicio from "./Paginas/Inicio.jsx";
+import Peliculas from "./Paginas/Peliculas.jsx";
+import Interpretes from "./Paginas/Interpretes.jsx";
+import Galeria from "./Paginas/Galeria.jsx";
 import AcercaDe from "./Paginas/AcercaDe.jsx";
 import Error from "./Paginas/Error.jsx";
+
 
 const Rutas = () => {
   return (
@@ -13,7 +17,7 @@ const Rutas = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/peliculas" element={<Peliculas />} />
           <Route path="/interpretes" element={<Interpretes />} />
-          <Route path="/galeria" element={<Galería />} />
+          <Route path="/galeria" element={<Galeria />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="*" element={<Error />} />
         </Routes>
