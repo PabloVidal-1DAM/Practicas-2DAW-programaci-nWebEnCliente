@@ -6,6 +6,7 @@ import Interpretes from "./Paginas/Interpretes.jsx";
 import Galeria from "./Paginas/Galeria.jsx";
 import AcercaDe from "./Paginas/AcercaDe.jsx";
 import Error from "./Paginas/Error.jsx";
+import PeliculaDetalle from "./Paginas/PeliculaDetalle.jsx";
 
 
 const Rutas = () => {
@@ -16,6 +17,7 @@ const Rutas = () => {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/peliculas" element={<Peliculas />} />
+          <Route path="/pelicula/:id" element={<PeliculaDetalle />} />
           <Route path="/interpretes" element={<Interpretes />} />
           <Route path="/galeria" element={<Galeria />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
