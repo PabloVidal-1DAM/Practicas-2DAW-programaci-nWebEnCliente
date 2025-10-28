@@ -7,6 +7,10 @@ import Galeria from "./Paginas/Galeria.jsx";
 import AcercaDe from "./Paginas/AcercaDe.jsx";
 import Error from "./Paginas/Error.jsx";
 import PeliculaDetalle from "./Paginas/PeliculaDetalle.jsx";
+import FiltrarTitulo from "./Paginas/FiltrarTitulo.jsx";
+import FiltrarInterprete from "./Paginas/FiltrarInterprete.jsx";
+import FiltrarDirector from "./Paginas/FiltrarDirector.jsx";
+
 
 
 const Rutas = () => {
@@ -19,7 +23,11 @@ const Rutas = () => {
           <Route path="/peliculas" element={<Peliculas />} />
           <Route path="/pelicula/:id" element={<PeliculaDetalle />} />
           <Route path="/interpretes" element={<Interpretes />} />
-          <Route path="/galeria" element={<Galeria />} />
+          <Route path="/galeria" element={<Galeria />} >
+            <Route path="galeria/filtrarTitulo" element={<FiltrarTitulo/>}/>
+            <Route path="galeria/filtrarInterprete" element={<FiltrarInterprete/>}/>
+            <Route path="galeria/filtrarDirector" element={<FiltrarDirector/>}/>
+          </Route>
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="*" element={<Error />} />
         </Routes>

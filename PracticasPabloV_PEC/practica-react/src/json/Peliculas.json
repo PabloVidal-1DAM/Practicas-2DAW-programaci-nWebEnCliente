@@ -1,7 +1,7 @@
 {
   "Peliculas": [
     {
-      "id": "1",
+      "id": 1,
       "titulo": "Drive",
       "direccion": "Nicolas Winding Refn",
       "cartela": "https://i.pinimg.com/1200x/97/5e/21/975e2116029a6670c63faf1d7fc28a89.jpg",
@@ -9,6 +9,16 @@
       "interpretes": ["Ryan Gosling", "Carey Mulligan", "Oscar Isaac"],
       "anyo": "16 de septiembre de 2011",
       "taquilla": "81,000,0004$"
+    },
+    {
+      "id": 2,
+      "titulo": "Chainsaw Man – La Película: Arco de Reze",
+      "direccion": "Tatsuya Yoshihara",
+      "cartela": "https://i.pinimg.com/736x/11/8e/75/118e75f6036266e7457b1106d8f256f8.jpg",
+      "descripcion": "Denji trabajaba como cazador de demonios para la yakuza, tratando de saldar la deuda que había heredado de sus padres, pero la yakuza lo traicionó y lo mató. Antes de perder el conocimiento, Pochita, el perro-demonio motosierra de Denji, hizo un trato con él y le salvó la vida. Así se fusionaron, creando al imparable Chainsaw Man. Ahora, en medio de una brutal guerra entre demonios, cazadores y enemigos secretos, una misteriosa chica llamada Reze irrumpe en su mundo y Denji se enfrenta a su batalla más mortífera, impulsado por el amor, en un mundo donde la supervivencia no conoce reglas.",
+      "interpretes": ["Kikunosuke Toya", "Fairouz Ai", "Tomori Kusunoki"],
+      "anyo": "24 de Octubre de 2025",
+      "taquilla": "105,000,000$"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import peliculas_json from "../../../json/Peliculas.json";
 import "./Peliculas.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const Peliculas = () => {
 
