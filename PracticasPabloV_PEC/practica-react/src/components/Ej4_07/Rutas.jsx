@@ -21,6 +21,7 @@ const Rutas = () => {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/peliculas" element={<Peliculas />} />
+          {/*Ruta relativa para acceder a una pelicula con un id concreto.*/}
           <Route path="/pelicula/:id" element={<PeliculaDetalle />} />
           <Route path="/interpretes" element={<Interpretes />} />
           {/*Subrutas creadas para la ordenación de las cartelas.*/}
