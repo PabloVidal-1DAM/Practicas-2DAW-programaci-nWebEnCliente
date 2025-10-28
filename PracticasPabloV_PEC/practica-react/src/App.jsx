@@ -12,7 +12,7 @@ import Pie from "./components/Ej4_07/Estructura/Pie.jsx";
 function App() {
   return (
     <>
-    {/*Sin BrowserRouter no me funcionaban las rutas, no se pintaba el Menú.jsx.*/}
+    {/*Esctructura que usará mi App para funcionar.*/}
       <BrowserRouter>
         <Contenedor>
           <Cabecera/>
