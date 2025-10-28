@@ -9,7 +9,7 @@ const Interpretes = () => {
       {interpretes_json.Interpretes.length > 0
         ? interpretes_json.Interpretes.map((interprete, indice, array) => {
             return (
-              <div>
+              <div key={indice}>
                 <h2>{interprete.nombre}</h2>
                 <img src={interprete.src} />
                 <p>{interprete.descripcion}</p>

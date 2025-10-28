@@ -25,11 +25,11 @@ const Rutas = () => {
           <Route path="/pelicula/:id" element={<PeliculaDetalle />} />
           <Route path="/interpretes" element={<Interpretes />} />
           {/*Subrutas creadas para la ordenación de las cartelas.*/}
-          {/*A la hora de cargarse estas rutas, irá a "Galería.jsx".*/}
+          {/*A la hora de navegar estas rutas, irá a "Galería.jsx".*/}
           <Route path="/galeria" element={<Galeria />} >
-            <Route path="galeria/filtrarTitulo" element={<FiltrarTitulo/>}/>
-            <Route path="galeria/filtrarInterprete" element={<FiltrarInterprete/>}/>
-            <Route path="galeria/filtrarDirector" element={<FiltrarDirector/>}/>
+            <Route path="filtrarTitulo" element={<FiltrarTitulo/>}/>
+            <Route path="filtrarInterprete" element={<FiltrarInterprete/>}/>
+            <Route path="filtrarDirector" element={<FiltrarDirector/>}/>
           </Route>
 
           <Route path="/acerca-de" element={<AcercaDe />} />
