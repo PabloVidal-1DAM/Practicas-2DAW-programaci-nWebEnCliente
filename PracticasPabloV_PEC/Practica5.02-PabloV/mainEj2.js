@@ -10,5 +10,5 @@ const mostrarContenido = (posicionTitulo, posicionTexto) =>{
 }
 
 for(let i = 0; i< botones.length; i++){
-    botones.item(i).addEventListener("click", () =>mostrarContenido(i, i + 1), false);
+    botones.item(i).addEventListener("click", () =>mostrarContenido(i * 2, i * 2 + 1), false);
 }
