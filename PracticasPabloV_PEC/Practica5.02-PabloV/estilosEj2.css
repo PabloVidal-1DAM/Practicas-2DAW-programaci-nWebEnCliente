@@ -1,11 +1,27 @@
-.oculto{
-    display: none;
+.oculto {
+  display: none;
 }
 
-.pestania{
-
+.pestania {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
-.pestaniaContenido{
-    
+.pestania button {
+  padding: 8px 15px;
+  border: 1px solid #aaa;
+  background: #eee;
+  cursor: pointer;
+}
+
+.pestania button:hover {
+  background: #dddddd;
+}
+
+.pestaniaContenido {
+  display: block;
+  padding: 10px;
+  border: 1px solid #aaa;
+  background: #fafafa;
 }
