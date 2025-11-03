@@ -33,7 +33,7 @@ const crearLienzo = () =>{
 
         for (let j = 1; j<= 10; j++){
             const datos = document.createElement("td");
-            datos.innerText = "p";
+            datos.style = "border: 2px solid grey; width: 12%; height: 50px;";
             fila.appendChild(datos);
         }
 
@@ -44,7 +44,7 @@ const crearLienzo = () =>{
 }
 
 const pintar = (celda) =>{
-   celda.style.backgroundColor = colores[colorUsado];
+   celda.style.background = colores[colorUsado];
 }
 
 export { anyadirColores, cambiarColor, crearLienzo, pintar };
