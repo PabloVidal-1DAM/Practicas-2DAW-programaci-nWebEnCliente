@@ -9,11 +9,11 @@ const anyadirColores = () => {
   const elementoUl = document.createElement("ul");
 
   for (let i = 0; i < colores.length; i++) {
-    const elementoLi = document.createElement("li");
-    elementoLi.style = `background: ${colores[i]}`;
-    elementoLi.setAttribute("id", `${i}`);
+    const elementoButton = document.createElement("button");
+    elementoButton.style = `background: ${colores[i]}`;
+    elementoButton.setAttribute("id", `${i}`);
 
-    elementoUl.appendChild(elementoLi);
+    elementoUl.appendChild(elementoButton);
   }
   elementoUl.classList.add("selectorColores_css");
   selectorColor.appendChild(elementoUl);
@@ -27,13 +27,14 @@ const cambiarColor = (color) => {
 
 const crearLienzo = () =>{
     const tabla = document.createElement("table");
+    tabla.classList.add("tabla_lienzo");
 
-    for (let i = 1; i<= 6; i++){
+    for (let i = 1; i<= 60; i++){
         const fila = document.createElement("tr");
 
-        for (let j = 1; j<= 10; j++){
+        for (let j = 1; j<= 60; j++){
             const datos = document.createElement("td");
-            datos.style = "border: 2px solid grey; width: 12%; height: 50px;";
+            datos.classList.add("celdas_lienzo");
             fila.appendChild(datos);
         }
 
@@ -43,8 +44,27 @@ const crearLienzo = () =>{
 
 }
 
+const crearBtnBorrar = () =>{
+  const btn = document.createElement("button");
+  btn.textContent = "Borrar Dibujado";
+  btn.classList.add("btn_borrado");
+  lienzo.appendChild(btn);
+}
+
 const pintar = (celda) =>{
    celda.style.background = colores[colorUsado];
 }
 
-export { anyadirColores, cambiarColor, crearLienzo, pintar };
+const borrarTodo = (celdas) =>{
+
+  let contador = 0;
+  for (let i = 1; i<=60; i++){
+                
+    for (let j = 1; j<= 60; j++){
+      celdas.item(contador).removeAttribute("style");
+      contador++;
+    }
+  }
+}
+
+export { anyadirColores, cambiarColor, crearLienzo, pintar, crearBtnBorrar, borrarTodo };
