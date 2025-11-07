@@ -1,5 +1,6 @@
 #contenedorPiezasPuzzle {
   background-color: rgb(184, 184, 184);
+  margin-bottom: 20px;
 }
 #contendorPanelJuego {
   display: flex;
@@ -9,7 +10,6 @@
 .img_css {
   width: 180px;
   height: 180px;
-  margin: 40px;
 }
 
 .estilosTabla {

@@ -14,7 +14,13 @@ window.onload = () =>{
 
     contenedorPiezasPuzzle.addEventListener("dragstart", (evento) =>{
         evento.dataTransfer.setData("id", evento.target.id);
-        console.log(evento.target.id);
+    }, false)
+
+    contenedorPiezasPuzzle.addEventListener("drop", (evento) =>{
+        if (evento.target.classList.contains("zonaSoltar")){
+            const elementoSeleccionado = document.getElementById(evento.dataTransfer.getData("id"));
+            evento.target.appendChild(elementoSeleccionado);
+        }
     }, false)
 
     contenedorPanelJuego.addEventListener("dragover", (evento) =>{
@@ -22,7 +28,19 @@ window.onload = () =>{
     }, false)
 
     contenedorPanelJuego.addEventListener("dragstart", (evento) =>{
-        console.log(evento);
+        evento.dataTransfer.setData("id", evento.target.id);
     }, false)
+
+    contenedorPanelJuego.addEventListener("drop", (evento) =>{
+        if (evento.target.classList.contains("zonaSoltar") && !evento.target.hasChildNodes()){
+            const elementoSeleccionado = document.getElementById(evento.dataTransfer.getData("id"))
+            evento.target.appendChild(elementoSeleccionado);
+        }
+    }, false)
+
+    // Uso de eventos de drag SOLO para aplicar estilos visuales con clases CSS:
+
+    // TODO:
+
 }// fin del window onload.
 
