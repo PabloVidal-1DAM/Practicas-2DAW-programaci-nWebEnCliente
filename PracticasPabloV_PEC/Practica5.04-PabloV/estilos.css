@@ -1,0 +1,19 @@
+#contenedorPiezasPuzzle {
+  background-color: rgb(184, 184, 184);
+}
+#contendorPanelJuego {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+.img_css {
+  width: 180px;
+  height: 180px;
+  margin: 40px;
+}
+
+.estilosTabla {
+  background-color: bisque;
+  width: 180px;
+  height: 180px;
+}
