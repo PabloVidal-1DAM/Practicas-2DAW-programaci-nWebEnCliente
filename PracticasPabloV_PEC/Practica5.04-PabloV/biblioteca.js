@@ -13,6 +13,7 @@ const imagenes = [
 
 const crearPiezas = () =>{
     const contenedorPiezasPuzzle = document.getElementById("contenedorPiezasPuzzle");
+    contenedorPiezasPuzzle.classList.add("zonaSoltar");
     let arrayImg = [];
 
     for (let i = 0; i< imagenes.length; i++){
@@ -42,7 +43,7 @@ const crearPanelJuego = () =>{
         for ( let j = 1; j <= 3; j++){
             const td = document.createElement("td");
             td.classList.add("estilosTabla");
-            td.classList.add("arrastable");
+            td.classList.add("zonaSoltar");
             tr.appendChild(td);
         }
         tabla.appendChild(tr);
