@@ -4,8 +4,10 @@
 }
 #contendorPanelJuego {
   display: flex;
+  flex-direction: column;  
   justify-content: center; 
-  align-items: center;
+  align-items: center;   
+  gap: 10px;      
 }
 .img_css {
   width: 180px;
@@ -16,4 +18,16 @@
   background-color: bisque;
   width: 180px;
   height: 180px;
+}
+
+.estiloTexto-DeVictoria{
+  display: inline-block;
+  justify-content: center; 
+  align-items: center;
+  align-self: center;
+  background-color: rgb(87, 192, 87);
+  color: white;
+  border-radius: 12px;
+  padding: 8px 16px;
+  margin-top: 10px;
 }

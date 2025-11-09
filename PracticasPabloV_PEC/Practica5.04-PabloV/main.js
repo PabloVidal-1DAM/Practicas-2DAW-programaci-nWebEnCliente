@@ -35,12 +35,37 @@ window.onload = () =>{
         if (evento.target.classList.contains("zonaSoltar") && !evento.target.hasChildNodes()){
             const elementoSeleccionado = document.getElementById(evento.dataTransfer.getData("id"))
             evento.target.appendChild(elementoSeleccionado);
+            verificarPuzzle();
         }
     }, false)
 
     // Uso de eventos de drag SOLO para aplicar estilos visuales con clases CSS:
 
     // TODO:
+
+    // Verificación de que el puzzle ha sido colocado correctamente:
+    const verificarPuzzle = () =>{
+        const imagenesPuzzle = contenedorPanelJuego.getElementsByTagName("img");
+        var puzzleCorrecto = true;
+
+        if (imagenesPuzzle.length === 9){
+            
+            for (let i = 0; i< imagenesPuzzle.length; i++){
+                if(parseInt(imagenesPuzzle.item(i).getAttribute("id")) !== i){
+                    puzzleCorrecto = false;
+                    break;
+                }
+            }
+
+            if (puzzleCorrecto){
+                const p = document.createElement("p");
+                p.textContent = "Puzzle Solucionado Correctamente";
+                p.classList.add("estiloTexto-DeVictoria");
+                document.body.appendChild(p);
+            }
+        }
+    }
+
 
 }// fin del window onload.
 
