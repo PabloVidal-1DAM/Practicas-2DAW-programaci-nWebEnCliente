@@ -17,7 +17,8 @@ window.onload = () => {
   const contenedorPiezasPuzzle = document.getElementById("contenedorPiezasPuzzle");
   const btnReinicio = document.getElementById("btnReinicio");
 
-  // Se le asigan los eventos del para poder arrastrar y soltar al contenedor de las piezas del principio.
+  // Se le asigan los eventos para poder arrastrar y soltar al contenedor de las piezas del principio.
+  // "dragstart", "dragover" y "drop".
   contenedorPiezasPuzzle.addEventListener(
     "dragover",
     (evento) => {
@@ -49,7 +50,8 @@ window.onload = () => {
     },
     false
   );
-
+  // Se le asigan los eventos para poder arrastrar y soltar a las celdas de la tabla del panel de juego.
+  // "dragstart", "dragover" y "drop".
   contenedorPanelJuego.addEventListener(
     "dragover",
     (evento) => {
@@ -61,7 +63,7 @@ window.onload = () => {
   contenedorPanelJuego.addEventListener(
     "dragstart",
     (evento) => {
-        // Uso de dataTransfer para guardar el id de la imgen que lo dispare.
+        // Uso de dataTransfer para guardar el id de la imagen que ha sido seleccionada.
       evento.dataTransfer.setData("id", evento.target.id);
     },
     false
@@ -70,6 +72,8 @@ window.onload = () => {
   contenedorPanelJuego.addEventListener(
     "drop",
     (evento) => {
+        // Si la zona contiene la clase que indica que se puede soltar y NO tiene hijos dentro, se selecciona la imagen
+        // con la ayuda del dataTransfer que se guardó en el evento "dragstart" para insertarla en el contenedor de este evento.
       if (
         evento.target.classList.contains("zonaSoltar") &&
         !evento.target.hasChildNodes()
@@ -78,6 +82,7 @@ window.onload = () => {
           evento.dataTransfer.getData("id")
         );
         evento.target.appendChild(elementoSeleccionado);
+        // Además, se verificará si el puzzle esta formado correctamente cada vez que suceda este evento.
         verificarPuzzle();
       }
     },
