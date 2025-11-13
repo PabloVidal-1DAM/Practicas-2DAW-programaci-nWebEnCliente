@@ -7,31 +7,57 @@
 </head>
 <body>
     <form id="formulario" name="formularioDiscos">
-        <input type="text" id="nombre" name="nombre" placeholder="Introduce el nombre del disco"/>
-        <label for="nombre">Nombre del disco</label>
+        <fieldset>
+            <legend>Datos del disco</legend>
+            <label for="nombre">Nombre del disco: </label>
+            <input type="text" id="nombre" name="nombre" placeholder="Introduce el nombre del disco"/><br><br>
+            
+            <label for="caratula">Carátula del disco: </label>
+            <input type="url" id="caratula" name="caratula" placeholder="Introduce la URL de la caratula del disco"/><br><br>
+            
+            <label for="grupo">Intérprete del disco: </label>
+            <input type="text" id="grupo" name="grupo" placeholder="Introduce el grupo músical o intérprete del disco"/><br><br>
+            
+            <label for="fechaPublicacion">fecha de publicación: </label>
+            <input type="number" id="fechaPublicacion" name="fechaPublicacion" placeholder="Introduce el año de publicación"/><br><br>
+            
+        </fieldset><br><br>
 
-        <input type="text" id="caratula" name="caratula" placeholder="Introduce la URL de la caratula del disco"/>
-        <label for="caratula">Carátula del disco</label>
+        <fieldset>
+            <legend>Género del disco</legend>
+            <input type="radio" id="pop" name="opcionesGenero" value="pop"/>
+            <label for="pop">Pop</label>
 
-        <input type="text" id="grupo" name="grupo" placeholder="Introduce el grupo músical o intérprete del disco"/>
-        <label for="grupo">Intérprete del disco</label>
+            <input type="radio" id="contemporaneo" name="opcionesGenero" value="contemporaneo"/>
+            <label for="contemporaneo">Contemporáneo</label>
 
-        <input type="date" id="fechaPublicacion" name="fechaPublicacion" placeholder="Introduce el año de publicación"/>
-        <label for="fechaPublicacion">fecha de publicación</label>
-        
-        <legend>Género del disco</legend>
-        <input type="radio" id="pop" name="opcionesGenero" value="pop"/>
-        <label for="pop">Pop</label>
+            <input type="radio" id="electronica" name="opcionesGenero" value="electronica"/>
+            <label for="electronica">Electrónica</label>
+            
+            <input type="radio" id="rap" name="opcionesGenero" value="rap"/>
+            <label for="rap">Rap</label>
+        </fieldset><br><br>
 
-        <input type="radio" id="contemporaneo" name="opcionesGenero" value="contemporaneo"/>
-        <label for="contemporaneo">Contemporáneo</label>
+        <fieldset>
+            <legend>Código del disco</legend>
+            <label for="codigo">Código ISRC: </label>
+            <input type="text" id="codigo" name="codigo" placeholder="Introduce el código" />
+        </fieldset><br><br>
 
-        <input type="radio" id="electronica" name="opcionesGenero" value="electronica"/>
-        <label for="electronica">Electrónica</label>
-        
-        <input type="radio" id="rap" name="rap" value="rap"/>
-        <label for="rap">Rap</label>
+        <fieldset>
+            <legend>Prestación</legend><br>
+            <label for="prestado">¿Esta pretstado?: </label>
+            <input type="checkbox" id="prestado" name="prestado"/>
+        </fieldset><br><br>
     </form>
+
+        <button id="enviar" name="enviar">Enviar</button>
+        <button id="mostrar" name="mostrar">Mostrar</button>
+
+    <div id="errores">
+
+    </div>
+
     <script type="module" src="./main.js"></script>
 </body>
 </html>
