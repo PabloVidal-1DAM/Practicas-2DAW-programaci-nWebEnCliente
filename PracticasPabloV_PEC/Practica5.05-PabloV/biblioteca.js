@@ -1,17 +1,59 @@
 "use strict";
 // Valida que el campo tenga al menos cinco caracteres y que sea obligatorio
 const validarCampoTexto = (formulario) => {
+    const nombre = document.getElementById("nombre");
     const expresion = /^.{5,}$/;
-    if (expresion.test(formulario.nombre.value)){
+    if (expresion.test(formulario.nombre.value) && expresion.test(formulario.grupo.value)){
+        nombre.classList.remove("fallo");
         return true;
     }else{
-        const nombre = document.getElementById("nombre");
+
         nombre.classList.add("fallo");
 
         insertarMensajeError("Los campos de texto deben tener al menos cinco caracteres y son obligatorios.");
 
         return false;
     }
+};
+
+// Valida que el campo tenga cuatro caracteres númericos.
+const validarFecha = (formulario) => {
+  const fecha = document.getElementById("fechaPublicacion");
+  const expresion = /^\d{4}$/;
+
+  if (expresion.test(formulario.fechaPublicacion.value)){
+    fecha.classList.remove("fallo");
+    return true;
+  }else{
+    fecha.classList.add("fallo");
+
+    insertarMensajeError("La fecha solo debe disponer de cuatro caracteres numéricos");
+
+    return false;
+  }
+};
+
+// Valida que se ha seleccionado alguna de las opciones del radio buton.
+const validarTipoMusica = (formulario) => {
+
+  const radioButons = formulario.opcionesGenero;
+
+  for ( let i = 0; i < radioButons.length; i++){
+    if (radioButons[i].checked){
+      return true;
+    }
+  }
+  return false;
+};
+
+// Valida que se usa el formato de dos letras mayÚsculas (ES-001AA)
+const validarLocalizacion = () => {};
+
+const verificarInfo = (formulario, objetoJSON) => {
+     if(validarCampoTexto(formulario) && validarFecha(formulario) && validarTipoMusica(formulario)){
+        console.log("Esta correcto");
+     }
+        
 };
 
 const insertarMensajeError = (mensajeError) =>{
@@ -50,22 +92,6 @@ const insertarMensajeError = (mensajeError) =>{
 
 
 }
-
-// Valida que el campo tenga cuatro caracteres númericos.
-const validarFecha = () => {};
-
-// Valida que se ha seleccionado alguna de las opciones del radio buton.
-const validarTipoMusica = () => {};
-
-// Valida que se usa el formato de dos letras mayÚsculas (ES-001AA)
-const validarLocalizacion = () => {};
-
-const verificarInfo = (formulario, objetoJSON) => {
-     if(validarCampoTexto(formulario)){
-        console.log("Esta correcto");
-     }
-        
-};
 
 const guardarInfo = (formulario, objetoJSON) => {
   let prestado = formulario.prestado.checked;
