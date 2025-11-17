@@ -1,7 +1,19 @@
 "use strict";
+import {
+  guardarInfo,
+  validarCampoTexto,
+  validarFecha,
+  validarLocalizacion,
+  validarTipoMusica,
+  verificarInfo,
+} from "./biblioteca.js";
 
-window.onload = () =>{
+window.onload = () => {
+  const formulario = document.forms.formularioDiscos;
+
+  let objetoJSON = [];
 
 
-    
-} // Fin del window onload.
+  let btnEnviar = document.getElementById("enviar");
+  btnEnviar.addEventListener("click", () => verificarInfo(formulario, objetoJSON), false);
+}; // Fin del window onload.
