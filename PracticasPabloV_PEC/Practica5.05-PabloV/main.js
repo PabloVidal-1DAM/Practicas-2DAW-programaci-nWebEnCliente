@@ -1,6 +1,6 @@
 "use strict";
 import {
-  verificarInfo,
+  validarFormulario,
   mostrarInfo
 } from "./biblioteca.js";
 
@@ -13,7 +13,7 @@ window.onload = () => {
   const btnEnviar = document.getElementById("enviar");
 
   btnEnviar.addEventListener("click", () =>{
-     objetoJSON = verificarInfo(formulario, objetoJSON);
+     objetoJSON = validarFormulario(formulario, objetoJSON);
      console.log(objetoJSON);
   }, false);
 

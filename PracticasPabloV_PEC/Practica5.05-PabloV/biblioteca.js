@@ -66,7 +66,7 @@ const validarLocalizacion = (formulario) => {
 
 };
 
-const verificarInfo = (formulario, objetoJSON) => {
+const validarFormulario = (formulario, objetoJSON) => {
      if(validarCampoTexto(formulario) && validarFecha(formulario) && validarTipoMusica(formulario) && validarLocalizacion(formulario)){
       
         let infoGuardada = guardarInfo(formulario, objetoJSON);
@@ -171,7 +171,7 @@ export {
   validarFecha,
   validarLocalizacion,
   validarTipoMusica,
-  verificarInfo,
+  validarFormulario,
   guardarInfo,
   mostrarInfo
 };
