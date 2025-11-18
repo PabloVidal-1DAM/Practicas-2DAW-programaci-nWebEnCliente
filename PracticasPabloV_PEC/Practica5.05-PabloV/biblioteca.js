@@ -72,7 +72,7 @@ const verificarInfo = (formulario, objetoJSON) => {
         let infoGuardada = guardarInfo(formulario, objetoJSON);
 
         const contenedorErrores = document.getElementById("errores");
-        contenedorErrores.innerHTML = "";
+        contenedorErrores.innerHTML = ""; 
 
         return infoGuardada;
      }else{
