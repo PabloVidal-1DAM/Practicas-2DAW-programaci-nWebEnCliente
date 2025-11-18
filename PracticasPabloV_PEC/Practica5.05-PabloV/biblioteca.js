@@ -1,14 +1,13 @@
 "use strict";
 // Valida que el campo tenga al menos cinco caracteres y que sea obligatorio
 const validarCampoTexto = (formulario) => {
-    const nombre = document.getElementById("nombre");
+    const datosDiscos = document.getElementById("datosDiscos");
     const expresion = /^.{5,}$/;
     if (expresion.test(formulario.nombre.value) && expresion.test(formulario.grupo.value)){
-        nombre.classList.remove("fallo");
+        datosDiscos.classList.remove("fallo");
         return true;
     }else{
-
-        nombre.classList.add("fallo");
+        datosDiscos.classList.add("fallo");
 
         insertarMensajeError("Los campos de texto deben tener al menos cinco caracteres y son obligatorios.");
 
@@ -18,14 +17,14 @@ const validarCampoTexto = (formulario) => {
 
 // Valida que el campo tenga cuatro caracteres númericos.
 const validarFecha = (formulario) => {
-  const fecha = document.getElementById("fechaPublicacion");
+  const datosDiscos = document.getElementById("datosDiscos");
   const expresion = /^\d{4}$/;
 
   if (expresion.test(formulario.fechaPublicacion.value)){
-    fecha.classList.remove("fallo");
+    datosDiscos.classList.remove("fallo");
     return true;
   }else{
-    fecha.classList.add("fallo");
+    datosDiscos.classList.add("fallo");
 
     insertarMensajeError("La fecha solo debe disponer de cuatro caracteres numéricos");
 
@@ -37,21 +36,48 @@ const validarFecha = (formulario) => {
 const validarTipoMusica = (formulario) => {
 
   const radioButons = formulario.opcionesGenero;
+  const generos = document.getElementById("generos");
 
   for ( let i = 0; i < radioButons.length; i++){
     if (radioButons[i].checked){
+      generos.classList.remove("fallo");
       return true;
+
     }
   }
+  generos.classList.add("fallo");
+  insertarMensajeError("Tiene que haber 1 radio buton marcado.");
   return false;
 };
 
 // Valida que se usa el formato de dos letras mayÚsculas (ES-001AA)
-const validarLocalizacion = () => {};
+const validarLocalizacion = (formulario) => {
+  const codigo = document.getElementById("campoCodigo");
+  const expresion = /^ES-\d{3}[A-Z]{2}$/;
+
+  if (expresion.test(formulario.codigo.value)){
+    codigo.classList.remove("fallo");
+    return true;
+  }else{
+    codigo.classList.add("fallo");
+    insertarMensajeError(`Se debe seguir el formato ES-001AA donde 001 es el número de la estantería y AA la balda (combinación de dos letras mayúsculas)"`);
+    return false;
+  }
+
+};
 
 const verificarInfo = (formulario, objetoJSON) => {
-     if(validarCampoTexto(formulario) && validarFecha(formulario) && validarTipoMusica(formulario)){
-        console.log("Esta correcto");
+     if(validarCampoTexto(formulario) && validarFecha(formulario) && validarTipoMusica(formulario) && validarLocalizacion(formulario)){
+      
+        let infoGuardada = guardarInfo(formulario, objetoJSON);
+
+        const contenedorErrores = document.getElementById("errores");
+        contenedorErrores.innerHTML = "";
+
+        return infoGuardada;
+     }else{
+      // En caso de fallar la validación, se devuelve el array sin haberle introducido la información nueva.
+        return objetoJSON
      }
         
 };
@@ -66,6 +92,8 @@ const insertarMensajeError = (mensajeError) =>{
 
       const titulo = document.createElement("h3");
       titulo.textContent = "Se han encontrado errores:";
+
+      contenedorErrores.appendChild(titulo);
 
       const listaErrores = document.createElement("ol");
       listaErrores.setAttribute("id", "listaErrores");
@@ -106,10 +134,30 @@ const guardarInfo = (formulario, objetoJSON) => {
     Prestado: prestado,
   };
 
-  objetoJSON = [...objetoJSON, disco];
 
-  console.log(objetoJSON);
-};
+
+  return [...objetoJSON, disco];
+}
+
+const mostrarInfo = (objetoJSON) =>{
+  const lista = document.getElementById("listaObjetos");
+  if (lista === null){
+    const listaObjetos = document.createElement("li");
+    listaObjetos.setAttribute("id", "listaObjetos");
+  }
+
+
+  objetoJSON.forEach((valor,indice,array) =>{
+      `Nombre: ${valor.Nombre}`,
+      `Caratula: ${valor.Caratula}`,
+      `Grupo: ${valor.Grupo}`,
+      `FechaPublicacion: ${valor.FechaPublicacion}`,
+      `Genero: ${valor.Genero}`,
+      `Codigo: ${valor.Codigo}`,
+      `Prestado: ${valor.Prestado}`
+  })
+}
+
 export {
   validarCampoTexto,
   validarFecha,
@@ -117,4 +165,5 @@ export {
   validarTipoMusica,
   verificarInfo,
   guardarInfo,
+  mostrarInfo
 };

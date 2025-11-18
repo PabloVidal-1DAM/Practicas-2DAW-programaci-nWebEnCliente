@@ -1,11 +1,7 @@
 "use strict";
 import {
-  guardarInfo,
-  validarCampoTexto,
-  validarFecha,
-  validarLocalizacion,
-  validarTipoMusica,
   verificarInfo,
+  mostrarInfo
 } from "./biblioteca.js";
 
 window.onload = () => {
@@ -14,6 +10,16 @@ window.onload = () => {
   let objetoJSON = [];
 
 
-  let btnEnviar = document.getElementById("enviar");
-  btnEnviar.addEventListener("click", () => verificarInfo(formulario, objetoJSON), false);
+  const btnEnviar = document.getElementById("enviar");
+
+  btnEnviar.addEventListener("click", () =>{
+     objetoJSON = verificarInfo(formulario, objetoJSON);
+     console.log(objetoJSON);
+  }, false);
+
+  const btnMostar = document.getElementById("mostrar");
+  btnMostar.addEventListener("click", () => mostrarInfo(objetoJSON), false);
+
+
+  
 }; // Fin del window onload.

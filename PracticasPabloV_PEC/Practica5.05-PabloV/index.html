@@ -8,7 +8,7 @@
 </head>
 <body>
     <form id="formulario" name="formularioDiscos">
-        <fieldset>
+        <fieldset id="datosDiscos">
             <legend>Datos del disco</legend>
             <label for="nombre">Nombre del disco: </label>
             <input type="text" id="nombre" name="nombre" placeholder="Introduce el nombre del disco"/><br><br>
@@ -24,7 +24,7 @@
             
         </fieldset><br><br>
 
-        <fieldset>
+        <fieldset id="generos">
             <legend>Género del disco</legend>
             <input type="radio" id="pop" name="opcionesGenero" value="pop"/>
             <label for="pop">Pop</label>
@@ -39,7 +39,7 @@
             <label for="rap">Rap</label>
         </fieldset><br><br>
 
-        <fieldset>
+        <fieldset id="campoCodigo">
             <legend>Código del disco</legend>
             <label for="codigo">Código ISRC: </label>
             <input type="text" id="codigo" name="codigo" placeholder="Introduce el código" />
