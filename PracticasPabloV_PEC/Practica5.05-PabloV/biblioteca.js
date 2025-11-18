@@ -60,7 +60,7 @@ const validarLocalizacion = (formulario) => {
     return true;
   }else{
     codigo.classList.add("fallo");
-    insertarMensajeError(`Se debe seguir el formato ES-001AA donde 001 es el número de la estantería y AA la balda (combinación de dos letras mayúsculas)"`);
+    insertarMensajeError(`Se debe seguir el formato ES-001AA donde 001 es el número de la estantería y AA la balda (combinación de dos letras mayúsculas)."`);
     return false;
   }
 
@@ -125,13 +125,13 @@ const guardarInfo = (formulario, objetoJSON) => {
   let prestado = formulario.prestado.checked;
 
   const disco = {
-    Nombre: formulario.nombre.value,
-    Caratula: formulario.caratula.value,
-    Grupo: formulario.grupo.value,
-    FechaPublicacion: formulario.fechaPublicacion.value,
-    Genero: formulario.opcionesGenero.value,
-    Codigo: formulario.codigo.value,
-    Prestado: prestado,
+    nombre: formulario.nombre.value,
+    caratula: formulario.caratula.value,
+    grupo: formulario.grupo.value,
+    fechaPublicacion: formulario.fechaPublicacion.value,
+    genero: formulario.opcionesGenero.value,
+    codigo: formulario.codigo.value,
+    prestado: prestado,
   };
 
 
@@ -140,21 +140,29 @@ const guardarInfo = (formulario, objetoJSON) => {
 }
 
 const mostrarInfo = (objetoJSON) =>{
-  const lista = document.getElementById("listaObjetos");
-  if (lista === null){
-    const listaObjetos = document.createElement("li");
-    listaObjetos.setAttribute("id", "listaObjetos");
+  const contenedorInfo = document.getElementById("informacion");
+
+  if ( objetoJSON.length === 0){
+    contenedorInfo.innerHTML = "<h2>No hay información guardada para mostrar.</h2>";
+  }else{
+    contenedorInfo.innerHTML = "<h2>Elementos guardados: </h2>";
   }
+  
 
-
-  objetoJSON.forEach((valor,indice,array) =>{
-      `Nombre: ${valor.Nombre}`,
-      `Caratula: ${valor.Caratula}`,
-      `Grupo: ${valor.Grupo}`,
-      `FechaPublicacion: ${valor.FechaPublicacion}`,
-      `Genero: ${valor.Genero}`,
-      `Codigo: ${valor.Codigo}`,
-      `Prestado: ${valor.Prestado}`
+      objetoJSON.forEach((valor,indice,array) =>{
+        const contenedorElementos = document.createElement("div");
+        contenedorElementos.innerHTML = `
+          <ul>
+            <li> Nombre: ${valor.nombre} </li>
+            <li> Caratula: ${valor.caratula} </li>
+            <li> Grupo: ${valor.grupo} </li>
+            <li> Fecha de Publicación: ${valor.fechaPublicacion} </li>
+            <li> Genero: ${valor.genero} </li>
+            <li> Código: ${valor.codigo} </li>
+            <li> prestado: ${valor.prestado} </li>
+          </ul>
+          <hr>`;
+          contenedorInfo.appendChild(contenedorElementos);
   })
 }
 

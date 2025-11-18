@@ -9,17 +9,6 @@
     font-weight: bold;          
 }
 
-.acierto{
-    background-color: #d0ffc2;   
-    color: green;              
-    border: 1px solid black;   
-    padding: 10px;
-    width: 400px;               
-    margin-top: 10px;           
-    border-radius: 5px;          
-    font-weight: bold;  
-}
-
 
 .fallo{
     border: 2px solid red;
