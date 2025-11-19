@@ -80,13 +80,16 @@ const validarLocalizacion = (formulario, contenedorErrores) => {
   }
 };
 
+// validación de todos los campos que forman el formulario,
+// si pasa la validación, se borran los errores y se llama a la función para guardar la info.
 const validarFormulario = (formulario, objetoJSON, contenedorErrores) => {
-  if (
+  if ( 
     validarCampoTexto(formulario, contenedorErrores) &&
     validarFecha(formulario, contenedorErrores) &&
     validarTipoMusica(formulario, contenedorErrores) &&
     validarLocalizacion(formulario, contenedorErrores)
   ) {
+    // Se guarda en una variable la información nueva añadida, que es lo que se devolverá en el return.
     let infoGuardada = guardarInfo(formulario, objetoJSON);
 
     contenedorErrores.innerHTML = "";
@@ -131,6 +134,7 @@ const insertarMensajeError = (mensajeError, contenedorErrores) => {
   }
 };
 
+// Se le añade al array que en un principio esta vacío el objeto JSON con los datos del formulario.
 const guardarInfo = (formulario, objetoJSON) => {
   let prestado = formulario.prestado.checked;
 
@@ -147,9 +151,11 @@ const guardarInfo = (formulario, objetoJSON) => {
   return [...objetoJSON, disco];
 };
 
+// Se inserta en el contenedor "información" los datos del objeto JSON que están guardados en el array "objetoJSON"
 const mostrarInfo = (objetoJSON, contenedorInfo) => {
   contenedorInfo.innerHTML = "";
 
+  //En caso  de no contener datos en el array, se le da el feedback al usuario.
   if (objetoJSON.length === 0) {
     contenedorInfo.innerHTML =
       "<h2>No hay información guardada para mostrar.</h2>";
@@ -157,8 +163,11 @@ const mostrarInfo = (objetoJSON, contenedorInfo) => {
     contenedorInfo.innerHTML = "<h2>Elementos guardados: </h2>";
   }
 
+  // Se recorre el array para añadir contenedores que relleno con listas desordenadas de los datos del array.
   objetoJSON.forEach((valor, indice, array) => {
     const contenedorElementos = document.createElement("div");
+
+    // El asignarle un id me ayudará a poder borrarlos más adelante.
     contenedorElementos.setAttribute("id", indice);
     contenedorElementos.innerHTML = `
           <ul>
@@ -174,18 +183,23 @@ const mostrarInfo = (objetoJSON, contenedorInfo) => {
   });
 };
 
+//Se filtra el array del JSON con el nombre que el usuario ponga en el input del filtrado.
 const filtrarInfo = (objetoJSON, contenedorInfo, formulario) => {
   if (formulario.filtrar.value === "" || objetoJSON.length === 0) {
     contenedorInfo.innerHTML = "<h2>No hay datos para filtrar</h2>";
   } else {
     contenedorInfo.innerHTML = "<h2>Información Filtrada</h2>";
 
+    // Devuelve todos los campos anteriores del JSON menos el que coincide con el que ponga el usuario para filtrar.
     const JSONFiltrado = objetoJSON.filter((valor) => {
       return valor.nombre === formulario.filtrar.value;
     });
 
+    // se recorre este nuevo array y se usan contenedores y listas para enseñar los datos.
     JSONFiltrado.forEach((valor, indice, array) => {
       const contenedorElementosFiltrado = document.createElement("div");
+
+      // Se les identifica con un id para poder borrarse más adelante
       contenedorElementosFiltrado.setAttribute("id", indice);
       contenedorElementosFiltrado.innerHTML = `
     <ul>
@@ -202,6 +216,7 @@ const filtrarInfo = (objetoJSON, contenedorInfo, formulario) => {
   }
 };
 
+// Función que separé de codigo de otras funciones para aplicar la lógica de 1 función, 1 tarea, y además no repetir código.
 const crearBtnBorrado = (contenedorElementos, contenedorInfo) => {
   const btnBorrar = document.createElement("button");
   btnBorrar.setAttribute("id", "borrarDato");
@@ -215,6 +230,8 @@ const crearBtnBorrado = (contenedorElementos, contenedorInfo) => {
   contenedorInfo.appendChild(contenedorElementos);
 };
 
+// Se obtiene el atributo "id" del contenedor que tiene toda la información de dicho objeto del JSON.
+// Dicho id se usa para filtrar el array para devolver todos menos el que coincida con este.
 const borrarDato = (objetoJSON, indice) => {
   const indiceInfo = Number(indice);
 
@@ -225,6 +242,8 @@ const borrarDato = (objetoJSON, indice) => {
   return nuevoObjeto;
 };
 
+// Se convierte el array de JSON a un string para poder almacenarlo en Local Storage, 
+// con la etiqueta "infoDisco" que identifica estos datos.
 const guardarDatosLocal = (objetoJSON) =>{
   const stringJSON = JSON.stringify(objetoJSON);
   localStorage.setItem("infoDisco", stringJSON);
