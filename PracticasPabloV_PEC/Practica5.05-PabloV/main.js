@@ -1,25 +1,49 @@
 "use strict";
 import {
   validarFormulario,
-  mostrarInfo
+  mostrarInfo,
+  filtrarInfo,
+  borrarDato,
+  guardarDatosLocal,
 } from "./biblioteca.js";
 
 window.onload = () => {
   const formulario = document.forms.formularioDiscos;
+  const contenedorPrincipal = document.getElementById("app");
 
-  let objetoJSON = [];
+  const contenedorErrores = document.getElementById("errores");
+  const contenedorInfo = document.getElementById("informacion");
 
+  const datosRescatados = localStorage.getItem("infoDisco");
+  let objetoJSON = datosRescatados ? JSON.parse(datosRescatados) : [];
 
-  const btnEnviar = document.getElementById("enviar");
+  if (objetoJSON.length > 0) {
+    mostrarInfo(objetoJSON, contenedorInfo);
+  }
 
-  btnEnviar.addEventListener("click", () =>{
-     objetoJSON = validarFormulario(formulario, objetoJSON);
-     console.log(objetoJSON);
-  }, false);
+  contenedorPrincipal.addEventListener(
+    "click",
+    (evento) => {
+      const id = evento.target.id;
 
-  const btnMostar = document.getElementById("mostrar");
-  btnMostar.addEventListener("click", () => mostrarInfo(objetoJSON), false);
-
-
-  
+      if (id === "enviar") {
+        objetoJSON = validarFormulario(
+          formulario,
+          objetoJSON,
+          contenedorErrores
+        );
+        guardarDatosLocal(objetoJSON);
+      } else if (id === "mostrar" || id === "limpiar") {
+        mostrarInfo(objetoJSON, contenedorInfo);
+      } else if (id === "filtrarDatos") {
+        filtrarInfo(objetoJSON, contenedorInfo, formulario);
+      } else if (id === "borrarDato") {
+        const indice = evento.target.parentNode.id;
+        objetoJSON = borrarDato(objetoJSON, indice);
+        mostrarInfo(objetoJSON, contenedorInfo);
+        guardarDatosLocal(objetoJSON);
+      }
+    },
+    false
+  );
 }; // Fin del window onload.
