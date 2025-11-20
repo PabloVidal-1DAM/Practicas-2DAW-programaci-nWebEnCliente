@@ -33,6 +33,8 @@ window.onload = () => {
       const id = evento.target.id; // se usa el atributo "id" del que dispara el evento click para identificarlo y hacer una cosa u otra.
 
       if (id === "enviar") {
+        // Se guarda en el array el objeto JSON que devuelve la función "validarFormulario" en caso de pasar la validación.
+        // Y para que se queden guardados los cambios en local, se usa Local Storage.
         objetoJSON = validarFormulario(formulario,objetoJSON,contenedorErrores);
         guardarDatosLocal(objetoJSON);
       } else if (id === "mostrar" || id === "limpiar") {
@@ -42,6 +44,8 @@ window.onload = () => {
       } else if (id === "borrarDato") {
 
         if (confirm("¿Quieres borrar el dato seleccionado?")){
+          // Se vuelve a guardar en el array el objeto JSON pero esta vez sin el elemento borrado que el usuario seleccione.
+          // Y se usa Local Storage para guardar los cambios del objeto JSON en local.
           const indice = evento.target.parentNode.id;
           objetoJSON = borrarDato(objetoJSON, indice);
           mostrarInfo(objetoJSON, contenedorInfo);
