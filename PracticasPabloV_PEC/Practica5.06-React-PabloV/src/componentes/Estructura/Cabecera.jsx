@@ -5,7 +5,7 @@ const Cabecera = () => {
   return (
     <div>
       <header>
-        <h1 className="h1_css">App películas</h1>
+        <h1 className="h1_css">Formulario con persistencia</h1>
       </header>
     </div>
   );

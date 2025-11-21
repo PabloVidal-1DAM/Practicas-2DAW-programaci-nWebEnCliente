@@ -5,7 +5,7 @@ const Pie = () => {
   return (
     <div>
       <footer>
-        <p>2025 App Películas | Pablo Vidal Ortega, Todos los derechos reservados.</p>
+        <p>2025 App Formulario | Pablo Vidal Ortega, Todos los derechos reservados.</p>
       </footer>
     </div>
   )

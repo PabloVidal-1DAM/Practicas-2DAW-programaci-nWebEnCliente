@@ -2,9 +2,7 @@
   border: 2px solid green;
   padding: 10px;
   border-radius: 8px;
-  background-image: url("https://i.pinimg.com/1200x/73/22/cf/7322cf1951250acf2b3c0aab519138a3.jpg");
-  background-size: cover; 
-  background-position: center;
+  background-color: gray;
   color: white;
   width: 1000px;
   margin: 30px auto;            
