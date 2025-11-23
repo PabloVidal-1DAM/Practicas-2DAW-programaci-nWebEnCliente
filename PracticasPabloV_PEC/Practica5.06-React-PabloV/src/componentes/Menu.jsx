@@ -6,8 +6,9 @@ const Menu = () => {
   return (
     <div>
       <nav>
-        <Link to={"/"} className='botonNav'>Rellenar Datos</Link>
-        <Link to={"/mostrar"} className='botonNav'>Mostrar Datos</Link>
+        <Link to={"/"} className='botonNav'>Inicio</Link>
+        <Link to={"/rellenar"} className='botonNav'>Insertar Disco</Link>
+        <Link to={"/mostrar"} className='botonNav'>Listar Disco/s</Link>
       </nav>
     </div>
   )

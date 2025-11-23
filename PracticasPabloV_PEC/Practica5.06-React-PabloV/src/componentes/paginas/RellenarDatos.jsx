@@ -11,16 +11,64 @@ const RellenarDatos = () => {
     prestado: "",
   };
 
-  const errores = [];
   const [disco, setDisco] = useState(valoresIniciales);
   const [listaDiscos, setListaDiscos] = useState([]);
-  const [error, setError] = useState(errores);
+
+  const erroresIniciales = [];
+  const [error, setError] = useState(erroresIniciales);
+
   const [prestado, setPrestado] = useState(false);
 
   const actualizarDatos = (evento) => {
     const { name, value } = evento.target;
     setDisco({ ...disco, [name]: value });
   };
+
+  const validarDato = (dato) =>{
+    // Array que almacenará los errores que vayan saliendo.
+    let errores = [];
+
+    const {name, value} = dato;
+
+    // validar cada campo con una expresión regular
+    if (name === "nombre" || name==="grupo"){
+      // se debe saber si el usuario no lo ha dejado vacío
+      if(!value.length){
+        errores = [...errores, `No dejes el campo ${name} vacío.`];
+      }
+      // ahora se comprueba que pasa la expresión regular.
+      const expresion = /^.{5,}$/;
+      if (!expresion.test(value)){
+        errores = [...errores, `"Los campos de texto deben tener al menos cinco caracteres y son obligatorios."`];
+      }
+    }
+
+    return errores;
+  }
+
+  const validarFormulario = (evento) =>{
+    const formulario = evento.target.parentNode;
+
+    let errores = [];
+
+    for (let i = 0; i< formulario.elements.length; i++){
+      let erroresInput = validarDato(formulario.elements[i]);
+
+      if (erroresInput.length){
+        formulario.elements[i].classList.add("error");
+      }else{
+        formulario.elements[i].classList.remove("error");
+      }
+
+      errores = [...errores, erroresInput];
+    }
+
+    setError(errores);
+
+    let correcto = errores.length === 0;
+    return correcto;
+    
+  }
 
   return (
     <div>
@@ -191,7 +239,12 @@ const RellenarDatos = () => {
           type="button"
           value="Enviar datos"
           onClick={(evento) => {
-            setListaDiscos([...listaDiscos, disco]);
+            if (validarFormulario(evento)){
+              console.log("Datos corectos");
+              setListaDiscos([...listaDiscos, disco]);
+            }else{
+              console.log("Algo ha fallado");
+            }
           }}
         />
       </form>
