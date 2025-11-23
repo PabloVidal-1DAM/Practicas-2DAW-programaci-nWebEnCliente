@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Errores from "../Errores.jsx";
+import Discos from "../Discos.jsx";
 
 const RellenarDatos = () => {
   const valoresIniciales = {
@@ -19,56 +21,55 @@ const RellenarDatos = () => {
 
   const [prestado, setPrestado] = useState(false);
 
-  const actualizarDatos = (evento) => {
-    const { name, value } = evento.target;
-    setDisco({ ...disco, [name]: value });
+const actualizarDatos = (evento) => {
+  const { name, type, value, checked } = evento.target;
+  setDisco({
+    ...disco,
+    [name]: type === "checkbox" ? checked : value,
+  });
+};
+
+
+  const validarDato = (elemento) => {
+    const { name, value } = elemento;
+    let erroresElemento = [];
+
+    if (name === "nombre" || name === "grupo") {
+      if (!value.length) {
+        erroresElemento = [
+          ...erroresElemento,
+          `El campo ${name} debe tener un valor.`,
+        ];
+      }
+      const expresion = /^.{5,}$/;
+      if (!expresion.test(value)) {
+        erroresElemento = [
+          ...erroresElemento,
+          `Los campos nombre y grupo deben tener al menos 5 caracteres y son obligatorios.`,
+        ];
+      }
+    }
+
+    return erroresElemento;
   };
 
-  const validarDato = (dato) =>{
-    // Array que almacenará los errores que vayan saliendo.
-    let errores = [];
-
-    const {name, value} = dato;
-
-    // validar cada campo con una expresión regular
-    if (name === "nombre" || name==="grupo"){
-      // se debe saber si el usuario no lo ha dejado vacío
-      if(!value.length){
-        errores = [...errores, `No dejes el campo ${name} vacío.`];
-      }
-      // ahora se comprueba que pasa la expresión regular.
-      const expresion = /^.{5,}$/;
-      if (!expresion.test(value)){
-        errores = [...errores, `"Los campos de texto deben tener al menos cinco caracteres y son obligatorios."`];
-      }
-    }
-
-    return errores;
-  }
-
-  const validarFormulario = (evento) =>{
+  const validarFormulario = (evento) => {
     const formulario = evento.target.parentNode;
+    let erroresListado = [];
 
-    let errores = [];
+    for (let i = 0; i < formulario.elements.length - 1; i++) {
+      let erroresElemento = validarDato(formulario.elements[i]);
 
-    for (let i = 0; i< formulario.elements.length; i++){
-      let erroresInput = validarDato(formulario.elements[i]);
+      erroresElemento.length
+        ? formulario.elements[i].classList.add("error")
+        : formulario.elements[i].classList.remove("error");
 
-      if (erroresInput.length){
-        formulario.elements[i].classList.add("error");
-      }else{
-        formulario.elements[i].classList.remove("error");
-      }
-
-      errores = [...errores, erroresInput];
+      erroresListado = [...erroresListado, ...erroresElemento];
     }
 
-    setError(errores);
-
-    let correcto = errores.length === 0;
-    return correcto;
-    
-  }
+    setError(erroresListado);
+    return erroresListado.length === 0;
+  };
 
   return (
     <div>
@@ -136,13 +137,13 @@ const RellenarDatos = () => {
 
         <fieldset id="generos">
           <legend>Género del disco</legend>
-          <input 
-            type="radio" 
-            id="pop" 
-            name="genero" 
+          <input
+            type="radio"
+            id="pop"
+            name="genero"
             value="pop"
             checked={disco.genero === "pop"}
-            onChange={(evento) =>{
+            onChange={(evento) => {
               actualizarDatos(evento);
             }}
           />
@@ -239,10 +240,10 @@ const RellenarDatos = () => {
           type="button"
           value="Enviar datos"
           onClick={(evento) => {
-            if (validarFormulario(evento)){
+            if (validarFormulario(evento)) {
               console.log("Datos corectos");
               setListaDiscos([...listaDiscos, disco]);
-            }else{
+            } else {
               console.log("Algo ha fallado");
             }
           }}
@@ -250,21 +251,10 @@ const RellenarDatos = () => {
       </form>
       <br />
       <br />
-      <ul>
-        {listaDiscos.map((disco, i) => {
-          return (
-            <div key={i} id="discos" className="discos_css">
-              <li><p>Nombre: <strong>{disco.nombre}</strong></p></li>
-              <li><p>Carátula: <strong>{disco.caratula}</strong></p></li>
-              <li><p>Grupo: <strong>{disco.grupo}</strong></p></li>
-              <li><p>Fecha de publicación: <strong>{disco.fechaPublicacion}</strong></p></li>
-              <li><p>Género: <strong>{disco.genero}</strong></p></li>
-              <li><p>Código ISRC: <strong>{disco.codigo}</strong></p></li>
-              <li><p>Prestado: <strong>{disco.prestado ? "Sí" : "No"}</strong></p></li>
-            </div>
-          );
-        })}
-      </ul>
+      <Discos listaDiscos={listaDiscos}/><br/><br/>
+      <div>
+        {<div>{error.length > 0 && <Errores errores={error} />}</div>}
+      </div>
     </div>
   );
 };
