@@ -1,7 +1,7 @@
 "use strict";
 window.onload = () =>{
 
-    let feo = 2;
+    let feo = Math.floor(Math.random() * 100) + 1;
     const promesa = new Promise((resolver,rechazar) =>{
         setTimeout(() =>{
             if (feo % 2 == 0){
