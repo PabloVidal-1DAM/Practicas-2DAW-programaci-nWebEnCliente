@@ -1,10 +1,10 @@
 import React from 'react';
 import Discos from '../Discos.jsx';
 
-const MostrarDatos = ({listaDiscos}) => {
+const MostrarDatos = ({listaDiscos, setListaDiscos}) => {
   return (
     <div>
-      <Discos listaDiscos={listaDiscos}/>
+      <Discos listaDiscos={listaDiscos} setListaDiscos={setListaDiscos}/>
     </div>
   )
 }

@@ -10,6 +10,8 @@ import Menu from './componentes/Menu';
 
 function App() {
   const [listaDiscos, setListaDiscos] = useState([]);
+  const [discosFiltrados, setDiscosFiltrados] = useState([]);
+  const [discoBorrado, setDiscoBorrado] = useState([]);
 
   return (
     <BrowserRouter>
@@ -21,6 +23,12 @@ function App() {
           <Rutas 
             listaDiscos={listaDiscos} 
             setListaDiscos={setListaDiscos}
+
+            discosFiltrados={discosFiltrados}
+            setDiscosFiltrados={setDiscosFiltrados}
+
+            discoBorrado={discoBorrado}
+            setDiscoBorrado={setDiscoBorrado}
           />
         </Contenido>
 

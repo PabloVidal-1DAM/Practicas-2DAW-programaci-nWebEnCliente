@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
 
-const RellenarDatos = ({ listaDiscos, setListaDiscos }) => {
-  const formulario = document.forms.formularioDiscos;
-
+const RellenarDatos = ({
+  listaDiscos,
+  setListaDiscos,
+  discosFiltrados,
+  setDiscosFiltrados,
+  discoBorrado,
+  setDiscoBorrado,
+}) => {
   const navegar = useNavigate();
 
   const valoresIniciales = {
@@ -19,7 +24,6 @@ const RellenarDatos = ({ listaDiscos, setListaDiscos }) => {
   };
 
   const [disco, setDisco] = useState(valoresIniciales);
-  const [discosFiltrados, setDiscosFiltrados] = useState([]);
 
   const erroresIniciales = [];
   const [error, setError] = useState(erroresIniciales);
@@ -86,11 +90,14 @@ const RellenarDatos = ({ listaDiscos, setListaDiscos }) => {
       setError(errores);
     } else {
       const discoFiltrado = listadoDiscos.filter((disco, indice, array) => {
-        return disco.nombre !== formulario.filtrar.value;
+        return disco.nombre === formulario.filtrar.value;
       });
 
       if (discoFiltrado.length === 0) {
-        errores = [... errores, "No se ha encontrado ningún disco con ese nombre."];
+        errores = [
+          ...errores,
+          "No se ha encontrado ningún disco con ese nombre.",
+        ];
         setError(errores);
       } else {
         setError([]); // limpiar errores
@@ -98,6 +105,10 @@ const RellenarDatos = ({ listaDiscos, setListaDiscos }) => {
 
       setDiscosFiltrados(discoFiltrado);
     }
+  };
+
+  const borrarDato = (listadoDiscos) => {
+ // NO SE COMO IMPLEMENTAR ESTO
   };
 
   const borrarDisco = (formulario, ListadoDiscos) => {};
@@ -283,15 +294,16 @@ const RellenarDatos = ({ listaDiscos, setListaDiscos }) => {
           type="button"
           value="Filtrar"
           onClick={(evento) => {
-            filtrarDisco( formulario, listaDiscos);
-
-            {discosFiltrados.length > 0 && <Discos listadoDiscos={discosFiltrados}/>}
+            const formulario = document.forms.formularioDiscos;
+            filtrarDisco(formulario, listaDiscos);
+            navegar("/filtrado");
           }}
         />
         <input
           type="button"
           value="Borrar"
           onClick={(evento) => {
+            const formulario = document.forms.formularioDiscos;
             borrarDisco(listaDiscos, formulario);
           }}
         />
