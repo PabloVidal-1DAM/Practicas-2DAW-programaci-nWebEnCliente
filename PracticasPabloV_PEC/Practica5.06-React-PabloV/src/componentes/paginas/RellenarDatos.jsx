@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
+import "./RellenarDatos.css";
 
 const RellenarDatos = ({
   listaDiscos,
@@ -38,6 +39,7 @@ const RellenarDatos = ({
     });
   };
 
+  // RellenarDatos.jsx
   const validarDato = (elemento) => {
     const { name, value } = elemento;
     let erroresElemento = [];
@@ -56,24 +58,51 @@ const RellenarDatos = ({
           `Los campos nombre y grupo deben tener al menos 5 caracteres y son obligatorios.`,
         ];
       }
-    }
+    } else if (name === "fechaPublicacion") {
+      if (!value.length) {
+        erroresElemento = [
+          ...erroresElemento,
+          `El campo ${name} debe tener un valor.`,
+        ];
+      }
+      const expresion = /^\d{4}$/;
+      if (!expresion.test(value)) {
+        erroresElemento = [
+          ...erroresElemento,
+          "La fecha solo debe disponer de cuatro caracteres numéricos",
+        ];
+      }
+    }// SIGO MAÑANA A PARTIR DE AQUÍ O SI NO ME VOY A VOLAR LA CABEZA JAJAJJAJJSJAJSJAJSJAJSJAJJSJAJSJAJSJASJJSJAJJAJSJAJJASJAJAJSAJJASJASJJSJJAJSJASJAJSJJJJASASJJSJSAJSAASJ
 
     return erroresElemento;
   };
 
+  // RellenarDatos.jsx
+
   const validarFormulario = (evento) => {
-    const formulario = evento.target.parentNode;
+    // Usamos document.forms.formularioDiscos para un acceso más robusto al formulario
+    const formulario = document.forms.formularioDiscos;
     let erroresListado = [];
 
-    for (let i = 0; i < formulario.elements.length - 1; i++) {
-      let erroresElemento = validarDato(formulario.elements[i]);
+    // Definimos qué campos vamos a validar OBLIGATORIAMENTE
+    const camposObligatorios = ["nombre", "grupo"];
 
-      erroresElemento.length
-        ? formulario.elements[i].classList.add("error")
-        : formulario.elements[i].classList.remove("error");
+    camposObligatorios.forEach((name) => {
+      const elemento = formulario.elements[name];
 
-      erroresListado = [...erroresListado, ...erroresElemento];
-    }
+      if (elemento) {
+        // Llama a validarDato (que sabemos que devuelve un array [])
+        let erroresElemento = validarDato(elemento);
+
+        // Aplicamos las clases
+        if (erroresElemento.length > 0) {
+          elemento.classList.add("error");
+          erroresListado = [...erroresListado, ...erroresElemento];
+        } else {
+          elemento.classList.remove("error");
+        }
+      }
+    });
 
     setError(erroresListado);
     return erroresListado.length === 0;
@@ -108,14 +137,18 @@ const RellenarDatos = ({
   };
 
   const borrarDato = (listadoDiscos) => {
- // NO SE COMO IMPLEMENTAR ESTO
+    // NO SE COMO IMPLEMENTAR ESTO
   };
 
   const borrarDisco = (formulario, ListadoDiscos) => {};
 
   return (
     <div>
-      <form id="formulario" name="formularioDiscos">
+      <form
+        id="formulario"
+        name="formularioDiscos"
+        className="estiloFormulario"
+      >
         <fieldset id="datosDiscos">
           <legend>Datos del disco</legend>
           <label htmlFor="nombre">Nombre del disco: </label>
@@ -278,35 +311,37 @@ const RellenarDatos = ({
         </fieldset>
         <br />
         <br />
-        <input
-          type="button"
-          value="Enviar datos"
-          onClick={(evento) => {
-            if (validarFormulario(evento)) {
-              console.log("Datos corectos");
-              setListaDiscos([...listaDiscos, disco]);
-            } else {
-              console.log("Algo ha fallado");
-            }
-          }}
-        />
-        <input
-          type="button"
-          value="Filtrar"
-          onClick={(evento) => {
-            const formulario = document.forms.formularioDiscos;
-            filtrarDisco(formulario, listaDiscos);
-            navegar("/filtrado");
-          }}
-        />
-        <input
-          type="button"
-          value="Borrar"
-          onClick={(evento) => {
-            const formulario = document.forms.formularioDiscos;
-            borrarDisco(listaDiscos, formulario);
-          }}
-        />
+        <div className="acciones">
+          <input
+            type="button"
+            value="Enviar datos"
+            onClick={(evento) => {
+              if (validarFormulario(evento)) {
+                console.log("Datos corectos");
+                setListaDiscos([...listaDiscos, disco]);
+              } else {
+                console.log("Algo ha fallado");
+              }
+            }}
+          />
+          <input
+            type="button"
+            value="Filtrar"
+            onClick={(evento) => {
+              const formulario = document.forms.formularioDiscos;
+              filtrarDisco(formulario, listaDiscos);
+              navegar("/filtrado");
+            }}
+          />
+          <input
+            type="button"
+            value="Borrar"
+            onClick={(evento) => {
+              const formulario = document.forms.formularioDiscos;
+              borrarDisco(listaDiscos, formulario);
+            }}
+          />
+        </div>
       </form>
       <br />
       <br />

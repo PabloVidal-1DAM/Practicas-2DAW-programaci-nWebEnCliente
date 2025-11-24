@@ -1,0 +1,8 @@
+.estiloFormulario fieldset{
+    background-color: rgb(151, 151, 151);
+}
+
+.estiloFormulario .acciones input{
+    background-color: rgb(151, 151, 151);
+    margin-left: 20px;
+}

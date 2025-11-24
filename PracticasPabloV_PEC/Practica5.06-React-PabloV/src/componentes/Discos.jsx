@@ -1,4 +1,5 @@
 import React from "react";
+import "./Discos.css";
 
 const Discos = ({ listaDiscos, setListaDiscos }) => {
 
@@ -38,9 +39,8 @@ const Discos = ({ listaDiscos, setListaDiscos }) => {
                 <p>Prestado: <strong>{disco.prestado ? "Sí" : "No"}</strong></p>
               </li>
 
-              {/* 🔥 BOTÓN DE BORRAR */}
               <button onClick={() => borrarDisco(i)}>
-                🗑 Borrar disco
+                Borrar disco
               </button>
 
             </div>
