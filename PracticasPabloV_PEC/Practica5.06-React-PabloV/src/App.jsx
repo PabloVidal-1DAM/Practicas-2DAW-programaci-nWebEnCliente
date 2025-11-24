@@ -9,22 +9,26 @@ import Rutas from './componentes/Rutas';
 import Menu from './componentes/Menu';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [listaDiscos, setListaDiscos] = useState([]);
 
   return (
-    <>
-      <BrowserRouter>
-        <Contenedor>
-          <Cabecera />
-          <Menu />
-            <Contenido>
-              <Rutas />
-            </Contenido>
-          <Pie />
-        </Contenedor>
-      </BrowserRouter>
-    </>
-  )
+    <BrowserRouter>
+      <Contenedor>
+        <Cabecera />
+        <Menu />
+
+        <Contenido>
+          <Rutas 
+            listaDiscos={listaDiscos} 
+            setListaDiscos={setListaDiscos}
+          />
+        </Contenido>
+
+        <Pie />
+      </Contenedor>
+    </BrowserRouter>
+  );
 }
+
 
 export default App

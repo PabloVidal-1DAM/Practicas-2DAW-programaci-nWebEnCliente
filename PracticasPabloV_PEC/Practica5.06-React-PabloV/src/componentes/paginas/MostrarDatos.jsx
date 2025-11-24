@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Discos from '../Discos.jsx';
 
-const MostrarDatos = () => {
+const MostrarDatos = ({listaDiscos}) => {
   return (
     <div>
-      
+      <Discos listaDiscos={listaDiscos}/>
     </div>
   )
 }

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
 
-const RellenarDatos = () => {
+const RellenarDatos = ({ listaDiscos, setListaDiscos }) => {
+  const formulario = document.forms.formularioDiscos;
+
+  const navegar = useNavigate();
+
   const valoresIniciales = {
     nombre: "",
     caratula: "",
@@ -14,21 +19,20 @@ const RellenarDatos = () => {
   };
 
   const [disco, setDisco] = useState(valoresIniciales);
-  const [listaDiscos, setListaDiscos] = useState([]);
+  const [discosFiltrados, setDiscosFiltrados] = useState([]);
 
   const erroresIniciales = [];
   const [error, setError] = useState(erroresIniciales);
 
   const [prestado, setPrestado] = useState(false);
 
-const actualizarDatos = (evento) => {
-  const { name, type, value, checked } = evento.target;
-  setDisco({
-    ...disco,
-    [name]: type === "checkbox" ? checked : value,
-  });
-};
-
+  const actualizarDatos = (evento) => {
+    const { name, type, value, checked } = evento.target;
+    setDisco({
+      ...disco,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
 
   const validarDato = (elemento) => {
     const { name, value } = elemento;
@@ -70,6 +74,33 @@ const actualizarDatos = (evento) => {
     setError(erroresListado);
     return erroresListado.length === 0;
   };
+
+  const filtrarDisco = (formulario, listadoDiscos) => {
+    let errores = [];
+
+    if (formulario.filtrar.value === "" || listaDiscos.length === 0) {
+      errores = [
+        ...errores,
+        `No hay o no se ha puesto información para filtrar.`,
+      ];
+      setError(errores);
+    } else {
+      const discoFiltrado = listadoDiscos.filter((disco, indice, array) => {
+        return disco.nombre !== formulario.filtrar.value;
+      });
+
+      if (discoFiltrado.length === 0) {
+        errores = [... errores, "No se ha encontrado ningún disco con ese nombre."];
+        setError(errores);
+      } else {
+        setError([]); // limpiar errores
+      }
+
+      setDiscosFiltrados(discoFiltrado);
+    }
+  };
+
+  const borrarDisco = (formulario, ListadoDiscos) => {};
 
   return (
     <div>
@@ -248,13 +279,27 @@ const actualizarDatos = (evento) => {
             }
           }}
         />
+        <input
+          type="button"
+          value="Filtrar"
+          onClick={(evento) => {
+            filtrarDisco( formulario, listaDiscos);
+
+            {discosFiltrados.length > 0 && <Discos listadoDiscos={discosFiltrados}/>}
+          }}
+        />
+        <input
+          type="button"
+          value="Borrar"
+          onClick={(evento) => {
+            borrarDisco(listaDiscos, formulario);
+          }}
+        />
       </form>
       <br />
       <br />
-      <Discos listaDiscos={listaDiscos}/><br/><br/>
-      <div>
-        {<div>{error.length > 0 && <Errores errores={error} />}</div>}
-      </div>
+
+      <div>{<div>{error.length > 0 && <Errores errores={error} />}</div>}</div>
     </div>
   );
 };
