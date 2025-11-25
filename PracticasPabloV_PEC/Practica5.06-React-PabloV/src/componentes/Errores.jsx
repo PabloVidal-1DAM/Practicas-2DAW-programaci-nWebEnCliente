@@ -1,10 +1,11 @@
 import React from 'react'
 
+// Componente usado para mostrar los errores de los campos del formulario que estén mal o no hayan pasado la validación.
 const Errores = ({errores}) => {
   return (
     <div>
       <h1>Errores: </h1>
-      <div className={errores.length > 0 ? "errores" : "noErrores"}>
+      <div className="errores">
         {errores.length ? errores.map((valor,indice, array) =>{
             return(
                 <h4 key={indice}>{valor}</h4>

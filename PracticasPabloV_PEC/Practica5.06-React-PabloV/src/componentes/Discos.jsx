@@ -1,14 +1,17 @@
 import React from "react";
 import "./Discos.css";
 
+// Componente que representa a cada disco dentro del estado "listaDiscos", que se pasan como props.
 const Discos = ({ listaDiscos, setListaDiscos }) => {
 
-  const borrarDisco = (indice) => {
-    const confirmacion = window.confirm("¿Seguro que quieres eliminar este disco?");
-    if (!confirmacion) return;
 
-    const nuevaLista = listaDiscos.filter((_, i) => i !== indice);
-    setListaDiscos(nuevaLista);
+  const borrarDisco = (indice) => {
+    if (confirm("¿Quieres borrar el dato seleccionado?")){
+      const nuevaLista = listaDiscos.filter((valor, i) => {
+        return i !== indice;
+      });
+      setListaDiscos(nuevaLista);
+    }
   };
 
   return (

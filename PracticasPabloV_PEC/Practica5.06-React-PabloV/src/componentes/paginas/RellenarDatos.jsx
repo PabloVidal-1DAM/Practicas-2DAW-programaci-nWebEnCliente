@@ -4,6 +4,8 @@ import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
 import "./RellenarDatos.css";
 
+// Elementos del prop de estados externos que gastará
+// que son: La lista normal, la lista Filtrada y la lista con el elemento Borrado
 const RellenarDatos = ({
   listaDiscos,
   setListaDiscos,
@@ -24,6 +26,7 @@ const RellenarDatos = ({
     prestado: "",
   };
 
+  // Estados internos que gastará este componente.
   const [disco, setDisco] = useState(valoresIniciales);
 
   const erroresIniciales = [];
@@ -32,6 +35,8 @@ const RellenarDatos = ({
   const [prestado, setPrestado] = useState(false);
 
 
+  // Se usa la desestructuración del target para ahorrar fatiga mental y entender mejor.
+  // Se añade al estado "disco", la clave y el valor decada campo.
   const actualizarDatos = (evento) => {
     const { name, type, value, checked } = evento.target;
     setDisco({
@@ -40,9 +45,10 @@ const RellenarDatos = ({
     });
   };
 
-  // RellenarDatos.jsx
+  // Se valida cada parte del objeto JSON de discos bajo expresiones distintas dependiendo de que campo del objeto sea.
   const validarDato = (elemento) => {
     const { name, value } = elemento;
+    // Todos los posibles errores que surgan irán aquí.
     let erroresElemento = [];
 
     if (name === "nombre" || name === "grupo") {
@@ -78,14 +84,12 @@ const RellenarDatos = ({
     return erroresElemento;
   };
 
-  // RellenarDatos.jsx
-
   const validarFormulario = (evento) => {
-    // Usamos document.forms.formularioDiscos para un acceso más robusto al formulario
+
     const formulario = document.forms.formularioDiscos;
     let erroresListado = [];
 
-    // Definimos qué campos vamos a validar OBLIGATORIAMENTE
+    // En este aray se indican aquellos campos que sob obligatorios en el formnulario.
     const camposObligatorios = [
       "nombre",
       "grupo",
@@ -93,14 +97,15 @@ const RellenarDatos = ({
       "codigo",
     ];
 
+    // Se recorre cada campo obligatorio para validarlos en la funcion "validarDato()";
     camposObligatorios.forEach((name) => {
       const elemento = formulario.elements[name];
 
       if (elemento) {
-        // Llama a validarDato (que sabemos que devuelve un array [])
+        // Se llama a validarDato que devuelve un array [].
         let erroresElemento = validarDato(elemento);
 
-        // Aplicamos las clases
+        // Se Aplican clases de estilo al elemento en caso de existir errores.
         if (erroresElemento.length > 0) {
           elemento.classList.add("error");
           erroresListado = [...erroresListado, ...erroresElemento];
@@ -110,24 +115,22 @@ const RellenarDatos = ({
       }
     });
 
-    //Validar los radio button, ya que no es un input normal, sino una colección
-    // Validar género manualmente
+    //En los radio button, como no es un input normal, sino una colección,
+    // lo valido manualmente.
     const genero = formulario.elements["genero"].value;
-    if (!genero) {
-      erroresListado.push("Debes seleccionar un género.");
 
-      // Marcar todos los radios como error
-      const radiosGenero = formulario.querySelectorAll('input[name="genero"]');
-      radiosGenero.forEach((r) => r.classList.add("error"));
-    } else {
-      const radiosGenero = formulario.querySelectorAll('input[name="genero"]');
-      radiosGenero.forEach((r) => r.classList.remove("error"));
+    // Si no se selecciona ningún genero, nuevo error, debe de haber 1 seleccionado.
+    if (!genero) {
+      erroresListado = [...erroresListado, "Debes seleccionar un género." ];
     }
 
     setError(erroresListado);
+    // Devolverá true si el array de errores no contiene ningúno.
     return erroresListado.length === 0;
   };
 
+  // Para poder filtrar, se pasa el formulario para acceder al input text que contiene el valor a filtrar y 
+  // el estado "listadoDiscos" que contiene todos los discos guardados en ese momento.
   const filtrarDisco = (formulario, listadoDiscos) => {
     let errores = [];
 
@@ -142,25 +145,14 @@ const RellenarDatos = ({
         return disco.nombre === formulario.filtrar.value;
       });
 
-      if (discoFiltrado.length === 0) {
-        errores = [
-          ...errores,
-          "No se ha encontrado ningún disco con ese nombre.",
-        ];
-        setError(errores);
-      } else {
-        setError([]); // limpiar errores
-      }
-
       setDiscosFiltrados(discoFiltrado);
     }
   };
 
-  const borrarDato = (listadoDiscos) => {
-    // NO SE COMO IMPLEMENTAR ESTO
+  // Ya que el componente de la ruta /mostrar gasta la listaDiscos original, simplemente se navega a ese componente para enseñarlo.
+  const borrarDisco = (formulario, ListadoDiscos) => {
+    navegar("/mostrar");
   };
-
-  const borrarDisco = (formulario, ListadoDiscos) => {};
 
   return (
     <div>
@@ -178,6 +170,7 @@ const RellenarDatos = ({
             name="nombre"
             placeholder="Introduce el nombre del disco"
             value={disco.nombre}
+            // Cada vez que cambie el valor, se llama a "actualizarDatos" para almacenar los datos del disco en el estado "disco"
             onChange={(evento) => {
               actualizarDatos(evento);
             }}
@@ -336,11 +329,9 @@ const RellenarDatos = ({
             type="button"
             value="Enviar datos"
             onClick={(evento) => {
+              // Si "validarFormulario" no devuelve errores, pasa la validación y se guarda en el estado "listaDiscos".
               if (validarFormulario(evento)) {
-                console.log("Datos corectos");
                 setListaDiscos([...listaDiscos, disco]);
-              } else {
-                console.log("Algo ha fallado");
               }
             }}
           />
@@ -350,6 +341,7 @@ const RellenarDatos = ({
             onClick={(evento) => {
               const formulario = document.forms.formularioDiscos;
               filtrarDisco(formulario, listaDiscos);
+              // Al hacer click y filtrar el disco, se lleva automáticamente al componente <Disco> para que el usuario vea que se ha filtrado.
               navegar("/filtrado");
             }}
           />
@@ -365,7 +357,8 @@ const RellenarDatos = ({
       </form>
       <br />
       <br />
-
+      {/*Si el estado interno "error", contiene errores, entonces se muestra el componente "Errores.jsx"*/}
+      {/*Al cual se le pasa el estado que almacena los errores para mostrarlos.*/}
       <div>{<div>{error.length > 0 && <Errores errores={error} />}</div>}</div>
     </div>
   );
