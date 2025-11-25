@@ -31,6 +31,7 @@ const RellenarDatos = ({
 
   const [prestado, setPrestado] = useState(false);
 
+
   const actualizarDatos = (evento) => {
     const { name, type, value, checked } = evento.target;
     setDisco({
@@ -45,12 +46,6 @@ const RellenarDatos = ({
     let erroresElemento = [];
 
     if (name === "nombre" || name === "grupo") {
-      if (!value.length) {
-        erroresElemento = [
-          ...erroresElemento,
-          `El campo ${name} debe tener un valor.`,
-        ];
-      }
       const expresion = /^.{5,}$/;
       if (!expresion.test(value)) {
         erroresElemento = [
@@ -59,12 +54,6 @@ const RellenarDatos = ({
         ];
       }
     } else if (name === "fechaPublicacion") {
-      if (!value.length) {
-        erroresElemento = [
-          ...erroresElemento,
-          `El campo ${name} debe tener un valor.`,
-        ];
-      }
       const expresion = /^\d{4}$/;
       if (!expresion.test(value)) {
         erroresElemento = [
@@ -72,7 +61,19 @@ const RellenarDatos = ({
           "La fecha solo debe disponer de cuatro caracteres numéricos",
         ];
       }
-    }// SIGO MAÑANA A PARTIR DE AQUÍ O SI NO ME VOY A VOLAR LA CABEZA JAJAJJAJJSJAJSJAJSJAJSJAJJSJAJSJAJSJASJJSJAJJAJSJAJJASJAJAJSAJJASJASJJSJJAJSJASJAJSJJJJASASJJSJSAJSAASJ
+    } else if (name === "genero") {
+      if (!value.length) {
+        erroresElemento = [...erroresElemento, "Debes seleccionar un género."];
+      }
+    } else if (name === "codigo") {
+      const expresion = /^ES-\d{3}[A-Z]{2}$/;
+      if (!expresion.test(value)) {
+        erroresElemento = [
+          ...erroresElemento,
+          `Se debe seguir el formato ES-001AA donde 001 es el número de la estantería y AA la balda (combinación de dos letras mayúsculas).`,
+        ];
+      }
+    }
 
     return erroresElemento;
   };
@@ -85,7 +86,12 @@ const RellenarDatos = ({
     let erroresListado = [];
 
     // Definimos qué campos vamos a validar OBLIGATORIAMENTE
-    const camposObligatorios = ["nombre", "grupo"];
+    const camposObligatorios = [
+      "nombre",
+      "grupo",
+      "fechaPublicacion",
+      "codigo",
+    ];
 
     camposObligatorios.forEach((name) => {
       const elemento = formulario.elements[name];
@@ -103,6 +109,20 @@ const RellenarDatos = ({
         }
       }
     });
+
+    //Validar los radio button, ya que no es un input normal, sino una colección
+    // Validar género manualmente
+    const genero = formulario.elements["genero"].value;
+    if (!genero) {
+      erroresListado.push("Debes seleccionar un género.");
+
+      // Marcar todos los radios como error
+      const radiosGenero = formulario.querySelectorAll('input[name="genero"]');
+      radiosGenero.forEach((r) => r.classList.add("error"));
+    } else {
+      const radiosGenero = formulario.querySelectorAll('input[name="genero"]');
+      radiosGenero.forEach((r) => r.classList.remove("error"));
+    }
 
     setError(erroresListado);
     return erroresListado.length === 0;

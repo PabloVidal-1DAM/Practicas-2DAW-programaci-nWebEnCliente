@@ -1,17 +1,31 @@
-import { useState } from 'react';
-import {BrowserRouter} from "react-router-dom";
-import './App.css';
-import Contenedor from '../../practica-react/src/components/Ej4_07/Estructura/Contenedor';
-import Cabecera from './componentes/Estructura/Cabecera';
-import Contenido from '../../practica-react/src/components/Ej4_07/Estructura/Contenido';
-import Pie from '../../practica-react/src/components/Ej4_07/Estructura/Pie';
-import Rutas from './componentes/Rutas';
-import Menu from './componentes/Menu';
+import { useState } from "react";
+import { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import Contenedor from "../../practica-react/src/components/Ej4_07/Estructura/Contenedor";
+import Cabecera from "./componentes/Estructura/Cabecera";
+import Contenido from "../../practica-react/src/components/Ej4_07/Estructura/Contenido";
+import Pie from "../../practica-react/src/components/Ej4_07/Estructura/Pie";
+import Rutas from "./componentes/Rutas";
+import Menu from "./componentes/Menu";
 
 function App() {
-  const [listaDiscos, setListaDiscos] = useState([]);
+
+  // En App estan los estados que van a compartir los componentes.
+  // lo he pensado así ya que existen componentes como "Disco" que estan en Rutas.jsx y necesita la lista.
+  const [listaDiscos, setListaDiscos] = useState(() => {
+    // Se accede al localStorage y solo si contiene datos, serán sus valores iniciales.
+    const datosGuardados = localStorage.getItem("listaDiscos");
+    return datosGuardados ? JSON.parse(datosGuardados) : [];
+  });
+
   const [discosFiltrados, setDiscosFiltrados] = useState([]);
   const [discoBorrado, setDiscoBorrado] = useState([]);
+
+  // Cada vez que el estado de "listaDiscos" se modifique, saltará este useEffect donde guarda los cambios en el Local Storage.
+  useEffect(() => {
+    localStorage.setItem("listaDiscos", JSON.stringify(listaDiscos));
+  }, [listaDiscos]);
 
   return (
     <BrowserRouter>
@@ -20,13 +34,13 @@ function App() {
         <Menu />
 
         <Contenido>
-          <Rutas 
-            listaDiscos={listaDiscos} 
+          <Rutas
+            listaDiscos={listaDiscos}
             setListaDiscos={setListaDiscos}
 
             discosFiltrados={discosFiltrados}
             setDiscosFiltrados={setDiscosFiltrados}
-
+            
             discoBorrado={discoBorrado}
             setDiscoBorrado={setDiscoBorrado}
           />
@@ -38,5 +52,4 @@ function App() {
   );
 }
 
-
-export default App
+export default App;
