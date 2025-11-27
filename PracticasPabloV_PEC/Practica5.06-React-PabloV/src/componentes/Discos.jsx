@@ -4,12 +4,14 @@ import "./Discos.css";
 // Componente que representa a cada disco dentro del estado "listaDiscos", que se pasan como props.
 const Discos = ({ listaDiscos, setListaDiscos }) => {
 
-
+// Se toma el indice cuando se recorren los discos para usarlo en un .filter 
+// y borrar el que el usuario seleccione al pulsar su boton.
   const borrarDisco = (indice) => {
     if (confirm("¿Quieres borrar el dato seleccionado?")){
       const nuevaLista = listaDiscos.filter((valor, i) => {
         return i !== indice;
       });
+      // Se actualiza el estado con los cambios y se vuelve a dibujar.
       setListaDiscos(nuevaLista);
     }
   };
