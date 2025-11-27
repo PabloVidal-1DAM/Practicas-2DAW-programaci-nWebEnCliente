@@ -5,11 +5,12 @@ window.onload = ()=>{
     const aside = document.getElementById("app");
     const contenedor = document.getElementById("detalles");
 
+    insertarPeliculas( url, aside);
+
     aside.addEventListener("click", (evento) =>{
         if (evento.target.tagName === "LI"){
-            mostrarDetalle("https://swapi.info/api/films",evento.target.id, contenedor);
+            mostrarDetalle(url,evento.target.id, contenedor);
         }
     }, false);
 
-    insertarPeliculas( url, aside)
 }

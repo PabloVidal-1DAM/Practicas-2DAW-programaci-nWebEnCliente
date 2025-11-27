@@ -23,8 +23,10 @@ const crearPlantilla = (datos) => {
   if (Array.isArray(datos) && datos.length) {
     datos.forEach((peli, i) => {
       plantilla += `<ul>
-                                <li id=${i}>${peli.title}</li>
-                          </ul>`;
+                      <li id=${i}>${peli.title}</li>
+                    </ul>
+                    <hr>`;
+
     });
   } else {
     plantilla = "<h3>No existen datos que mostrar</h3>";
@@ -57,8 +59,14 @@ const formatearFecha = (fecha) =>{
 }
 
 const mostrarDetalle = async (url, id, contenedor) => {
-  const peliculas = await traerDatos(url);
-  const peliculaConcreta = peliculas[id];
-  contenedor.innerHTML = crearPlantillaDetalle(peliculaConcreta);
+  try{
+    const peliculas = await traerDatos(url);
+    const peliculaConcreta = peliculas[id];
+    contenedor.innerHTML = crearPlantillaDetalle(peliculaConcreta);
+  }catch(error){
+    console.log("Hay un error: "+error);
+    contenedor.innerHTML = "<h2>Error: "+error;
+  }
+
 };
 export { traerDatos, insertarPeliculas, mostrarDetalle };

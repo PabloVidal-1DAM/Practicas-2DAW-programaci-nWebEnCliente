@@ -1,0 +1,20 @@
+#contenido{
+    display: flex;
+    gap: 200px;
+}
+
+#detalles{
+    width: 800px;
+    background-color: rgb(185, 185, 185);
+    border-radius: 20px;
+}
+#detalles *{
+    margin-left: 10px;
+}
+
+#app{
+    background-color: rgb(185, 185, 185);
+    height: 408px;
+    border-style: dotted;
+    width: 280px;
+}
