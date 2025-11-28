@@ -9,7 +9,7 @@ const traerDatos = (url) => {
       return datos;
     })
     .catch((error) => {
-      return `se ha producido un error: `;
+      return `se ha producido un error: ${error}`;
     });
 };
 
@@ -22,7 +22,7 @@ const crearPlantilla = (datos) => {
   let plantilla = "";
   if (Array.isArray(datos) && datos.length) {
     datos.forEach((peli, i) => {
-      plantilla += `<ul>
+      plantilla += `<ul class="lista">
                       <li id=${i}>${peli.title}</li>
                     </ul>
                     <hr>`;
@@ -64,8 +64,7 @@ const mostrarDetalle = async (url, id, contenedor) => {
     const peliculaConcreta = peliculas[id];
     contenedor.innerHTML = crearPlantillaDetalle(peliculaConcreta);
   }catch(error){
-    console.log("Hay un error: "+error);
-    contenedor.innerHTML = "<h2>Error: "+error;
+    contenedor.innerHTML = `<h2>Error: ${error}</h2>`;
   }
 
 };
