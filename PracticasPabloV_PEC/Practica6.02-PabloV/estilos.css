@@ -1,105 +1,76 @@
-/* ============================= */
-/* 1. Estilos Globales y Layout  */
-/* ============================= */
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4; /* Fondo gris claro */
+    background-color: #f4f4f4; 
     color: #333;
     margin: 20px;
 }
 
 h2 {
     color: #1a1a1a;
-    border-bottom: 2px solid #ffc107; /* Línea temática (color Star Wars) */
+    border-bottom: 2px solid #ffc107; 
     padding-bottom: 5px;
     margin-bottom: 20px;
 }
 
-/* Contenedor principal: Flexbox para lista y detalles */
 #contenido {
     display: flex;
-    gap: 30px; /* Espacio entre los paneles */
-    align-items: flex-start; /* Alinea al inicio */
+    gap: 30px; 
+    align-items: flex-start; 
 }
-
-/* ============================= */
-/* 2. Estilos del Panel de Lista (#app) */
-/* ============================= */
 
 #app {
-    background-color: #e0e0e0; /* Fondo del panel */
+    background-color: #e0e0e0; 
     border-radius: 8px;
     width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para que flote */
-    overflow-y: auto; /* Scroll para listas largas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    overflow-y: auto; 
     min-height: 400px;
     max-height: 600px;
-    padding: 5px 0; /* Padding interno solo vertical */
+    padding: 5px 0; 
 }
 
-/* Estilos de la lista (<ul>) */
 .lista {
-    list-style-type: none; /* Quita los puntos */
+    list-style-type: none; 
     padding: 0;
     margin: 0;
 }
 
-/* ============================= */
-/* 3. Estilos de los Ítems (<li>) y Efectos de Pulsado */
-/* ============================= */
-
 .lista .item-pelicula {
-    /* Diseño Base */
     padding: 10px 15px;
     cursor: pointer;
-    background-color: transparent; /* Asegura que el fondo inicial sea claro */
+    background-color: transparent; 
     
-    /* Línea divisoria, reemplazando el <hr> */
     border-bottom: 1px solid #c0c0c0;
     
-    /* Transición suave para los efectos */
     transition: background-color 0.15s, transform 0.1s;
 }
 
-/* Efecto de HOVER (ratón sobre el elemento) */
-.lista .item-pelicula:hover {
+.lista:hover {
     background-color: #d0d0d0;
 }
 
-/* EFECTO DE PULSADO: Fondo Gris y Hundimiento */
-.lista .item-pelicula:active {
-    background-color: #b0b0b0; /* Gris más oscuro al presionar */
-    transform: translateY(1px); /* Se mueve 1px hacia abajo */
-    box-shadow: none; /* Elimina sombras si las tuviera */
+.lista:active {
+    background-color: #b0b0b0; 
+    transform: translateY(2px); 
+    box-shadow: none; 
 }
-
-/* Limpieza: Quita la línea del último elemento */
-.lista .item-pelicula:last-child {
-    border-bottom: none;
-}
-
-/* ============================= */
-/* 4. Estilos del Panel de Detalles (#detalles) */
-/* ============================= */
 
 #detalles {
-    background-color: #ffffff; /* Fondo blanco */
+    background-color: #ffffff; 
     border-radius: 8px;
-    flex-grow: 1; /* Ocupa el espacio restante en el flexbox */
+    flex-grow: 1; 
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-height: 400px; /* Mantiene la altura similar al panel de lista */
+    min-height: 400px; 
 }
 
-/* Título de la sección de detalles */
 #detalles h2 {
     margin-top: 0;
-    border-bottom: none; /* No queremos doble línea */
-    color: #007bff; /* Un color de acento */
+    border-bottom: none; 
+    color: #007bff; 
 }
 
-/* Información de la película */
 #detalles p {
     line-height: 1.6;
     margin-bottom: 10px;
@@ -115,13 +86,10 @@ h2 {
 #detalles p:last-of-type {
     font-style: italic;
     
-    /* 1. Hace que el texto fluya natural y respete el ancho que le des */
     white-space: normal; 
     
-    /* 2. El ancho fijo que quieres */
     width: 800px; 
     box-sizing: border-box; 
     
-    /* 3. RECOMENDACIÓN: Usa 'left' o 'center' en anchos pequeños */
     text-align: left; 
 }
