@@ -7,9 +7,12 @@ const Pelicula = ({nombre, pelicula, setPeliculaSeleccionada}) => {
     }
 
   return (
-    <li onClick={() => mostrarDetalle()} className='lista'>
-       {nombre}
-    </li>
+    <>
+      <li onClick={() => mostrarDetalle()} className='lista'>
+        {nombre}
+      </li>
+      <hr />
+    </>
   )
 }
 
