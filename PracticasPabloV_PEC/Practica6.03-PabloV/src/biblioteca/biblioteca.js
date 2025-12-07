@@ -11,4 +11,8 @@ const traerDatos = (url) => {
     });
 };
 
-export {traerDatos};
+const formatearFecha = (fecha) =>{
+    return new Date(fecha).toLocaleDateString("es-ES");
+};
+
+export {traerDatos, formatearFecha};

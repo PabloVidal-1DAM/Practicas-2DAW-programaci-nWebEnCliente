@@ -1,5 +1,6 @@
 "use strict";
 
+// Función universal para traer datos de cualquier API.
 const traerDatos = (url) => {
   return fetch(url)
     .then((respuesta) => {
@@ -13,11 +14,13 @@ const traerDatos = (url) => {
     });
 };
 
+// Función asincrona para insertar el título de la pelicula en el aside.
 const insertarPeliculas = async (url, aside) => {
   const peliculas = await traerDatos(url);
   aside.innerHTML = crearPlantilla(peliculas);
 };
 
+// Función que crea la plantilla que posteriormente se usará para insertar en el aside
 const crearPlantilla = (datos) => {
   let plantilla = "";
   if (Array.isArray(datos) && datos.length) {
@@ -35,6 +38,7 @@ const crearPlantilla = (datos) => {
   return plantilla;
 };
 
+// Función que crea la plantilla que posteriormente se usará para insertar en el detalle de la pelicula
 const crearPlantillaDetalle = (pelicula) => {
   if (!pelicula) {
     return `<h3>No hay información que mostrar`;
@@ -54,10 +58,12 @@ const crearPlantillaDetalle = (pelicula) => {
   }
 };
 
+// Función usada para dar formato Europeo a las fechas.
 const formatearFecha = (fecha) =>{
     return new Date(fecha).toLocaleDateString("es-ES");
 }
 
+// Función asincrona usada para mostrar el detalle de la pelicula seleccionada por su id.
 const mostrarDetalle = async (url, id, contenedor) => {
   try{
     const peliculas = await traerDatos(url);
