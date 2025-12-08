@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { formatearFecha, traerDatos } from "../biblioteca/biblioteca.js";
+import Interpretes from "./Interpretes.jsx";
 
 const Detalle = ({ peliculaSeleccionada }) => {
-  
   const fecha = formatearFecha(peliculaSeleccionada.release_date);
 
   // Estado en donde se meterán los interpretes una vez se tengan.
@@ -15,7 +15,6 @@ const Detalle = ({ peliculaSeleccionada }) => {
     }
 
     const traerInterpretes = async () => {
-
       const promesasInterpretes = endpoints.map((endpoint) => {
         return traerDatos(endpoint);
       });
@@ -24,12 +23,11 @@ const Detalle = ({ peliculaSeleccionada }) => {
       return interpretes;
     };
 
-    // O SIGO MAÑANA O ME ARRANCO LOS COJONES AJAJISAISJAISAJSAISJAISIASJAIJSAISJIASJASSJASJASJAJSIASJAISAJSJASJASIJA
-    const datosInterpretes = traerInterpretes().then(resultado) ;
-    setInterpretes(datosInterpretes);
-
-    console.log(interpretes[0].value);
-  }, []);
+    traerInterpretes().then((resultado) => {
+      // Se guarda en el estado de interpretes, para acceder a su valor hará falta poner el .value.
+      setInterpretes(resultado);
+    });
+  }, [peliculaSeleccionada]);
 
   return (
     <div id="detalles">
@@ -48,6 +46,7 @@ const Detalle = ({ peliculaSeleccionada }) => {
       </p>
       <h3>Mensaje de Inicio:</h3>
       <p>{peliculaSeleccionada.opening_crawl}</p>
+      <Interpretes interpretes={interpretes} />
     </div>
   );
 };
