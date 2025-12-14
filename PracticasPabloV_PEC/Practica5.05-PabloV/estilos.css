@@ -9,6 +9,10 @@
     font-weight: bold;          
 }
 
+.ocultar{
+    display: none;
+}
+
 
 .fallo{
     border: 2px solid red;

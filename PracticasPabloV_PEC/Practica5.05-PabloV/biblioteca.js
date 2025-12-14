@@ -93,6 +93,8 @@ const validarFormulario = (formulario, objetoJSON, contenedorErrores) => {
     let infoGuardada = guardarInfo(formulario, objetoJSON);
 
     contenedorErrores.innerHTML = "";
+    contenedorErrores.classList.add("ocultar");
+    formulario.reset();
 
     return infoGuardada;
   } else {
@@ -102,35 +104,21 @@ const validarFormulario = (formulario, objetoJSON, contenedorErrores) => {
 };
 
 const insertarMensajeError = (mensajeError, contenedorErrores) => {
+  contenedorErrores.classList.remove("ocultar");
   const elementoLista = document.getElementById("listaErrores");
 
+  let plantilla = "";
+
   // quiere decir que aún no se ha creado porque no han ocurrido errores
-  if (elementoLista === null) {
-    const titulo = document.createElement("h3");
-    titulo.textContent = "Se han encontrado errores:";
-
-    contenedorErrores.appendChild(titulo);
-
-    const listaErrores = document.createElement("ol");
-    listaErrores.setAttribute("id", "listaErrores");
-
-    const contenidoLista = document.createElement("p");
-    contenidoLista.textContent = mensajeError;
-
-    // Se asigna el mensaje de error dentro de la lista
-    const li = document.createElement("li");
-    li.appendChild(contenidoLista);
-    listaErrores.appendChild(li);
-
-    contenedorErrores.appendChild(listaErrores);
+  if (elementoLista === null) { //h3, ol, li y p.
+    plantilla += `<h3>Se han encontrado errores </h3>
+                  <ol id="listaErrores"><li><p>${mensajeError}</p></li></ol>`;
+    contenedorErrores.innerHTML = plantilla;
   } else {
     // Si ya se ha creado porque hay errores, simplemente se crea el mensaje de error y se añade a la lista
-    const contenidoLista = document.createElement("p");
-    contenidoLista.textContent = mensajeError;
-    const li = document.createElement("li");
-    li.appendChild(contenidoLista);
+    plantilla += `<li><p>${mensajeError}</p></li>`
 
-    elementoLista.appendChild(li);
+    elementoLista.innerHTML += plantilla;
   }
 };
 

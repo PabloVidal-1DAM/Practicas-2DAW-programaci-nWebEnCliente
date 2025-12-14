@@ -1,3 +1,4 @@
+// Función universal para traer datos de una API.
 const traerDatos = (url) => {
   return fetch(url)
     .then((respuesta) => {
@@ -11,6 +12,7 @@ const traerDatos = (url) => {
     });
 };
 
+// Función para darle formato europeo a una fecha.
 const formatearFecha = (fecha) =>{
     return new Date(fecha).toLocaleDateString("es-ES");
 };

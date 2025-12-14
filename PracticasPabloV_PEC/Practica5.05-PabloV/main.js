@@ -13,6 +13,7 @@ window.onload = () => {
   const contenedorPrincipal = document.getElementById("app");
 
   const contenedorErrores = document.getElementById("errores");
+  contenedorErrores.classList.add("ocultar");
   const contenedorInfo = document.getElementById("informacion");
 
   //Se obtienen (si existen) los datos guardados en Local Storage con el identificador "infoDisco".

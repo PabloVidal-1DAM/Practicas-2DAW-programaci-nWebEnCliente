@@ -3,7 +3,7 @@ import Pelicula from "./Pelicula";
 
 const Peliculas = ({ peliculas, setPeliculas, setPeliculaSeleccionada }) => {
 
-
+// Componente que representa a los titulos de las peliculas que irán en el aside.
 
   return (
     <aside id="app">

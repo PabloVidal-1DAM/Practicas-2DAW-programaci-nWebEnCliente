@@ -5,12 +5,14 @@ import Peliculas from "./Peliculas.jsx";
 import Detalle from "./Detalle.jsx";
 
 const Interfaz = () => {
-  // En este componente traeré las peliculas 1 sola vez para pasarsela a los componentes
-  // "Peliculas", "Pelicula", "Residentes" y "Residente".
+  // En este componente se traen las peliculas 1 sola vez para pasarsela a los componentes
+  // que las necesiten.
 
   const [peliculas, setPeliculas] = useState([]);
   const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
 
+  // Función asincrona que se espera a que se traigan las peliculas de la API
+  // para usar el seter del estado y almacenarlas allí.
   const traerPeliculas = async () => {
     try {
       const peliculas = await traerDatos("https://swapi.info/api/films");
