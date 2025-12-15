@@ -1,8 +1,15 @@
 "use strict";
-import { traerDatos, traerInterpretes, insertarMensajeError, construirObjeto } from "./biblioteca.js";
+import {
+  traerDatos,
+  traerInterpretes,
+  insertarMensajeError,
+  construirJsonAPI,
+  validarFormulario,
+  construirJsonFormulario
+} from "./biblioteca.js";
 window.onload = () => {
   const contenedorErrores = document.getElementById("contenedorErrores");
-  const formulario = document.getElementById("formularioPersonaje");
+  const formulario = document.forms.formularioPersonaje;
 
   let objetoJSON = [];
 
@@ -11,18 +18,25 @@ window.onload = () => {
     (evento) => {
       if (evento.target.id === "btnEnviar") {
         evento.preventDefault();
-        console.log(objetoJSON)
+        // Si pasa la validación, se construye el objeto JSON nuevo con la info del formulario y se añade a la variable global "objetoJSON"
+        if (validarFormulario(formulario, contenedorErrores)) {
+          const objetoForm = construirJsonFormulario(formulario);
+          objetoJSON = [...objetoJSON, objetoForm];
+          console.log(objetoJSON);
+        }
       }
     },
     false
   );
 
-  const Interpretes = async() => {
-    try{
-        const datosInterpretes = await traerInterpretes();
-        objetoJSON = datosInterpretes.map((interprete) => construirObjeto(interprete));
-    }catch(error){
-        insertarMensajeError(contenedorErrores, error.message);
+  const Interpretes = async () => {
+    try {
+      const datosInterpretes = await traerInterpretes();
+      objetoJSON = datosInterpretes.map((interprete) =>
+        construirJsonAPI(interprete)
+      );
+    } catch (error) {
+      insertarMensajeError(contenedorErrores, error.message);
     }
   };
 
