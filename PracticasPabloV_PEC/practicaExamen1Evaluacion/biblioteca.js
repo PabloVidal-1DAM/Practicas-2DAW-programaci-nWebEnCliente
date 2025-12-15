@@ -51,6 +51,18 @@ const insertarMensajeError = (contenedor, mensaje) => {
   }
 };
 
+const insertarMensajeInfo = (posicion,mensaje) =>{
+          // Insertar un contenedor para información, detras del h1
+
+          const divInfo = document.createElement("div");
+          divInfo.classList.add("info");
+          divInfo.setAttribute("id", "contenedorInfo");
+          divInfo.innerHTML = `<h3>Hey</h3>
+                                <p>${mensaje}</p>`;
+
+          posicion[0].append(divInfo);
+}
+
 // Objeto JSON para cada pieza de información traída de la API.
 const construirJsonAPI = (dato) => {
   const objeto = {
@@ -102,5 +114,6 @@ export {
   insertarMensajeError,
   construirJsonAPI,
   validarFormulario,
-  construirJsonFormulario
+  construirJsonFormulario,
+  insertarMensajeInfo
 };

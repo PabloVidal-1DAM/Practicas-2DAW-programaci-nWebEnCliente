@@ -5,7 +5,8 @@ import {
   insertarMensajeError,
   construirJsonAPI,
   validarFormulario,
-  construirJsonFormulario
+  construirJsonFormulario,
+  insertarMensajeInfo
 } from "./biblioteca.js";
 window.onload = () => {
   const contenedorErrores = document.getElementById("contenedorErrores");
@@ -23,6 +24,12 @@ window.onload = () => {
           const objetoForm = construirJsonFormulario(formulario);
           objetoJSON = [...objetoJSON, objetoForm];
           console.log(objetoJSON);
+          contenedorErrores.classList.add("ocultar");
+
+          const h1 = document.getElementsByTagName("h1");
+          insertarMensajeInfo(h1, "Información introducida corectamente");
+
+          formulario.reset();
         }
       }
     },
