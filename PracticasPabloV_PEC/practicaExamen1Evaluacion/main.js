@@ -6,13 +6,18 @@ import {
   construirJsonAPI,
   validarFormulario,
   construirJsonFormulario,
-  insertarMensajeInfo
+  insertarMensajeInfo,
+  crearDivMostrarInfo,
 } from "./biblioteca.js";
 window.onload = () => {
   const contenedorErrores = document.getElementById("contenedorErrores");
   const formulario = document.forms.formularioPersonaje;
 
+  const h1 = document.getElementsByTagName("h1");
+
   let objetoJSON = [];
+
+  crearDivMostrarInfo();
 
   formulario.addEventListener(
     "click",
@@ -26,11 +31,14 @@ window.onload = () => {
           console.log(objetoJSON);
           contenedorErrores.classList.add("ocultar");
 
-          const h1 = document.getElementsByTagName("h1");
           insertarMensajeInfo(h1, "Información introducida corectamente");
 
           formulario.reset();
         }
+      }
+
+      if (evento.target.id === "mostrarInfo"){
+        // Aquí se mostrará la información de la variable global
       }
     },
     false

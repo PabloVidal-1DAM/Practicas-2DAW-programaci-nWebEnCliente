@@ -98,15 +98,83 @@ const construirJsonFormulario = (formulario) => {
 };
 
 const validarFormulario = (formulario, contenedorError) => {
-  try {
-    // Futura validación.
-    if (true) {
+    // Validación el formulario.
+    if (validarCamposTexto(formulario, contenedorError) &&
+        validarCamposNumericos(formulario, contenedorError) && 
+        validarFecha(formulario, contenedorError)&&
+        validarRadioBtn(formulario,contenedorError)) {
       return true;
     }
-  } catch (error) {
-    // mostrar mensaje de error que se pasarán desde las distintas funciones al validar el formulario con la función.
-  }
 };
+
+const validarCamposTexto = (formulario, contenedorError) =>{
+  const campo = formulario.name.value;
+  const campo2 = formulario.hair_color.value;
+  const campo3 = formulario.skin_color.value;
+  const campo4 = formulario.eye_color.value;
+  const expresion = /^.{5,}$/;
+
+  if(expresion.test(campo) && expresion.test(campo2) && expresion.test(campo3) && expresion.test(campo4)){
+    return true;
+  }else{
+    insertarMensajeError(contenedorError, "Los campos de texto deben tener al menos cinco caracteres y son obligatorios.");
+    return false;
+  }
+  
+}
+
+const validarCamposNumericos = (formulario, contenedorError) =>{
+ // Esta vez no voy a  acceder a los campos con document.forms, si no con querySelector para pacticar otras maneras.
+  const inputNumber = formulario.querySelectorAll('input[type="number"]'); // 1: Altura, 2:Peso
+
+  const altura= inputNumber[0].value;
+  const peso = inputNumber[1].value;
+  const expresion = /^\d+$/;
+
+  if(expresion.test(altura) && expresion.test(peso)){
+      return true;
+  }else{
+    insertarMensajeError(contenedorError, "Los campos numericos solo pueden ser números, y al menos 1.")
+    return false;
+  }
+}
+
+const validarFecha = (formulario, contenedorErrores) =>{
+  const inputFecha = formulario.querySelector('input[type="date"]');
+
+  if(inputFecha.value !== ""){
+    return true;
+  }else{
+    insertarMensajeError(contenedorErrores, "La fecha solo debe disponer de cuatro caracteres numéricos.");
+    return false;
+  }
+}
+
+const validarRadioBtn = (formulario, contenedorErrores) =>{
+  const inputRadio = formulario.querySelectorAll('.radio-item input[type="radio"]');
+  let marcado = false;
+  for (let i = 0; i< inputRadio.length; i++){
+    if(inputRadio[i].checked){
+        marcado = true;
+    }
+  }
+
+  if(marcado === true){
+    return true
+  }else{
+    insertarMensajeError(contenedorErrores, "Debe de haber al menos un radio button marcado.")
+    return false;
+  }
+
+
+}
+
+const crearDivMostrarInfo = () =>{
+  const divMostrar = document.createElement("div");
+  divMostrar.setAttribute("id", "mostrarInfo");
+
+  document.body.appendChild(divMostrar);
+}
 
 export {
   traerDatos,
@@ -115,5 +183,6 @@ export {
   construirJsonAPI,
   validarFormulario,
   construirJsonFormulario,
-  insertarMensajeInfo
+  insertarMensajeInfo,
+  crearDivMostrarInfo,
 };
