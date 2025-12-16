@@ -8,6 +8,9 @@ import {
   construirJsonFormulario,
   insertarMensajeInfo,
   crearDivMostrarInfo,
+  guardarDatosLocal,
+  recuperarDatosLocal,
+  crearbtnVerInfo,
 } from "./biblioteca.js";
 window.onload = () => {
   const contenedorErrores = document.getElementById("contenedorErrores");
@@ -17,7 +20,19 @@ window.onload = () => {
 
   let objetoJSON = [];
 
+  const datosLocales = recuperarDatosLocal();
+  if(datosLocales!== null){
+    objetoJSON = datosLocales;
+  }
+
+  console.log(objetoJSON);
+
   crearDivMostrarInfo();
+
+  const ultimobtnForm = document.querySelector("form").lastElementChild;
+  crearbtnVerInfo(ultimobtnForm);
+
+  const divMostrarInfo = document.body.lastElementChild;
 
   formulario.addEventListener(
     "click",
@@ -29,15 +44,24 @@ window.onload = () => {
           const objetoForm = construirJsonFormulario(formulario);
           objetoJSON = [...objetoJSON, objetoForm];
           console.log(objetoJSON);
-          contenedorErrores.classList.add("ocultar");
 
-          insertarMensajeInfo(h1, "Información introducida corectamente");
+          guardarDatosLocal(objetoJSON);
+          insertarMensajeInfo(
+            h1,
+            "Información guardada correctamente en LocalHost."
+          );
+
+          contenedorErrores.classList.add("ocultar");
 
           formulario.reset();
         }
       }
 
-      if (evento.target.id === "mostrarInfo"){
+      if(evento.target.id === "mostrarContenido"){
+        // Hacer print al objeto ObjetoJSON, además de añadir boton de borrado por cada objeto mostrado.
+      }
+
+      if (evento.target.id === "mostrarInfo") {
         // Aquí se mostrará la información de la variable global
       }
     },
@@ -46,10 +70,15 @@ window.onload = () => {
 
   const Interpretes = async () => {
     try {
-      const datosInterpretes = await traerInterpretes();
-      objetoJSON = datosInterpretes.map((interprete) =>
-        construirJsonAPI(interprete)
-      );
+      // Quiere decir que no tiene info pasada del LocalStorage
+      if (!objetoJSON.length) {
+        const datosInterpretes = await traerInterpretes();
+        objetoJSON = datosInterpretes.map((interprete) =>
+          construirJsonAPI(interprete)
+        );
+
+        guardarDatosLocal(objetoJSON);
+      }
     } catch (error) {
       insertarMensajeError(contenedorErrores, error.message);
     }

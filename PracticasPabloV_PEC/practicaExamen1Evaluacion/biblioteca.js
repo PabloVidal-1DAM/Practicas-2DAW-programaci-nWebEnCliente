@@ -170,10 +170,28 @@ const validarRadioBtn = (formulario, contenedorErrores) =>{
 }
 
 const crearDivMostrarInfo = () =>{
-  const divMostrar = document.createElement("div");
-  divMostrar.setAttribute("id", "mostrarInfo");
+  if (!document.getElementById("mostrarInfo")){
+    const divMostrar = document.createElement("div");
+    divMostrar.setAttribute("id", "mostrarInfo");
+    document.body.appendChild(divMostrar);
+  }
+}
 
-  document.body.appendChild(divMostrar);
+const crearbtnVerInfo = (elemento) =>{
+  const btnMostrar = document.createElement("button");
+  btnMostrar.textContent = "Mostrar";
+  btnMostrar.setAttribute("id", "mostrarContenido");
+  elemento.insertAdjacentElement("afterend", btnMostrar);
+}
+
+const guardarDatosLocal = (datos) =>{
+  const info = JSON.stringify(datos);
+  localStorage.setItem("datos", info);
+}
+
+const recuperarDatosLocal = () =>{
+  const datos = localStorage.getItem("datos");
+  return JSON.parse(datos);
 }
 
 export {
@@ -185,4 +203,7 @@ export {
   construirJsonFormulario,
   insertarMensajeInfo,
   crearDivMostrarInfo,
+  guardarDatosLocal,
+  recuperarDatosLocal,
+  crearbtnVerInfo
 };
