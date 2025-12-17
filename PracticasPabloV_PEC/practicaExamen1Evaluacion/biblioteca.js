@@ -23,14 +23,6 @@ const traerDatos = async (url) => {
   }
 };
 
-const traerInterpretes = async () => {
-  // La primera vez solo devuelve mas endpoints a los que consultar.
-  const endpoints = await traerDatos("https://swapi.py4e.com/api/");
-
-  // Por lo que es necesario volver a llamarla con el endpoint que se quiere consultar, en este caso el de personas.
-  const datos = await traerDatos(endpoints.people);
-  return datos;
-};
 
 const insertarMensajeError = (contenedor, mensaje) => {
   contenedor.classList.remove("ocultar");
@@ -51,17 +43,22 @@ const insertarMensajeError = (contenedor, mensaje) => {
   }
 };
 
-const insertarMensajeInfo = (posicion,mensaje) =>{
-          // Insertar un contenedor para información, detras del h1
-
-          const divInfo = document.createElement("div");
-          divInfo.classList.add("info");
-          divInfo.setAttribute("id", "contenedorInfo");
-          divInfo.innerHTML = `<h3>Hey</h3>
+const insertarMensajeInfo = (posicion, mensaje) => {
+  // Insertar un contenedor para información, detras del h1
+  const elementoDiv = document.querySelector(".info");
+  if (!elementoDiv) {
+    const divInfo = document.createElement("div");
+    divInfo.classList.add("info");
+    divInfo.setAttribute("id", "contenedorInfo");
+    divInfo.innerHTML = `<h3>Hey</h3>
                                 <p>${mensaje}</p>`;
 
-          posicion[0].append(divInfo);
-}
+    posicion.append(divInfo);
+  }else{
+    elementoDiv.innerHTML = `<h3>Hey</h3>
+                                <p>${mensaje}</p>`;
+  }
+};
 
 // Objeto JSON para cada pieza de información traída de la API.
 const construirJsonAPI = (dato) => {
@@ -98,105 +95,157 @@ const construirJsonFormulario = (formulario) => {
 };
 
 const validarFormulario = (formulario, contenedorError) => {
-    // Validación el formulario.
-    if (validarCamposTexto(formulario, contenedorError) &&
-        validarCamposNumericos(formulario, contenedorError) && 
-        validarFecha(formulario, contenedorError)&&
-        validarRadioBtn(formulario,contenedorError)) {
-      return true;
-    }
+  // Validación el formulario.
+  if (
+    validarCamposTexto(formulario, contenedorError) &&
+    validarCamposNumericos(formulario, contenedorError) &&
+    validarFecha(formulario, contenedorError) &&
+    validarRadioBtn(formulario, contenedorError)
+  ) {
+    return true;
+  }
 };
 
-const validarCamposTexto = (formulario, contenedorError) =>{
+const validarCamposTexto = (formulario, contenedorError) => {
   const campo = formulario.name.value;
   const campo2 = formulario.hair_color.value;
   const campo3 = formulario.skin_color.value;
   const campo4 = formulario.eye_color.value;
   const expresion = /^.{5,}$/;
 
-  if(expresion.test(campo) && expresion.test(campo2) && expresion.test(campo3) && expresion.test(campo4)){
+  if (
+    expresion.test(campo) &&
+    expresion.test(campo2) &&
+    expresion.test(campo3) &&
+    expresion.test(campo4)
+  ) {
     return true;
-  }else{
-    insertarMensajeError(contenedorError, "Los campos de texto deben tener al menos cinco caracteres y son obligatorios.");
+  } else {
+    insertarMensajeError(
+      contenedorError,
+      "Los campos de texto deben tener al menos cinco caracteres y son obligatorios."
+    );
     return false;
   }
-  
-}
+};
 
-const validarCamposNumericos = (formulario, contenedorError) =>{
- // Esta vez no voy a  acceder a los campos con document.forms, si no con querySelector para pacticar otras maneras.
+const validarCamposNumericos = (formulario, contenedorError) => {
+  // Esta vez no voy a  acceder a los campos con document.forms, si no con querySelector para pacticar otras maneras.
   const inputNumber = formulario.querySelectorAll('input[type="number"]'); // 1: Altura, 2:Peso
 
-  const altura= inputNumber[0].value;
+  const altura = inputNumber[0].value;
   const peso = inputNumber[1].value;
   const expresion = /^\d+$/;
 
-  if(expresion.test(altura) && expresion.test(peso)){
-      return true;
-  }else{
-    insertarMensajeError(contenedorError, "Los campos numericos solo pueden ser números, y al menos 1.")
+  if (expresion.test(altura) && expresion.test(peso)) {
+    return true;
+  } else {
+    insertarMensajeError(
+      contenedorError,
+      "Los campos numericos solo pueden ser números, y al menos 1."
+    );
     return false;
   }
-}
+};
 
-const validarFecha = (formulario, contenedorErrores) =>{
+const validarFecha = (formulario, contenedorErrores) => {
   const inputFecha = formulario.querySelector('input[type="date"]');
 
-  if(inputFecha.value !== ""){
+  if (inputFecha.value !== "") {
     return true;
-  }else{
-    insertarMensajeError(contenedorErrores, "La fecha solo debe disponer de cuatro caracteres numéricos.");
+  } else {
+    insertarMensajeError(
+      contenedorErrores,
+      "La fecha solo debe disponer de cuatro caracteres numéricos."
+    );
     return false;
   }
-}
+};
 
-const validarRadioBtn = (formulario, contenedorErrores) =>{
-  const inputRadio = formulario.querySelectorAll('.radio-item input[type="radio"]');
+const validarRadioBtn = (formulario, contenedorErrores) => {
+  const inputRadio = formulario.querySelectorAll(
+    '.radio-item input[type="radio"]'
+  );
   let marcado = false;
-  for (let i = 0; i< inputRadio.length; i++){
-    if(inputRadio[i].checked){
-        marcado = true;
+  for (let i = 0; i < inputRadio.length; i++) {
+    if (inputRadio[i].checked) {
+      marcado = true;
     }
   }
 
-  if(marcado === true){
-    return true
-  }else{
-    insertarMensajeError(contenedorErrores, "Debe de haber al menos un radio button marcado.")
+  if (marcado === true) {
+    return true;
+  } else {
+    insertarMensajeError(
+      contenedorErrores,
+      "Debe de haber al menos un radio button marcado."
+    );
     return false;
   }
+};
 
-
-}
-
-const crearDivMostrarInfo = () =>{
-  if (!document.getElementById("mostrarInfo")){
+const crearDivMostrarInfo = () => {
+  if (!document.getElementById("mostrarInfo")) {
     const divMostrar = document.createElement("div");
     divMostrar.setAttribute("id", "mostrarInfo");
     document.body.appendChild(divMostrar);
   }
-}
+};
 
-const crearbtnVerInfo = (elemento) =>{
+const crearbtnVerInfo = (elemento) => {
   const btnMostrar = document.createElement("button");
   btnMostrar.textContent = "Mostrar";
   btnMostrar.setAttribute("id", "mostrarContenido");
   elemento.insertAdjacentElement("afterend", btnMostrar);
-}
+};
 
-const guardarDatosLocal = (datos) =>{
+const guardarDatosLocal = (datos) => {
   const info = JSON.stringify(datos);
   localStorage.setItem("datos", info);
-}
+};
 
-const recuperarDatosLocal = () =>{
+const recuperarDatosLocal = () => {
   const datos = localStorage.getItem("datos");
   return JSON.parse(datos);
-}
+};
+
+const printObjetoJSON = (objeto, contenedor) => {
+  contenedor.innerHTML = "";
+  let plantilla = "<h3>Información guardada: </h3>";
+  contenedor.innerHTML = plantilla;
+  objeto.forEach((interprete) => {
+    const div = document.createElement("div");
+    div.setAttribute("id", interprete.id);
+    plantilla = `   <p><strong>Nombre: </strong>${interprete.nombre}</p>
+                    <p><strong>Altura: </strong>${interprete.height}</p>
+                    <p><strong>Peso: </strong>${interprete.mass}</p>
+                    <p><strong>Color de Pelo: </strong>${interprete.hair_color}</p>
+                    <p><strong>Color de Piel: </strong>${interprete.skin_color}</p>
+                    <p><strong>Año de Nacimiento: </strong>${interprete.birth_year}</p>
+                    <p><strong>Genero: </strong>${interprete.gender}</p>`;
+    div.innerHTML = plantilla;
+    // Por cada div creado, se le crea un boton para borrar.
+    crearBtnBorrado(div);
+    contenedor.appendChild(div);
+  });
+};
+
+const crearBtnBorrado = (elemento) => {
+  const btnBorrar = document.createElement("button");
+  btnBorrar.textContent = "Borrar";
+  btnBorrar.setAttribute("id", "BorrarInterprete");
+  elemento.appendChild(btnBorrar);
+};
+
+const borrarInterprete = (id, objetoJSON) => {
+  const objetoNuevo = objetoJSON.filter((interprete) => {
+    return interprete.id !== id;
+  });
+  return objetoNuevo;
+};
 
 export {
   traerDatos,
-  traerInterpretes,
   insertarMensajeError,
   construirJsonAPI,
   validarFormulario,
@@ -205,5 +254,7 @@ export {
   crearDivMostrarInfo,
   guardarDatosLocal,
   recuperarDatosLocal,
-  crearbtnVerInfo
+  crearbtnVerInfo,
+  printObjetoJSON,
+  borrarInterprete,
 };
