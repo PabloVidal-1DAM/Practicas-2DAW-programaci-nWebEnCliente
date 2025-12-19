@@ -23,6 +23,20 @@ const traerDatos = async (url) => {
   }
 };
 
+const traerTitulosPelis = async(arrayEndpoints) =>{
+  const titulosPelis = arrayEndpoints.map((endpoint) =>{
+    return traerDatos(endpoint);
+  })
+
+  const datos = await Promise.allSettled(titulosPelis);
+
+  const resultado = datos.map((dato) =>{
+    return dato.value.title;
+  })
+
+  return resultado;
+}
+
 
 const insertarMensajeError = (contenedor, mensaje) => {
   contenedor.classList.remove("ocultar");
@@ -61,7 +75,10 @@ const insertarMensajeInfo = (posicion, mensaje) => {
 };
 
 // Objeto JSON para cada pieza de información traída de la API.
-const construirJsonAPI = (dato) => {
+const construirJsonAPI = async (dato) => {
+
+  const tituloPeli = await traerTitulosPelis(dato.films)
+
   const objeto = {
     id: crypto.randomUUID(),
     nombre: dato.name,
@@ -72,7 +89,7 @@ const construirJsonAPI = (dato) => {
     eye_color: dato.eye_color,
     birth_year: dato.birth_year,
     gender: dato.gender,
-    films: dato.films,
+    films: tituloPeli,
   };
   return objeto;
 };
@@ -222,7 +239,9 @@ const printObjetoJSON = (objeto, contenedor) => {
                     <p><strong>Color de Pelo: </strong>${interprete.hair_color}</p>
                     <p><strong>Color de Piel: </strong>${interprete.skin_color}</p>
                     <p><strong>Año de Nacimiento: </strong>${interprete.birth_year}</p>
-                    <p><strong>Genero: </strong>${interprete.gender}</p>`;
+                    <p><strong>Genero: </strong>${interprete.gender}</p>
+                    <p><strong>Peliculas: </strong>${interprete.films}</p>`;
+                    
     div.innerHTML = plantilla;
     // Por cada div creado, se le crea un boton para borrar.
     crearBtnBorrado(div);

@@ -33,7 +33,7 @@ window.onload = () => {
 
         // Por lo que es necesario volver a llamarla con el endpoint que se quiere consultar, en este caso el de personas.
         const datos = await traerDatos(endpoints.people);
-        objetoJSON = datos.map((interprete) => construirJsonAPI(interprete));
+        objetoJSON = datos.map(async(interprete) => await construirJsonAPI(interprete));
 
         guardarDatosLocal(objetoJSON);
       }
