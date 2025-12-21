@@ -16,7 +16,7 @@ const Detalle = () => {
         const resultados = await Promise.allSettled(promesas);
         setInterpretes(resultados);
       };
-
+      
       traerInterpretes();
     }
   }, [peliculaSeleccionada]);
