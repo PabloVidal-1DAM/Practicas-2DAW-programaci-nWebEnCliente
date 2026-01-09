@@ -9,9 +9,6 @@ import Pie from "../../practica-react/src/components/Ej4_07/Estructura/Pie";
 import Rutas from "./componentes/Rutas";
 import Menu from "./componentes/Menu";
 
-// NOTA: Antes de empezar, la lógica de React y formularios me sigue chocando, puede que encuentres cosas que no tengan demasiado sentido 
-// y se pueda simplificar mucho más, no tengo problema en escuchar feedback para incluso rehacer esta práctica de 0, ya que no quiero flojear en React.
-
 function App() {
 
   // En App estan los estados que van a compartir los componentes.
