@@ -1,0 +1,54 @@
+{
+  "discos": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "nombre": "Master of Puppets",
+      "caratula": "https://m.media-amazon.com/images/I/719hE3T-JSL._SL1200_.jpg",
+      "grupo": "Metallica",
+      "fechaPublicacion": "1903",
+      "genero": "Thrash Metal",
+      "codigo": "ES-002NN",
+      "prestado": false
+    },
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "nombre": "Future Nostalgia",
+      "caratula": "https://m.media-amazon.com/images/I/81I-uU69P-L._SL1500_.jpg",
+      "grupo": "Dua Lipa",
+      "fechaPublicacion": "0327",
+      "genero": "Dance-Pop",
+      "codigo": "ES-003NE",
+      "prestado": true
+    },
+    {
+      "id": "789b12d3-a456-4266-1417-4000123e4567",
+      "nombre": "Un día en el mundo",
+      "caratula": "https://m.media-amazon.com/images/I/51pI-C01t0L.jpg",
+      "grupo": "Vetusta Morla",
+      "fechaPublicacion": "0211",
+      "genero": "Indie Rock",
+      "codigo": "ES-003UI",
+      "prestado": false
+    },
+    {
+      "id": "a456-4266-1417-4000-123e4567-789b12d3",
+      "nombre": "Kind of Blue",
+      "caratula": "https://upload.wikimedia.org/wikipedia/en/9/9c/MilesDavisKindofBlue.jpg",
+      "grupo": "Miles Davis",
+      "fechaPublicacion": "0817",
+      "genero": "Jazz",
+      "codigo": "ES-004LO",
+      "prestado": false
+    },
+    {
+      "id": "1417-4000-123e4567-789b12d3-a456-4266",
+      "nombre": "Discovery",
+      "caratula": "https://m.media-amazon.com/images/I/71u9S+YgP1L._SL1425_.jpg",
+      "grupo": "Daft Punk",
+      "fechaPublicacion": "0312",
+      "genero": "French House",
+      "codigo": "ES-005OS",
+      "prestado": true
+    }
+  ]
+}

@@ -8,9 +8,9 @@ import Contenido from "../../practica-react/src/components/Ej4_07/Estructura/Con
 import Pie from "../../practica-react/src/components/Ej4_07/Estructura/Pie";
 import Rutas from "./componentes/Rutas";
 import Menu from "./componentes/Menu";
+import Proveedor from "./componentes/Proveedor";
 
 function App() {
-
   // En App estan los estados que van a compartir los componentes.
   // lo he pensado así ya que existen componentes como "Disco" que estan en Rutas.jsx y necesita la lista.
   const [listaDiscos, setListaDiscos] = useState(() => {
@@ -32,18 +32,10 @@ function App() {
       <Contenedor>
         <Cabecera />
         <Menu />
-
         <Contenido>
-          <Rutas
-            listaDiscos={listaDiscos}
-            setListaDiscos={setListaDiscos}
-
-            discosFiltrados={discosFiltrados}
-            setDiscosFiltrados={setDiscosFiltrados}
-            
-            discoBorrado={discoBorrado}
-            setDiscoBorrado={setDiscoBorrado}
-          />
+          <Proveedor>
+            <Rutas />
+          </Proveedor>
         </Contenido>
 
         <Pie />

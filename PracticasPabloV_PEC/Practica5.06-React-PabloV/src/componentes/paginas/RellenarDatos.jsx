@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
+import {contextoDiscos} from "../../componentes/Proveedor.jsx";
 import "./RellenarDatos.css";
 
 // Elementos del prop de estados externos que gastará
 // que son: La lista normal, la lista Filtrada y la lista con el elemento Borrado
-const RellenarDatos = ({
-  listaDiscos,
-  setListaDiscos,
-  discosFiltrados,
-  setDiscosFiltrados,
-  discoBorrado,
-  setDiscoBorrado,
-}) => {
+const RellenarDatos = () => {
+  const {
+    listaDiscos,
+    setListaDiscos,
+    discosFiltrados,
+    setDiscosFiltrados,
+    discoBorrado,
+    setDiscoBorrado,
+  } = useContext(contextoDiscos);
+
   const navegar = useNavigate();
+  const formulario = document.forms.formularioDiscos;
 
   const valoresIniciales = {
     nombre: "",
@@ -33,7 +37,6 @@ const RellenarDatos = ({
   const [error, setError] = useState(erroresIniciales);
 
   const [prestado, setPrestado] = useState(false);
-
 
   // Se usa la desestructuración del target para ahorrar fatiga mental y entender mejor.
   // Se añade al estado "disco", la clave y el valor decada campo.
@@ -85,8 +88,6 @@ const RellenarDatos = ({
   };
 
   const validarFormulario = (evento) => {
-
-    const formulario = document.forms.formularioDiscos;
     let erroresListado = [];
 
     // En este aray se indican aquellos campos que sob obligatorios en el formnulario.
@@ -121,7 +122,7 @@ const RellenarDatos = ({
 
     // Si no se selecciona ningún genero, nuevo error, debe de haber 1 seleccionado.
     if (!genero) {
-      erroresListado = [...erroresListado, "Debes seleccionar un género." ];
+      erroresListado = [...erroresListado, "Debes seleccionar un género."];
     }
 
     setError(erroresListado);
@@ -129,7 +130,7 @@ const RellenarDatos = ({
     return erroresListado.length === 0;
   };
 
-  // Para poder filtrar, se pasa el formulario para acceder al input text que contiene el valor a filtrar y 
+  // Para poder filtrar, se pasa el formulario para acceder al input text que contiene el valor a filtrar y
   // el estado "listadoDiscos" que contiene todos los discos guardados en ese momento.
   const filtrarDisco = (formulario, listadoDiscos) => {
     let errores = [];
@@ -332,6 +333,8 @@ const RellenarDatos = ({
               // Si "validarFormulario" no devuelve errores, pasa la validación y se guarda en el estado "listaDiscos".
               if (validarFormulario(evento)) {
                 setListaDiscos([...listaDiscos, disco]);
+                setDisco(valoresIniciales);
+                setError([]);
               }
             }}
           />

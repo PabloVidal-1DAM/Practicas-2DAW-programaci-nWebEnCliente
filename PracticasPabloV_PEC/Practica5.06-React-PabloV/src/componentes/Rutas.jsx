@@ -4,25 +4,22 @@ import RellenarDatos from "../componentes/paginas/RellenarDatos.jsx";
 import MostrarDatos from "../componentes/paginas/MostrarDatos.jsx";
 import Inicio from './paginas/Inicio.jsx';
 
-// Se pasa como props los estados que compartirá más de un elemento de las rutas para funcionar correctamente.
-const Rutas = ({ listaDiscos, setListaDiscos, discosFiltrados, setDiscosFiltrados, discoBorrado, setDiscoBorrado }) => {
+const Rutas = () => {
   return (
     <Routes>
       <Route path='/' element={<Inicio />} />
       <Route 
         path='/rellenar' 
-        element={<RellenarDatos setListaDiscos={setListaDiscos} listaDiscos={listaDiscos} 
-        discosFiltrados={discosFiltrados} setDiscosFiltrados={setDiscosFiltrados}
-        discoBorrado={discoBorrado} setDiscoBorrado={setDiscoBorrado} />} 
+        element={<RellenarDatos />} 
       />
       {/*Para mostrar y filtrar se comparte el mismo componente para mostrar la información pero distinta fuente de datos*/}
       <Route 
         path='/mostrar' 
-        element={<MostrarDatos listaDiscos={listaDiscos} setListaDiscos={setListaDiscos} />} 
+        element={<MostrarDatos />} 
       />
       <Route
         path='/filtrado'
-        element={<MostrarDatos listaDiscos={discosFiltrados} /> } 
+        element={<MostrarDatos /> } 
       />
     </Routes>
   );

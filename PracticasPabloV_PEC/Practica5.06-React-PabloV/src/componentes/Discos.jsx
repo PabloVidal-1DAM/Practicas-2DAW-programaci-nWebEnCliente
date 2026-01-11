@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import "./Discos.css";
 import Disco from "./Disco";
+import {contextoDiscos} from "../componentes/Proveedor.jsx";
 
 // Componente que representa a cada disco dentro del estado "listaDiscos", que se pasan como props.
-const Discos = ({ listaDiscos, setListaDiscos }) => {
+const Discos = () => {
+  const {listaDiscos, setListaDiscos} = useContext(contextoDiscos);
   const referenciaDiv = useRef(null);
 
   // Se toma el indice cuando se recorren los discos para usarlo en un .filter
@@ -21,25 +23,26 @@ const Discos = ({ listaDiscos, setListaDiscos }) => {
   // Los mensajes de alerta se acumulan, como solucionarlo?
   useEffect(() => {
     const div = referenciaDiv.current;
-    div.addEventListener(
-      "click",
-      (evento) => {
-        if (evento.target.tagName === "BUTTON") {
-          const id = parseInt(evento.target.id);
-          borrarDisco(id);
-        }
-      },
-      false
-    );
+
+    const manejarClick = (evento) => {
+      if (evento.target.tagName === "BUTTON") {
+        const id = parseInt(evento.target.id);
+        borrarDisco(id);
+      }
+    };
+    
+    div.addEventListener("click", manejarClick, false);
+
+    return () => {
+      div.removeEventListener("click", manejarClick);
+    };
   }, [listaDiscos]);
 
   return (
     <div ref={referenciaDiv}>
       <ul>
         {listaDiscos.map((disco, i) => {
-          return (
-            <Disco key={i} disco={disco} i={i} />
-          );
+          return <Disco key={i} disco={disco} i={i} />;
         })}
       </ul>
     </div>
