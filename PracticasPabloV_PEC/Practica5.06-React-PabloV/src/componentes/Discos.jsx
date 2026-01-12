@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useRef } from "react";
 import "./Discos.css";
 import Disco from "./Disco";
-import {contextoDiscos} from "../componentes/Proveedor.jsx";
+import Cargando from "./Cargando.jsx";
+import { contextoDiscos } from "../componentes/Proveedor.jsx";
 
 // Componente que representa a cada disco dentro del estado "listaDiscos", que se pasan como props.
 const Discos = () => {
-  const {listaDiscos, setListaDiscos} = useContext(contextoDiscos);
+  const { listaDiscos, setListaDiscos, cargando } = useContext(contextoDiscos);
   const referenciaDiv = useRef(null);
 
   // Se toma el indice cuando se recorren los discos para usarlo en un .filter
@@ -24,28 +25,36 @@ const Discos = () => {
   useEffect(() => {
     const div = referenciaDiv.current;
 
-    const manejarClick = (evento) => {
-      if (evento.target.tagName === "BUTTON") {
-        const id = parseInt(evento.target.id);
-        borrarDisco(id);
-      }
-    };
-    
-    div.addEventListener("click", manejarClick, false);
+    if (div) {
+      // solo se añade el evento si existe en el DOM, ya que al estar el componente "Cargando.jsx", este no está ahí y dan errores.
+      const manejarClick = (evento) => {
+        if (evento.target.tagName === "BUTTON") {
+          const id = parseInt(evento.target.id);
+          borrarDisco(id);
+        }
+      };
+      div.addEventListener("click", manejarClick, false);
 
-    return () => {
-      div.removeEventListener("click", manejarClick);
-    };
+      return () => {
+        div.removeEventListener("click", manejarClick);
+      };
+    }
   }, [listaDiscos]);
 
   return (
-    <div ref={referenciaDiv}>
-      <ul>
-        {listaDiscos.map((disco, i) => {
-          return <Disco key={i} disco={disco} i={i} />;
-        })}
-      </ul>
-    </div>
+    <>
+      {cargando ? (
+        <Cargando />
+      ) : (
+        <div ref={referenciaDiv}>
+          <ul>
+            {listaDiscos.map((disco, i) => {
+              return <Disco key={i} disco={disco} i={i} />;
+            })}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 
