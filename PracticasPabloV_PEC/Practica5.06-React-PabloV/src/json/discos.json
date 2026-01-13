@@ -49,6 +49,26 @@
       "genero": "French House",
       "codigo": "ES-005OS",
       "prestado": true
+    },
+    {
+      "id": "b159",
+      "nombre": "Ultratumbas",
+      "caratula": "url2",
+      "grupo": "Pablojojoj",
+      "fechaPublicacion": "0989",
+      "genero": "electronica",
+      "codigo": "ES-001AA",
+      "prestado": ""
+    },
+    {
+      "id": "863b",
+      "nombre": "tetracier",
+      "caratula": "url",
+      "grupo": "rosalia",
+      "fechaPublicacion": "0989",
+      "genero": "pop",
+      "codigo": "ES-002NN",
+      "prestado": true
     }
   ]
 }

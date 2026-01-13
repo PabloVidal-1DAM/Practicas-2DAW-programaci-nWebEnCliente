@@ -15,6 +15,8 @@ const RellenarDatos = () => {
     setDiscosFiltrados,
     discoBorrado,
     setDiscoBorrado,
+    guardarDatos,
+    URL
   } = useContext(contextoDiscos);
 
   const navegar = useNavigate();
@@ -332,11 +334,7 @@ const RellenarDatos = () => {
             onClick={(evento) => {
               // Si "validarFormulario" no devuelve errores, pasa la validación y se guarda en el estado "listaDiscos".
               if (validarFormulario(evento)) {
-                setListaDiscos([...listaDiscos, disco]);
-                // Se le envia la lista de discos con POST a la API para guardarlas definitivamente.
-                
-
-
+                guardarDatos(URL, disco)
                 setDisco(valoresIniciales);
                 setError([]);
               }
