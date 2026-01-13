@@ -1,14 +1,21 @@
 import React, { useState, createContext, useEffect } from "react";
-import useDiscos from "../hooks/useDiscos.js";
+import useAPI from "../hooks/useAPI.js";
 
 const contextoDiscos = createContext();
 
 const Proveedor = ({ children }) => {
-  const [listaDiscos, setListaDiscos] = useState([]); 
+  const [listaDiscos, setListaDiscos] = useState([]);
   const [discosFiltrados, setDiscosFiltrados] = useState([]);
   const [discoBorrado, setDiscoBorrado] = useState([]);
 
-  const {obtenerDatos, cargando, guardarDatos, editarPUT, editarPATCH, borrar} = useDiscos();
+  const {
+    obtenerDatos,
+    cargando,
+    guardarDatos,
+    editarPUT,
+    editarPATCH,
+    borrar,
+  } = useAPI();
 
   const URL = "http://localhost:5000/discos";
 
@@ -23,11 +30,18 @@ const Proveedor = ({ children }) => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     obtenerDiscos();
-  }, [])
+  }, []);
 
-
+  const guardarDisco = async (body) => {
+    try {
+      const datos = await guardarDatos(URL, body);
+      obtenerDiscos();
+    } catch (error) {
+      throw error;
+    }
+  };
 
   const datos = {
     listaDiscos,
@@ -36,13 +50,12 @@ const Proveedor = ({ children }) => {
     setDiscosFiltrados,
     discoBorrado,
     setDiscoBorrado,
+    
     cargando,
-    guardarDatos,
+    guardarDisco,
     editarPUT,
     editarPATCH,
     borrar,
-    URL
-    
   };
   return (
     <>

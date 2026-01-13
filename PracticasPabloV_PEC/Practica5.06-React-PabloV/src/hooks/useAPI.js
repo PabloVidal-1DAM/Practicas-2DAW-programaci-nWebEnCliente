@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const useDiscos = () => {
+const useAPI = () => {
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
 
@@ -37,7 +37,7 @@ const useDiscos = () => {
   };
 
   const guardarDatos = (url, body) => {
-    llamada(url, { method: "POST", body: JSON.stringify(body), });
+    return llamada(url, { method: "POST", body: JSON.stringify(body), });
   };
 
   const editarPUT = (url, body) => {
@@ -62,4 +62,4 @@ const useDiscos = () => {
   };
 };
 
-export default useDiscos;
+export default useAPI;

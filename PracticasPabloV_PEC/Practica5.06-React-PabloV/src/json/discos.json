@@ -69,6 +69,16 @@
       "genero": "pop",
       "codigo": "ES-002NN",
       "prestado": true
+    },
+    {
+      "id": "bb94",
+      "nombre": "Entombed",
+      "caratula": "https://ejemplo.com",
+      "grupo": "Creed",
+      "fechaPublicacion": "1254",
+      "genero": "contemporaneo",
+      "codigo": "ES-002VV",
+      "prestado": ""
     }
   ]
 }
