@@ -22,7 +22,7 @@ const useAPI = () => {
       }
       const datos = await respuesta.json();
 
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Promesa que se resuelve en 5 seg aposta para probar el componente "cargando.jsx".
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // Promesa que se resuelve en 3 seg aposta para probar el componente "cargando.jsx".
 
       return datos;
     } catch (error) {
