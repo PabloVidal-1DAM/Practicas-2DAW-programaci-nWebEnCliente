@@ -6,7 +6,7 @@ import { contextoDiscos } from "../componentes/Proveedor.jsx";
 
 // Componente que representa a cada disco dentro del estado "listaDiscos", que se pasan como props.
 const Discos = () => {
-  const { listaDiscos, setListaDiscos, cargando} = useContext(contextoDiscos);
+  const { listaDiscos, setListaDiscos, cargando, eliminarDisco} = useContext(contextoDiscos);
   const referenciaDiv = useRef(null);
 
   // Se toma el indice cuando se recorren los discos para usarlo en un .filter
@@ -30,7 +30,7 @@ const Discos = () => {
       const manejarClick = (evento) => {
         if (evento.target.tagName === "BUTTON") {
           const id = parseInt(evento.target.id);
-          borrarDisco(id);
+          eliminarDisco(id);
         }
       };
       div.addEventListener("click", manejarClick, false);

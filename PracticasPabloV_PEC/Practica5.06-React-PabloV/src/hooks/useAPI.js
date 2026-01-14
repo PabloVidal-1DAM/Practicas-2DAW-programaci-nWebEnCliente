@@ -41,7 +41,7 @@ const useAPI = () => {
   };
 
   const editarPUT = (url, body) => {
-    llamada(url, { method: "PUT", body: JSON.stringify(body), });
+    return llamada(url, { method: "PUT", body: JSON.stringify(body), });
   };
 
   const editarPATCH = (url, body) => {
@@ -49,7 +49,7 @@ const useAPI = () => {
   };
 
   const borrar = (url) =>{
-    llamada(url, {method: "DELETE", });
+    return llamada(url, {method: "DELETE", });
   }
   
   return {

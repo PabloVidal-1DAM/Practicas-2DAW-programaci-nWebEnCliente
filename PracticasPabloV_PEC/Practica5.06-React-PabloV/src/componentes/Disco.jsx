@@ -40,7 +40,7 @@ const Disco = ({disco, i}) => {
                 </p>
               </li>
 
-              <button id={i}>Borrar disco</button>
+              <button id={disco}>Borrar disco</button>
             </div>
   )
 }

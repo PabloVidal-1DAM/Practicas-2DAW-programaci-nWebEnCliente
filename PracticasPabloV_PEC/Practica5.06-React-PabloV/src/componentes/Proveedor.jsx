@@ -37,7 +37,17 @@ const Proveedor = ({ children }) => {
   const guardarDisco = async (body) => {
     try {
       const datos = await guardarDatos(URL, body);
-      obtenerDiscos();
+      await obtenerDiscos();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const eliminarDisco = async (id) => {
+    try {
+      const url = `${URL}/${id}`;
+      const datos = await borrar(url);
+      await obtenerDiscos();
     } catch (error) {
       throw error;
     }
@@ -50,12 +60,12 @@ const Proveedor = ({ children }) => {
     setDiscosFiltrados,
     discoBorrado,
     setDiscoBorrado,
-    
+
     cargando,
     guardarDisco,
     editarPUT,
     editarPATCH,
-    borrar,
+    eliminarDisco,
   };
   return (
     <>

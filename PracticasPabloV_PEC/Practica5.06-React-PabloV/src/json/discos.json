@@ -79,6 +79,16 @@
       "genero": "contemporaneo",
       "codigo": "ES-002VV",
       "prestado": ""
+    },
+    {
+      "id": "e1ac",
+      "nombre": "tetracier",
+      "caratula": "url",
+      "grupo": "Pablo",
+      "fechaPublicacion": "8789",
+      "genero": "pop",
+      "codigo": "ES-001AA",
+      "prestado": true
     }
   ]
 }
