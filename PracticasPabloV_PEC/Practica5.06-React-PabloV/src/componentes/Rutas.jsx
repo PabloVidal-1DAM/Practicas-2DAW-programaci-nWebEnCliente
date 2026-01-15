@@ -21,6 +21,8 @@ const Rutas = () => {
         path='/filtrado'
         element={<MostrarDatos /> } 
       />
+
+      <Route path='discos/:id' element={<RellenarDatos />} />
     </Routes>
   );
 };

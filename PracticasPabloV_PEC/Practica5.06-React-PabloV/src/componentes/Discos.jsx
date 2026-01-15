@@ -9,18 +9,6 @@ const Discos = () => {
   const { listaDiscos, setListaDiscos, cargando, eliminarDisco} = useContext(contextoDiscos);
   const referenciaDiv = useRef(null);
 
-  // Se toma el indice cuando se recorren los discos para usarlo en un .filter
-  // y borrar el que el usuario seleccione al pulsar su boton.
-  const borrarDisco = (indice) => {
-    if (confirm("¿Quieres borrar el dato seleccionado?")) {
-      const nuevaLista = listaDiscos.filter((valor, i) => {
-        return i !== indice;
-      });
-      // Se actualiza el estado con los cambios y se vuelve a dibujar.
-      setListaDiscos(nuevaLista);
-    }
-  };
-
   // Los mensajes de alerta se acumulan, como solucionarlo?
   useEffect(() => {
     const div = referenciaDiv.current;
@@ -28,9 +16,16 @@ const Discos = () => {
     if (div) {
       // solo se añade el evento si existe en el DOM, ya que al estar el componente "Cargando.jsx", este no está ahí y dan errores.
       const manejarClick = (evento) => {
-        if (evento.target.tagName === "BUTTON") {
-          const id = parseInt(evento.target.id);
-          eliminarDisco(id);
+        if (evento.target.textContent === "Borrar disco") {
+          const id = evento.target.id;
+
+          if (confirm("¿Seguro que quieres eliminar este disco?")) {
+            eliminarDisco(id);
+          }
+        }
+
+        if (evento.target.textContent === "Modificar Disco"){
+          
         }
       };
       div.addEventListener("click", manejarClick, false);
@@ -39,7 +34,7 @@ const Discos = () => {
         div.removeEventListener("click", manejarClick);
       };
     }
-  }, [listaDiscos]);
+  }, [listaDiscos, cargando]);
 
   return (
     <>
@@ -49,7 +44,7 @@ const Discos = () => {
         <div ref={referenciaDiv}>
           <ul>
             {listaDiscos.map((disco, i) => {
-              return <Disco key={i} disco={disco} i={i} />;
+              return <Disco key={i} disco={disco} />;
             })}
           </ul>
         </div>

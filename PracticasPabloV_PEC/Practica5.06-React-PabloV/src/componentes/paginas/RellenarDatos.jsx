@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
 import {contextoDiscos} from "../../componentes/Proveedor.jsx";
@@ -19,6 +19,7 @@ const RellenarDatos = () => {
   } = useContext(contextoDiscos);
 
   const navegar = useNavigate();
+  const id = useParams();
   const formulario = document.forms.formularioDiscos;
 
   const valoresIniciales = {
