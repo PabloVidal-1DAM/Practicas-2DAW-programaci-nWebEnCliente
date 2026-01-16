@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Errores from "../Errores.jsx";
-import Discos from "../Discos.jsx";
-import { contextoDiscos } from "../../componentes/Proveedor.jsx";
+import useDiscos from "../../hooks/useDiscos.js";
 import "./RellenarDatos.css";
 
 // Elementos del prop de estados externos que gastará
@@ -18,7 +17,7 @@ const RellenarDatos = () => {
     guardarDisco,
     discosEditados,
     editarDisco
-  } = useContext(contextoDiscos);
+  } = useDiscos();
 
   const navegar = useNavigate();
   const id = useParams();

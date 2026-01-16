@@ -3,18 +3,17 @@ import { useNavigate } from "react-router-dom";
 import "./Discos.css";
 import Disco from "./Disco";
 import Cargando from "./Cargando.jsx";
-import { contextoDiscos } from "../componentes/Proveedor.jsx";
+import useDiscos from "../hooks/useDiscos.js";
 
 // Componente que representa a cada disco dentro del estado "listaDiscos", que se pasan como props.
 const Discos = () => {
   const {
     listaDiscos,
-    setListaDiscos,
     cargando,
     eliminarDisco,
     obtenerDiscoPorId,
     setDiscosEditados,
-  } = useContext(contextoDiscos);
+  } = useDiscos();
 
   const referenciaDiv = useRef(null);
   const navegar = useNavigate();

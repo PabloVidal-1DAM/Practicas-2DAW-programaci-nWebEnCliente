@@ -31,14 +31,14 @@
       "prestado": false
     },
     {
-      "id": "a456-4266-1417-4000-123e4567-789b12d3",
-      "nombre": "Kind of Blue",
+      "nombre": "Am blue",
       "caratula": "https://upload.wikimedia.org/wikipedia/en/9/9c/MilesDavisKindofBlue.jpg",
       "grupo": "Miles Davis",
       "fechaPublicacion": "0817",
       "genero": "rap",
       "codigo": "ES-004LO",
-      "prestado": false
+      "prestado": false,
+      "id": "a456-4266-1417-4000-123e4567-789b12d3"
     },
     {
       "id": "1417-4000-123e4567-789b12d3-a456-4266",
@@ -61,24 +61,14 @@
       "prestado": ""
     },
     {
-      "id": "863b",
       "nombre": "tetracier",
       "caratula": "url",
-      "grupo": "rosalia",
+      "grupo": "rosa muñoz",
       "fechaPublicacion": "0989",
       "genero": "pop",
       "codigo": "ES-002NN",
-      "prestado": true
-    },
-    {
-      "nombre": "Jujutsu kaisen",
-      "caratula": "funcionas, porfa",
-      "grupo": "kengaku",
-      "fechaPublicacion": "0986",
-      "genero": "electronica",
-      "codigo": "ES-185VN",
       "prestado": true,
-      "id": "b1be"
+      "id": "863b"
     }
   ]
 }
