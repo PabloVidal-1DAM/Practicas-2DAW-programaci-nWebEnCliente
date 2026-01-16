@@ -22,7 +22,7 @@ const Rutas = () => {
         element={<MostrarDatos /> } 
       />
 
-      <Route path='discos/:id' element={<RellenarDatos />} />
+      <Route path='/discos/:id' element={<RellenarDatos />} />
     </Routes>
   );
 };

@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Errores from "../Errores.jsx";
 import Discos from "../Discos.jsx";
-import {contextoDiscos} from "../../componentes/Proveedor.jsx";
+import { contextoDiscos } from "../../componentes/Proveedor.jsx";
 import "./RellenarDatos.css";
 
 // Elementos del prop de estados externos que gastará
@@ -15,7 +15,9 @@ const RellenarDatos = () => {
     setDiscosFiltrados,
     discoBorrado,
     setDiscoBorrado,
-    guardarDisco
+    guardarDisco,
+    discosEditados,
+    editarDisco
   } = useContext(contextoDiscos);
 
   const navegar = useNavigate();
@@ -29,7 +31,7 @@ const RellenarDatos = () => {
     fechaPublicacion: "",
     genero: "",
     codigo: "",
-    prestado: "",
+    prestado: false,
   };
 
   // Estados internos que gastará este componente.
@@ -39,6 +41,15 @@ const RellenarDatos = () => {
   const [error, setError] = useState(erroresIniciales);
 
   const [prestado, setPrestado] = useState(false);
+
+  useEffect(() => {
+    if (discosEditados) {
+      // Si el estado contiene un disco para editar, se carga su info en el formulario, con los valores por defecto si se dejasen nulos.
+      setDisco({...valoresIniciales, ...discosEditados});
+    } else {
+      setDisco(valoresIniciales); // En caso contrario, es un disco nuevo.
+    }
+  }, [discosEditados]);
 
   // Se usa la desestructuración del target para ahorrar fatiga mental y entender mejor.
   // Se añade al estado "disco", la clave y el valor decada campo.
@@ -331,10 +342,15 @@ const RellenarDatos = () => {
           <input
             type="button"
             value="Enviar datos"
-            onClick={(evento) => {
+            onClick={async (evento) => {
               // Si "validarFormulario" no devuelve errores, pasa la validación y se guarda en el estado "listaDiscos".
               if (validarFormulario(evento)) {
-                guardarDisco(disco)
+                if (disco.id){
+                  await editarDisco(disco.id, disco)
+                }else{
+                  await guardarDisco(disco);
+                }
+                
                 setDisco(valoresIniciales);
                 setError([]);
               }

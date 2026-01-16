@@ -6,7 +6,7 @@
       "caratula": "https://m.media-amazon.com/images/I/719hE3T-JSL._SL1200_.jpg",
       "grupo": "Metallica",
       "fechaPublicacion": "1903",
-      "genero": "Thrash Metal",
+      "genero": "contemporaneo",
       "codigo": "ES-002NN",
       "prestado": false
     },
@@ -16,7 +16,7 @@
       "caratula": "https://m.media-amazon.com/images/I/81I-uU69P-L._SL1500_.jpg",
       "grupo": "Dua Lipa",
       "fechaPublicacion": "0327",
-      "genero": "Dance-Pop",
+      "genero": "pop",
       "codigo": "ES-003NE",
       "prestado": true
     },
@@ -26,7 +26,7 @@
       "caratula": "https://m.media-amazon.com/images/I/51pI-C01t0L.jpg",
       "grupo": "Vetusta Morla",
       "fechaPublicacion": "0211",
-      "genero": "Indie Rock",
+      "genero": "contemporaneo",
       "codigo": "ES-003UI",
       "prestado": false
     },
@@ -36,7 +36,7 @@
       "caratula": "https://upload.wikimedia.org/wikipedia/en/9/9c/MilesDavisKindofBlue.jpg",
       "grupo": "Miles Davis",
       "fechaPublicacion": "0817",
-      "genero": "Jazz",
+      "genero": "rap",
       "codigo": "ES-004LO",
       "prestado": false
     },
@@ -46,7 +46,7 @@
       "caratula": "https://m.media-amazon.com/images/I/71u9S+YgP1L._SL1425_.jpg",
       "grupo": "Daft Punk",
       "fechaPublicacion": "0312",
-      "genero": "French House",
+      "genero": "pop",
       "codigo": "ES-005OS",
       "prestado": true
     },
@@ -69,6 +69,16 @@
       "genero": "pop",
       "codigo": "ES-002NN",
       "prestado": true
+    },
+    {
+      "nombre": "Jujutsu kaisen",
+      "caratula": "funcionas, porfa",
+      "grupo": "kengaku",
+      "fechaPublicacion": "0986",
+      "genero": "electronica",
+      "codigo": "ES-185VN",
+      "prestado": true,
+      "id": "b1be"
     }
   ]
 }

@@ -6,6 +6,7 @@ const contextoDiscos = createContext();
 const Proveedor = ({ children }) => {
   const [listaDiscos, setListaDiscos] = useState([]);
   const [discosFiltrados, setDiscosFiltrados] = useState([]);
+  const [discosEditados, setDiscosEditados] = useState([]);
   const [discoBorrado, setDiscoBorrado] = useState([]);
 
   const {
@@ -30,6 +31,20 @@ const Proveedor = ({ children }) => {
     }
   };
 
+  const obtenerDiscoPorId = async (id) =>{
+    try{
+      const url = `${URL}/${id}`;
+      const datos = await obtenerDatos(url);
+      if(datos){
+        return datos;
+      }else{
+        throw new Error(`No se ha podido obtener ningún dato por id.`);
+      }
+    } catch(error){
+      throw error;
+    }
+  }
+
   useEffect(() => {
     obtenerDiscos();
   }, []);
@@ -53,6 +68,16 @@ const Proveedor = ({ children }) => {
     }
   };
 
+  const editarDisco = async (id, body) => {
+  try {
+    const url = `${URL}/${id}`;
+    const datos = await editarPUT(url, body); 
+    await obtenerDiscos();
+  } catch (error) {
+    throw error;
+  }
+};
+
   const datos = {
     listaDiscos,
     setListaDiscos,
@@ -60,12 +85,16 @@ const Proveedor = ({ children }) => {
     setDiscosFiltrados,
     discoBorrado,
     setDiscoBorrado,
+    discosEditados,
+    setDiscosEditados,
 
     cargando,
     guardarDisco,
+    obtenerDiscoPorId,
     editarPUT,
     editarPATCH,
     eliminarDisco,
+    editarDisco
   };
   return (
     <>
