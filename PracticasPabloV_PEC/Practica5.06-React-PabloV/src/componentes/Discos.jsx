@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Discos.css";
 import Disco from "./Disco";
 import Cargando from "./Cargando.jsx";
@@ -13,10 +13,14 @@ const Discos = () => {
     eliminarDisco,
     obtenerDiscoPorId,
     setDiscosEditados,
+    discosFiltrados
   } = useDiscos();
 
   const referenciaDiv = useRef(null);
+  const rutaActual = useLocation()
   const navegar = useNavigate();
+
+  const datos = rutaActual.pathname === "/filtrado" ? discosFiltrados : listaDiscos; // Si se está en la ruta /filtrado, se usa el estado de discos filtrados.
 
   // Los mensajes de alerta se acumulan, como solucionarlo?
   useEffect(() => {
@@ -56,7 +60,7 @@ const Discos = () => {
       ) : (
         <div ref={referenciaDiv}>
           <ul>
-            {listaDiscos.map((disco, i) => {
+            {datos.map((disco, i) => {
               return <Disco key={i} disco={disco} />;
             })}
           </ul>

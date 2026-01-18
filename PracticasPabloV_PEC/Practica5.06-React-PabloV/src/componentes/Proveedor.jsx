@@ -20,7 +20,7 @@ const Proveedor = ({ children }) => {
 
   const URL = "http://localhost:5000/discos";
 
-  // Aquí irán las peticiones a la API, que son heredadas del hook useDiscos.
+  // Aquí irán las peticiones a la API, que son heredadas del hook useAPI.
 
   const obtenerDiscos = async () => {
     try {
@@ -31,6 +31,7 @@ const Proveedor = ({ children }) => {
     }
   };
 
+  // Usada para poder obtener el disco que a seleccionado el usuario a modificar.
   const obtenerDiscoPorId = async (id) =>{
     try{
       const url = `${URL}/${id}`;
@@ -78,6 +79,27 @@ const Proveedor = ({ children }) => {
   }
 };
 
+
+  // Para poder filtrar, se pasa el formulario para acceder al input text que contiene el valor a filtrar y
+  // el estado "listadoDiscos" que contiene todos los discos guardados en ese momento.
+  const filtrarDisco = (formulario, listadoDiscos) => {
+    let errores = [];
+
+    if (formulario.filtrar.value === "" || listaDiscos.length === 0) {
+      errores = [
+        ...errores,
+        `No hay o no se ha puesto información para filtrar.`,
+      ];
+      setError(errores);
+    } else {
+      const discoFiltrado = listadoDiscos.filter((disco, indice, array) => {
+        return disco.nombre === formulario.filtrar.value;
+      });
+
+      setDiscosFiltrados(discoFiltrado);
+    }
+  };
+
   const datos = {
     listaDiscos,
     setListaDiscos,
@@ -94,7 +116,8 @@ const Proveedor = ({ children }) => {
     editarPUT,
     editarPATCH,
     eliminarDisco,
-    editarDisco
+    editarDisco,
+    filtrarDisco
   };
   return (
     <>
