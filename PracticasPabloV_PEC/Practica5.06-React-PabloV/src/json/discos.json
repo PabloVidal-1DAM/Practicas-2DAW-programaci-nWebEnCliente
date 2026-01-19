@@ -21,14 +21,14 @@
       "prestado": true
     },
     {
-      "id": "789b12d3-a456-4266-1417-4000123e4567",
       "nombre": "Un día en el mundo",
       "caratula": "https://m.media-amazon.com/images/I/51pI-C01t0L.jpg",
-      "grupo": "Vetusta Morla",
+      "grupo": "Vetusta Morlaz",
       "fechaPublicacion": "0211",
       "genero": "contemporaneo",
       "codigo": "ES-003UI",
-      "prestado": false
+      "prestado": true,
+      "id": "789b12d3-a456-4266-1417-4000123e4567"
     },
     {
       "nombre": "Am blue",
@@ -61,14 +61,14 @@
       "prestado": ""
     },
     {
-      "nombre": "tetracier",
-      "caratula": "url",
-      "grupo": "rosa muñoz",
-      "fechaPublicacion": "0989",
-      "genero": "pop",
+      "id": "b3be",
+      "nombre": "zelda",
+      "caratula": "https://falso.com",
+      "grupo": "linkk",
+      "fechaPublicacion": "1869",
+      "genero": "electronica",
       "codigo": "ES-002NN",
-      "prestado": true,
-      "id": "863b"
+      "prestado": false
     }
   ]
 }

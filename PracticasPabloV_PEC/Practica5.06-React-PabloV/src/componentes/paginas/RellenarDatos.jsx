@@ -9,14 +9,11 @@ import "./RellenarDatos.css";
 const RellenarDatos = () => {
   const {
     listaDiscos,
-    setListaDiscos,
-    discosFiltrados,
-    setDiscosFiltrados,
-    discoBorrado,
-    setDiscoBorrado,
     guardarDisco,
     discosEditados,
-    editarDisco
+    editarDisco,
+    filtrarDisco,
+    cargando
   } = useDiscos();
 
   const navegar = useNavigate();
@@ -38,8 +35,6 @@ const RellenarDatos = () => {
 
   const erroresIniciales = [];
   const [error, setError] = useState(erroresIniciales);
-
-  const [prestado, setPrestado] = useState(false);
 
   useEffect(() => {
     if (discosEditados) {
@@ -142,25 +137,6 @@ const RellenarDatos = () => {
     return erroresListado.length === 0;
   };
 
-  // Para poder filtrar, se pasa el formulario para acceder al input text que contiene el valor a filtrar y
-  // el estado "listadoDiscos" que contiene todos los discos guardados en ese momento.
-  const filtrarDisco = (formulario, listadoDiscos) => {
-    let errores = [];
-
-    if (formulario.filtrar.value === "" || listaDiscos.length === 0) {
-      errores = [
-        ...errores,
-        `No hay o no se ha puesto información para filtrar.`,
-      ];
-      setError(errores);
-    } else {
-      const discoFiltrado = listadoDiscos.filter((disco, indice, array) => {
-        return disco.nombre === formulario.filtrar.value;
-      });
-
-      setDiscosFiltrados(discoFiltrado);
-    }
-  };
 
   // Ya que el componente de la ruta /mostrar gasta la listaDiscos original, simplemente se navega a ese componente para enseñarlo.
   const borrarDisco = (formulario, ListadoDiscos) => {
@@ -340,7 +316,8 @@ const RellenarDatos = () => {
         <div className="acciones">
           <input
             type="button"
-            value="Enviar datos"
+            disabled = {cargando} // Se desabilita siempre que se hace una llamada a la API para evitar cagadas del usuario, ya la acción no se hace instantánea.
+            value={cargando ? "Enviando datos... espera.": "Enviar Datos"}
             onClick={async (evento) => {
               // Si "validarFormulario" no devuelve errores, pasa la validación y se guarda en el estado "listaDiscos".
               if (validarFormulario(evento)) {

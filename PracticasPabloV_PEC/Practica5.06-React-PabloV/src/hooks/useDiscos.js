@@ -11,4 +11,4 @@ const useDiscos = () => {
     return contexto;
 }
 
-export default useDiscos;
+export default useDiscos; // Contexto que usarán todos aquellos componentes que necesiten acceder al de discos.
