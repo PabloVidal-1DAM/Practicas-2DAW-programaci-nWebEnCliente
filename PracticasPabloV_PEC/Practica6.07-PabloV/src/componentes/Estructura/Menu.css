@@ -1,0 +1,27 @@
+nav {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  gap: 50px; /* Espacio entre botones */
+  padding: 1rem;
+}
+
+.botonNav {
+  background-color: rgb(0, 55, 104);
+  border-style: double;
+  color: white;
+  font-size: 13px;
+  text-decoration: none; /* elimina subrayado de link */
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+}
+
+.botonSesion {
+  display: inline;
+  background-color: rgb(0, 55, 104);
+  border-style: double;
+  color: white;
+  font-size: 13px;
+  text-decoration: none; /* elimina subrayado de link */
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+}

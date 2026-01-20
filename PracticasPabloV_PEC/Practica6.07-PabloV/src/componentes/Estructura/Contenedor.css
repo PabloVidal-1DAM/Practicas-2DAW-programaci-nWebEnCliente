@@ -1,0 +1,12 @@
+.contenedor_css {
+  border: 2px solid green;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgb(189, 189, 189);
+  color: white;
+  width: 1000px;
+  margin: 30px auto;            
+  text-align: center; 
+  font-weight: bold;
+  margin-bottom: 30px;
+}
