@@ -1,27 +1,32 @@
+/* El contenedor que creamos en App.jsx */
+.navbar-principal {
+  display: flex;
+  justify-content: space-between; /* Empuja Menu a la izquierda y Acciones a la derecha */
+  align-items: center;
+  padding: 0 20px; /* Margen a los lados para que no toquen el borde */
+  background-color: rgb(0, 55, 104); /* Opcional: para que toda la barra sea del mismo color */
+}
+
+/* Ajustamos el nav para que no fuerce el centro */
 nav {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  gap: 50px; /* Espacio entre botones */
+  gap: 20px; /* Espacio entre botones */
   padding: 1rem;
 }
 
-.botonNav {
-  background-color: rgb(0, 55, 104);
-  border-style: double;
+/* Estilos de botones (se mantienen igual o parecidos) */
+.botonNav, .botonSesion {
+  background-color: rgba(255, 255, 255, 0.1); /* Un toque más moderno */
+  border: 1px solid white;
   color: white;
   font-size: 13px;
-  text-decoration: none; /* elimina subrayado de link */
+  text-decoration: none;
   padding: 0.6rem 1.2rem;
   border-radius: 5px;
+  transition: 0.3s;
 }
 
-.botonSesion {
-  display: inline;
-  background-color: rgb(0, 55, 104);
-  border-style: double;
-  color: white;
-  font-size: 13px;
-  text-decoration: none; /* elimina subrayado de link */
-  padding: 0.6rem 1.2rem;
-  border-radius: 5px;
+.botonNav:hover, .botonSesion:hover {
+  background-color: white;
+  color: rgb(0, 55, 104);
 }
