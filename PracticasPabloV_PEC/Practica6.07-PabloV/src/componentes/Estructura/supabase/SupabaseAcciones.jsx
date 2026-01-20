@@ -12,7 +12,7 @@ const SupabaseAcciones = () => {
         Registrar
       </Link>
 
-      <Link to={"/cerrar-sesion"} className="botonSesion">
+      <Link to={"/cerrar-sesion"} className="botonCerrarSesion">
         Cerrar Sesión
       </Link>
     </nav>

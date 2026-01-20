@@ -22,8 +22,8 @@ function App() {
           <Contenido>
             <Productos />
           </Contenido>
+          <Pie />
         </Contenedor>
-        <Pie />
       </BrowserRouter>
     </>
   );
