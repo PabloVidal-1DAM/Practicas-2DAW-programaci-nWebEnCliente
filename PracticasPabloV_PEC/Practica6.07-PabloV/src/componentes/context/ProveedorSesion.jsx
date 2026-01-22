@@ -7,7 +7,7 @@ const contextoSesion = createContext();
 const ProveedorSesion = ({children}) => {
     const datosDeSesion = {"email": "", "password": "",};
     const usuarioInicial = {};
-    const erroresIniciales = {};
+    const erroresIniciales = "";
     const sesionInicial = false;
 
     const navegar = useNavigate();
@@ -51,6 +51,7 @@ const ProveedorSesion = ({children}) => {
            }
 
            console.log(data);
+           navegar("/");
         }catch(error){
             setError("Error al intentar hacer login: "+error.message);
         }

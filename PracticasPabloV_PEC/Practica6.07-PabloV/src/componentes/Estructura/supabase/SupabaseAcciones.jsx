@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useSesion from "../../hooks/useSesion";
 
 const SupabaseAcciones = () => {
+  const { sesionIniciada } = useSesion();
   return (
     <nav>
       <Link to={"/iniciar-sesion"} className="botonSesion">
@@ -11,10 +13,11 @@ const SupabaseAcciones = () => {
       <Link to={"/registrarse"} className="botonSesion">
         Registrar
       </Link>
-
-      <Link to={"/cerrar-sesion"} className="botonCerrarSesion">
-        Cerrar Sesión
-      </Link>
+      {sesionIniciada && (
+        <Link to={"/cerrar-sesion"} className="botonCerrarSesion">
+          Cerrar Sesión
+        </Link>
+      )}
     </nav>
   );
 };

@@ -5,7 +5,7 @@ const Registrarse = () => {
   const { error, setError, actualizarDato, registrarse } = useSesion();
 
   return (
-    <div className="registro">
+    <div className="formulario">
       <h2>Crea un nuevo usuario</h2>
 
       <label htmlFor="email">Correo: </label>
