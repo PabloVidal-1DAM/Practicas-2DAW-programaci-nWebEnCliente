@@ -6,13 +6,16 @@ const SupabaseAcciones = () => {
   const { sesionIniciada } = useSesion();
   return (
     <nav>
-      <Link to={"/iniciar-sesion"} className="botonSesion">
-        Iniciar Sesión
-      </Link>
-
-      <Link to={"/registrarse"} className="botonSesion">
-        Registrar
-      </Link>
+      {sesionIniciada === false && (
+        <>
+          <Link to={"/iniciar-sesion"} className="botonSesion">
+            Iniciar Sesión
+          </Link>
+          <Link to={"/registrarse"} className="botonSesion">
+            Registrar
+          </Link>
+        </>
+      )}
       {sesionIniciada && (
         <Link to={"/cerrar-sesion"} className="botonCerrarSesion">
           Cerrar Sesión
