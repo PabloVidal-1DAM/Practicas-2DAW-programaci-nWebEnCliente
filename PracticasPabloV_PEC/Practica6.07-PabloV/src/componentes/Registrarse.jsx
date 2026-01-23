@@ -18,7 +18,9 @@ const Registrarse = () => {
         onChange={(evento) => {
           actualizarDato(evento);
         }}
-      /><br/><br/>
+      />
+      <br />
+      <br />
 
       <label htmlFor="email">Contraseña: </label>
       <input
@@ -29,11 +31,30 @@ const Registrarse = () => {
         onChange={(evento) => {
           actualizarDato(evento);
         }}
-      /><br/><br/>
+      />
+      <br />
+      <br />
 
-      <button className="botonSesion" onClick={(evento) =>{
-        registrarse();
-        }}>Enviar
+      <label htmlFor="email">Nombre: </label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Inserta tu nombre de usuario"
+        onChange={(evento) => {
+          actualizarDato(evento);
+        }}
+      />
+      <br />
+      <br />
+
+      <button
+        className="botonSesion"
+        onClick={(evento) => {
+          registrarse();
+        }}
+      >
+        Enviar
       </button>
 
       <p>{error}</p>

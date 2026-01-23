@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const contextoSesion = createContext();
 
 const ProveedorSesion = ({children}) => {
-    const datosDeSesion = {"email": "", "password": "",};
+    const datosDeSesion = {"email": "", "password": "", "name": ""};
     const usuarioInicial = {};
     const erroresIniciales = "";
     const sesionInicial = false;
@@ -22,6 +22,11 @@ const ProveedorSesion = ({children}) => {
             const {data,error} = await conexionSupabase.auth.signUp({
                 email: datosSesion.email,
                 password: datosSesion.password,
+                options: {
+                    data:{
+                        display_name: datosSesion.name
+                    }
+                }
             });
 
             if(error){
