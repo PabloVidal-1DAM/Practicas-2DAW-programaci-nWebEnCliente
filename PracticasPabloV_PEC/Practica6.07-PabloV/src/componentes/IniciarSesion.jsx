@@ -1,5 +1,6 @@
 import React from 'react'
 import useSesion from './hooks/useSesion'
+import "./Formulario.css";
 
 const IniciarSesion = () => {
   const {error, setError, actualizarDato, iniciarSesion} = useSesion();

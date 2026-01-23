@@ -1,5 +1,6 @@
 import React from "react";
 import useSesion from "./hooks/useSesion";
+import "./Formulario.css";
 
 const Registrarse = () => {
   const { error, setError, actualizarDato, registrarse } = useSesion();
