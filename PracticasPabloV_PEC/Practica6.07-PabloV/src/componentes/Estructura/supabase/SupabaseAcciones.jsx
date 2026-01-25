@@ -6,6 +6,7 @@ const SupabaseAcciones = () => {
   const { sesionIniciada } = useSesion();
   return (
     <nav>
+      {/*Si el usuario no esta logeado, podrá ver las demás acciones menos cerrar sesión y al revés cuando ya ha iniciado sesión. */}
       {sesionIniciada === false && (
         <>
           <Link to={"/iniciar-sesion"} className="botonSesion">
