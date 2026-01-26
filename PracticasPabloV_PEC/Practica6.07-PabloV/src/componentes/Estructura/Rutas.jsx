@@ -11,10 +11,7 @@ const Rutas = () => {
     <>
     <Routes>
         <Route path='/' element={<Inicio />} />
-        <Route path='/productos' element={<Productos />} >
-          <Route path='/productos/filtrar' element={<Productos />} />
-          <Route path='/productos/ordenar' element={<Productos />} />
-        </Route>
+        <Route path='/productos' element={<Productos />} />
         <Route path="/iniciar-sesion" element={<IniciarSesion />} />
         <Route path="/cerrar-sesion" element={<CerrarSesion />} />
         <Route path="/registrarse" element={<Registrarse />} />
