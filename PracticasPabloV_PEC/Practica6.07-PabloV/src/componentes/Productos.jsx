@@ -6,7 +6,7 @@ import Producto from "./Producto";
 import Detalles from "./Detalles";
 
 const Productos = () => {
-  const { listaProductos, cargando} = useProductos();
+  const { listaProductos, valorFiltro, cargando} = useProductos();
   console.log(listaProductos);
   return (
     <div className="AccionesPrincipalesApp">

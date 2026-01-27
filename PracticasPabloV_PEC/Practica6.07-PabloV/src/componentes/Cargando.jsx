@@ -1,11 +1,20 @@
-import React from 'react'
+import React from "react";
+import useProductos from "./hooks/useProductos";
+import "./Cargando.css";
 
-const Cargando = () => {
+const Cargando = ({children}) => {
+  const { cargando } = useProductos();
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <>
+      {cargando ? (
+        <div className="cargando-contenedor">
+          <h2>⏳ Estoy cargando tontito...</h2>
+        </div>
+      ) : (
+        children
+      )}
+    </>
+  );
+};
 
-export default Cargando
+export default Cargando;

@@ -1,0 +1,26 @@
+.cargando-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px; /* Le damos altura para que no quede aplastado */
+    width: 100%;
+    color: #555; /* Un gris neutro */
+}
+
+/* --- LA ANIMACIÓN --- */
+
+/* 1. Definimos los "fotogramas" de la animación */
+@keyframes parpadeoSuave {
+    0%   { opacity: 1; transform: scale(1); }       /* Visible y tamaño normal */
+    50%  { opacity: 0.4; transform: scale(0.98); }  /* Medio transparente y un pelín más pequeño */
+    100% { opacity: 1; transform: scale(1); }       /* Vuelta a la normalidad */
+}
+
+/* 2. Aplicamos la animación al texto H2 */
+.cargando-contenedor h2 {
+    /* Nombre | Duración | Repetición | Suavizado */
+    animation: parpadeoSuave 1.5s infinite ease-in-out;
+    
+    font-weight: 500; /* Un poco menos grueso para que quede más elegante */
+    letter-spacing: 1px; /* Espaciado entre letras */
+}

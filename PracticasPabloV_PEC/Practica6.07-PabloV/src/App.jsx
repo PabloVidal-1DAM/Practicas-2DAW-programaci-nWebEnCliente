@@ -7,6 +7,7 @@ import SupabaseAcciones from "./componentes/Estructura/supabase/SupabaseAcciones
 import Contenido from "../../Practica5.06-React-PabloV/src/componentes/Estructura/Contenido.jsx";
 import ProveedorSesion from "./componentes/context/ProveedorSesion.jsx";
 import Rutas from "./componentes/Estructura/Rutas.jsx";
+import Cargando from "./componentes/Cargando.jsx"
 import ProveedorProductos from "./componentes/context/ProveedorProductos.jsx";
 import Errores from "./componentes/Errores.jsx";
 
@@ -24,7 +25,9 @@ function App() {
 
           <Contenido>
             <ProveedorProductos>
-              <Rutas />
+              <Cargando>
+                <Rutas />
+              </Cargando>
             </ProveedorProductos>
           </Contenido>
           <Errores />

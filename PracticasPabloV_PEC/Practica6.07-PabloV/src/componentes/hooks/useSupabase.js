@@ -4,28 +4,28 @@ import useAuth from "./useAuth";
 
 const useSupabase = () => {
   const [cargando, setCargando] = useState(false);
-  const {setError} = useAuth();
+  const { setError } = useAuth();
 
-  const obtenerTodo = async(tabla) =>{
+  const obtenerTodo = async (tabla) => {
     setCargando(true);
-    try{
-      const {data,error} = await conexionSupabase
-      .from(tabla)
-      .select("*");
+    try {
+      const { data, error } = await conexionSupabase.from(tabla).select("*");
 
-      if(error){
-        throw error
+      if (error) {
+        throw error;
       }
 
+      setCargando(false);
       return data;
-
-
-    }catch(error){
-     setError(`Error al intentar obtener todos los datos de la BD: ${error.message}`)
-     return [];
+      
+    } catch (error) {
+      setError(
+        `Error al intentar obtener todos los datos de la BD: ${error.message}`,
+      );
+      return [];
     }
-  }
-  return {obtenerTodo, cargando};
+  };
+  return { obtenerTodo, cargando };
 };
 
 export default useSupabase;

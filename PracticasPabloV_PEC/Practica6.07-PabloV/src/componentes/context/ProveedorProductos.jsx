@@ -1,6 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import { conexionSupabase } from "../Estructura/supabase/supabase";
-import { useNavigate } from "react-router-dom";
 import useSupabase from "../hooks/useSupabase";
 
 const contextoProductos = createContext();
@@ -11,6 +9,7 @@ const ProveedorProductos = ({ children }) => {
   const valorFiltroInicial = "";
 
   const [listaProductos, setListaProductos] = useState([]);
+  const {listaFiltrada, setListaFiltrada} = useState([]);
   const [valorFiltro, setValorFiltro] = useState(valorFiltroInicial);
   const [numProductos, setNumProductos] = useState(0);
   const [precioMedio, setPrecioMedio] = useState(0);
@@ -19,6 +18,8 @@ const ProveedorProductos = ({ children }) => {
     const productos = await obtenerTodo("productos");
     setListaProductos(productos);
     sacarDatosExtra(productos);
+
+    setListaFiltrada(productos);
   };
 
 const sacarDatosExtra = (productos) => {
@@ -42,6 +43,15 @@ const sacarDatosExtra = (productos) => {
     setPrecioMedio(0);
   }
 };
+
+const filtrarPorNombre = (nombre) =>{
+  const nuevaLista = listaProductos.filter((producto) =>{
+      return nombre === producto.nombre;
+  });
+  setListaFiltrada(nuevaLista);
+}
+
+
 
   useEffect(() => {
     cargarProductos();
