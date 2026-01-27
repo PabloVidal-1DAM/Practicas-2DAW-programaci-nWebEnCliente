@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Menu.css";
-import useSesion from "../hooks/useSesion";
+import useAuth from "../hooks/useAuth";
 const Menu = () => {
-  const { sesionIniciada } = useSesion();
+  const { sesionIniciada } = useAuth();
   return (
     <>
       <nav>

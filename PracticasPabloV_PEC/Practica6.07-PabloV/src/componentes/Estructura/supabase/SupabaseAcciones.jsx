@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useSesion from "../../hooks/useSesion";
+import useAuth from "../../hooks/useAuth";
 
 const SupabaseAcciones = () => {
-  const { sesionIniciada } = useSesion();
+  const { sesionIniciada } = useAuth();
   return (
     <nav>
       {/*Si el usuario no esta logeado, podrá ver las demás acciones menos cerrar sesión y al revés cuando ya ha iniciado sesión. */}

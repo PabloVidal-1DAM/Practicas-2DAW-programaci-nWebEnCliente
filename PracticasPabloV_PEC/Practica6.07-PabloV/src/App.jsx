@@ -7,9 +7,9 @@ import SupabaseAcciones from "./componentes/Estructura/supabase/SupabaseAcciones
 import Contenido from "../../Practica5.06-React-PabloV/src/componentes/Estructura/Contenido.jsx";
 import ProveedorSesion from "./componentes/context/ProveedorSesion.jsx";
 import Rutas from "./componentes/Estructura/Rutas.jsx";
+import ProveedorProductos from "./componentes/context/ProveedorProductos.jsx";
 
 function App() {
-
   return (
     <>
       {/* Ya que la sesión suele ser algo que se acaba usando en cualquier rincón de la app, se engloba el proveedor que la ofrece a toda la interfaz. */}
@@ -22,7 +22,9 @@ function App() {
           </div>
 
           <Contenido>
-            <Rutas />
+            <ProveedorProductos>
+              <Rutas />
+            </ProveedorProductos>
           </Contenido>
           <Pie />
         </Contenedor>

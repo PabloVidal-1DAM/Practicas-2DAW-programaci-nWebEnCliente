@@ -1,11 +1,11 @@
-import React from "react";
+import {React, useContext} from "react";
 import { contextoProductos } from "../context/ProveedorProductos";
 
 const useProductos = () => {
-  const contexto = contextoProductos;
+  const contexto = useContext(contextoProductos);
 
     if(!contexto){
-        throw new Error("El hook useAccionesBD debe ser usado en ProveedorAccionesBD");
+        throw new Error("El hook useProductos debe ser usado en ProveedorProductos");
     }
 
   return contexto;

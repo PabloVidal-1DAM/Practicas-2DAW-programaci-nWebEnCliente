@@ -1,10 +1,10 @@
 import React from "react";
 import "./Cabecera.css";
-import useSesion from "../hooks/useSesion";
+import useAuth from "../hooks/useAuth";
 
 const Cabecera = () => {
 
-  const {usuario, sesionIniciada} = useSesion();
+  const {usuario, sesionIniciada} = useAuth();
 
   return (
     <div>
