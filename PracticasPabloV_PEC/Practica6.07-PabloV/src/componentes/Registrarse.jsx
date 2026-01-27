@@ -1,9 +1,9 @@
 import React from "react";
-import useSesion from "./hooks/useSesion";
 import "./Formulario.css";
+import useAuth from "./hooks/useAuth";
 
 const Registrarse = () => {
-  const { error, setError, actualizarDato, registrarse } = useSesion();
+  const { error, setError, actualizarDato, registrarUsuario, datosSesion } = useAuth();
 
   return (
     <div className="formulario">
@@ -15,6 +15,7 @@ const Registrarse = () => {
         name="email"
         id="email"
         placeholder="inserta tu correo"
+        value={datosSesion.email}
         onChange={(evento) => {
           actualizarDato(evento);
         }}
@@ -28,6 +29,7 @@ const Registrarse = () => {
         name="password"
         id="password"
         placeholder="inserta tu contraseña"
+        value={datosSesion.password}
         onChange={(evento) => {
           actualizarDato(evento);
         }}
@@ -41,6 +43,7 @@ const Registrarse = () => {
         name="name"
         id="name"
         placeholder="Inserta tu nombre de usuario"
+        value={datosSesion.name}
         onChange={(evento) => {
           actualizarDato(evento);
         }}
@@ -51,7 +54,7 @@ const Registrarse = () => {
       <button
         className="botonSesion"
         onClick={(evento) => {
-          registrarse();
+          registrarUsuario();
         }}
       >
         Enviar

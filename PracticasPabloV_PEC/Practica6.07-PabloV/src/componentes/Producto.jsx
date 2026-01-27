@@ -1,11 +1,25 @@
-import React from 'react'
+import React from "react";
 
-const Producto = () => {
+const Producto = ({ producto }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div key={producto.id} className="producto-card">
+      <div className="producto-imagen">
+        <img src={producto.url} alt={producto.nombre} />
+      </div>
 
-export default Producto
+      <div className="producto-info">
+        <h3>{producto.nombre}</h3>
+        <p className="descripcion">{producto.descripcion}</p>
+
+        <div className="detalles-tecnicos">
+          <span>
+            <strong>Peso:</strong> {producto.peso}g
+          </span>
+          <span className="precio">{producto.precio}€</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Producto;

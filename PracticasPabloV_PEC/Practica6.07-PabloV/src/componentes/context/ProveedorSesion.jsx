@@ -8,6 +8,7 @@ const ProveedorSesion = ({ children }) => {
 
   const {
     usuario,
+    datosSesion,
     error,
     setError,
     sesionIniciada,
@@ -16,7 +17,9 @@ const ProveedorSesion = ({ children }) => {
     iniciarSesion,
     cerrarSesion,
     obtenerInfoUsuario,
-    actualizarDato} = useSesion();
+    navegar,
+    actualizarDato
+  } = useSesion();
 
   const registrarUsuario = async () =>{
     await registrarse();
@@ -28,6 +31,7 @@ const ProveedorSesion = ({ children }) => {
 
   const cerrarSesionUsuario = async() =>{
     await cerrarSesion();
+    setSesionIniciada(false);
   }
 
 
@@ -49,6 +53,7 @@ const ProveedorSesion = ({ children }) => {
   }, []);
 
   const datos = {
+    datosSesion,
     registrarUsuario,
     logearUsuario,
     cerrarSesionUsuario,

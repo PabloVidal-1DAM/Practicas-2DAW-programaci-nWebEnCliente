@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react'
-import {contextoSesion} from "../context/ProveedorSesion.jsx";
+import React, {useState } from 'react'
 import { conexionSupabase } from "../Estructura/supabase/supabase.js";
 import { useNavigate } from "react-router-dom";
 
@@ -61,8 +60,8 @@ export const useSesion = () => {
       if (error) {
         throw error;
       }
-
       navegar("/");
+      setDatosSesion(datosDeSesion);
     } catch (error) {
       setError("Error al intentar hacer login: " + error.message);
     }
@@ -71,7 +70,10 @@ export const useSesion = () => {
     const cerrarSesion = async () => {
     try {
       await conexionSupabase.auth.signOut();
+
       setError(erroresIniciales);
+      setUsuario(usuarioInicial);
+      setDatosSesion(datosDeSesion);
 
       navegar("/");
     } catch (error) {
@@ -108,6 +110,7 @@ export const useSesion = () => {
 
   return {
     usuario,
+    datosSesion,
     error,
     setError,
     sesionIniciada,
@@ -116,7 +119,8 @@ export const useSesion = () => {
     iniciarSesion,
     cerrarSesion,
     obtenerInfoUsuario,
-    actualizarDato
+    actualizarDato,
+    navegar
 
   };
 }

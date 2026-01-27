@@ -1,0 +1,145 @@
+.titulo-seccion {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+/* El Grid que organiza las tarjetas */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+/* La tarjeta individual */
+.producto-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+}
+
+.producto-imagen {
+    /* Fijamos la altura para que todas las tarjetas midan lo mismo */
+    height: 200px; 
+    width: 100%;
+    
+    /* Un color de fondo suave para rellenar los huecos si la imagen no encaja perfecta */
+    background-color: #f8f9fa; 
+    
+    /* Usamos flex para centrar la imagen perfectamente en el hueco */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Un pequeño margen interno para que la imagen no toque los bordes de la tarjeta */
+    padding: 10px;
+    box-sizing: border-box; /* Importante para que el padding no aumente el tamaño total */
+}
+
+/* 2. La imagen en sí */
+.producto-imagen img {
+    /* Le decimos que intente ocupar todo el espacio de su contenedor */
+    width: 100%;
+    height: 100%;
+    
+    /* LA CLAVE: contain */
+    /* Esto le dice: "Muestra toda la imagen sin cortarla. Adáptate al espacio,
+       pero mantén tu proporción original". */
+    object-fit: contain; 
+}
+
+.producto-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.producto-info h3 {
+    margin: 0 0 10px 0;
+    color: rgb(0, 55, 104);
+}
+
+.descripcion {
+    font-size: 0.9rem;
+    color: #666;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.detalles-tecnicos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.precio {
+    font-weight: bold;
+    color: #27ae60;
+    font-size: 1.3rem;
+}
+
+.boton-añadir {
+    background-color: rgb(0, 55, 104);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.boton-añadir:hover {
+    background-color: #002b50;
+}
+
+/* Sección de resumen al final */
+.resumen-productos {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around; /* Separa los dos datos equitativamente */
+    align-items: center;
+    border: 1px solid #dee2e6;
+}
+
+.dato-resumen {
+    display: flex;
+    flex-direction: column; /* Pone el título arriba y el número abajo */
+    align-items: center;
+    gap: 5px;
+}
+
+.etiqueta {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.valor {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(0, 55, 104); /* El azul de tu App */
+}
+
+/* Opcional: Un pequeño efecto cuando hay muchos productos */
+.resumen-productos:hover {
+    background-color: #e9ecef;
+    transition: 0.3s;
+}

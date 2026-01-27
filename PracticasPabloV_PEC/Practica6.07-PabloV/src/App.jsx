@@ -8,6 +8,7 @@ import Contenido from "../../Practica5.06-React-PabloV/src/componentes/Estructur
 import ProveedorSesion from "./componentes/context/ProveedorSesion.jsx";
 import Rutas from "./componentes/Estructura/Rutas.jsx";
 import ProveedorProductos from "./componentes/context/ProveedorProductos.jsx";
+import Errores from "./componentes/Errores.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Rutas />
             </ProveedorProductos>
           </Contenido>
+          <Errores />
           <Pie />
         </Contenedor>
       </ProveedorSesion>
