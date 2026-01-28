@@ -1,20 +1,18 @@
 import React from "react";
 import useProductos from "./hooks/useProductos";
 import "./Productos.css";
-import useSesion from "./hooks/useSesion";
 import Producto from "./Producto";
 import Detalles from "./Detalles";
 
 const Productos = () => {
-  const { listaProductos, valorFiltro, cargando} = useProductos();
-  console.log(listaProductos);
+  const { listaFiltrada, valorFiltro, cargando} = useProductos();
   return (
     <div className="AccionesPrincipalesApp">
       <h2 className="titulo-seccion">Catálogo de Productos</h2>
 
       <div className="productos-grid">
-        {listaProductos.length > 0 ? (
-          listaProductos.map((producto, i) => (
+        {listaFiltrada.length > 0 ? (
+          listaFiltrada.map((producto, i) => (
             <Producto key={i} producto ={producto} />
           ))
         ) : (

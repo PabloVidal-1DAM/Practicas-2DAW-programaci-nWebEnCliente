@@ -4,16 +4,19 @@ import useSupabase from "../hooks/useSupabase";
 const contextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
+  // La lógica de consultar la b.d se carga desde el hook personalizado para no incluirla aquí, ya que no es su entorno.
   const { obtenerTodo, cargando } = useSupabase();
 
+  // Estados y valores que usará este componente para funcionar.
   const valorFiltroInicial = "";
 
   const [listaProductos, setListaProductos] = useState([]);
-  const {listaFiltrada, setListaFiltrada} = useState([]);
+  const [listaFiltrada, setListaFiltrada] = useState([]);
   const [valorFiltro, setValorFiltro] = useState(valorFiltroInicial);
   const [numProductos, setNumProductos] = useState(0);
   const [precioMedio, setPrecioMedio] = useState(0);
 
+  // Obtiene datos de la b.d y usa el estado para guardar: 1. La lista Original, 2. La lista filtrada (que se usará para aplicar los filtros.)
   const cargarProductos = async () => {
     const productos = await obtenerTodo("productos");
     setListaProductos(productos);
@@ -22,51 +25,107 @@ const ProveedorProductos = ({ children }) => {
     setListaFiltrada(productos);
   };
 
-const sacarDatosExtra = (productos) => {
-  const cantidad = productos.length;
-  setNumProductos(cantidad);
+  // En base a lo que devuelve la b.d, se hacen calculos para sacar datos como el precio medio o la cantidad de productos que se han sacado de la b.d.
+  const sacarDatosExtra = (productos) => {
+    const cantidad = productos.length;
+    setNumProductos(cantidad);
 
-  if (cantidad > 0) {
-    // 1. Declaramos la variable FUERA del bucle para que acumule
-    let sumaTotal = 0; 
+    if (cantidad > 0) {
+      let sumaTotal = 0;
 
-    for (let i = 0; i < cantidad; i++) {
-      let precioActual = Number(productos[i].precio);
-      // 2. Sumamos al acumulador
-      sumaTotal = sumaTotal + precioActual; 
+      for (let i = 0; i < cantidad; i++) {
+        let precioActual = Number(productos[i].precio);
+        sumaTotal = sumaTotal + precioActual;
+      }
+
+      const resultadoMedia = sumaTotal / cantidad;
+      setPrecioMedio(resultadoMedia.toFixed(2));
+    } else {
+      setPrecioMedio(0);
     }
+  };
+  // En el apartado de filtrado se usa el estado de la lista filtrada para jugar con esta, una vez se termina y se resetea se vuelve al primer estado, que es la original.
+  const filtrarPorNombre = (nombre) => {
+    const nuevaLista = listaProductos.filter((producto) => {
+      const nombreProducto = producto.nombre.toLowerCase();
+      const inputUsuario = nombre.toLowerCase();
 
-    // 3. Usamos la variable que ya tiene la suma de todos
-    const resultadoMedia = sumaTotal / cantidad;
-    setPrecioMedio(resultadoMedia.toFixed(2));
-  } else {
-    setPrecioMedio(0);
-  }
-};
+      return nombreProducto.startsWith(inputUsuario);
+    });
+    setListaFiltrada(nuevaLista);
+  };
 
-const filtrarPorNombre = (nombre) =>{
-  const nuevaLista = listaProductos.filter((producto) =>{
-      return nombre === producto.nombre;
-  });
-  setListaFiltrada(nuevaLista);
-}
+  const filtrarPorPrecio = (nombre) => {
+    const nuevaLista = listaProductos.filter((producto) => {
+      const precioProducto = Number(producto.precio);
+      const inputUsuario = Number(nombre);
 
+      return precioProducto <= inputUsuario;
+    });
+    setListaFiltrada(nuevaLista);
+  };
 
+  const filtrarPorPeso = (nombre) => {
+    const nuevaLista = listaProductos.filter((producto) => {
+      const pesoProducto = producto.peso;
+      const inputUsuario = Number(nombre);
 
+      return pesoProducto <= inputUsuario;
+    });
+    setListaFiltrada(nuevaLista);
+  };
+
+  // Para ordenar se usa una copia del estado de la lista filtrada para no modificar el original.
+  const ordenarPorNombre = () => {
+    const ArrayFiltradoCopia = [...listaFiltrada];
+
+    ArrayFiltradoCopia.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    setListaFiltrada(ArrayFiltradoCopia);
+  };
+
+  const ordenarPorPrecio = () => {
+    const ArrayFiltradoCopia = [...listaFiltrada];
+
+    ArrayFiltradoCopia.sort((a, b) => Number(a.precio) - Number(b.precio));
+    setListaFiltrada(ArrayFiltradoCopia);
+  };
+
+  const ordenarPorPeso = () => {
+    const ArrayFiltradoCopia = [...listaFiltrada];
+
+    ArrayFiltradoCopia.sort((a, b) => Number(b.peso) - a.peso);
+    setListaFiltrada(ArrayFiltradoCopia);
+  };
+
+  const resetearFiltro = (nombre) => {
+    setValorFiltro("");
+    setListaFiltrada(listaProductos);
+  };
+
+  // Siempre que se carge el componente lo primero que hará es cargar los datos de la tabla de la b.d.
   useEffect(() => {
     cargarProductos();
   }, []);
 
   const datos = {
-    listaProductos,
+    listaFiltrada,
     valorFiltro,
     setValorFiltro,
     numProductos,
     precioMedio,
-    cargando
-};
+    cargando,
+    filtrarPorNombre,
+    filtrarPorPeso,
+    filtrarPorPrecio,
+    resetearFiltro,
+    ordenarPorNombre,
+    ordenarPorPeso,
+    ordenarPorPrecio,
+  };
   return (
-    <contextoProductos.Provider value={datos}>{children}</contextoProductos.Provider>
+    <contextoProductos.Provider value={datos}>
+      {children}
+    </contextoProductos.Provider>
   );
 };
 

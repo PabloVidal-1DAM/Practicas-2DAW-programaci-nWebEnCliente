@@ -13,7 +13,7 @@ const Producto = ({ producto }) => {
 
         <div className="detalles-tecnicos">
           <span>
-            <strong>Peso:</strong> {producto.peso}g
+            <strong>Peso: {producto.peso}g</strong>
           </span>
           <span className="precio">{producto.precio}€</span>
         </div>

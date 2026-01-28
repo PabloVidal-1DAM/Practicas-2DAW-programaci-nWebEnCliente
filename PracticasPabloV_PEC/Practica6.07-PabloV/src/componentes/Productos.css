@@ -84,6 +84,10 @@
     font-size: 1.1rem;
 }
 
+.detalles-tecnicos strong{
+    color: #666;
+}
+
 .precio {
     font-weight: bold;
     color: #27ae60;

@@ -3,6 +3,7 @@ import { conexionSupabase } from "../Estructura/supabase/supabase";
 import useAuth from "./useAuth";
 
 const useSupabase = () => {
+   // Hook personalizado que contiene funcion genérica para traer todo lo de cualquier tabla de la base de datos.
   const [cargando, setCargando] = useState(false);
   const { setError } = useAuth();
 
