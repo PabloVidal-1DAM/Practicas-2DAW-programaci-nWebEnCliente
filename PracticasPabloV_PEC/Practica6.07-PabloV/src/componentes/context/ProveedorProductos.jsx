@@ -1,11 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
 import useSupabase from "../hooks/useSupabase";
+import useAuth from "../hooks/useAuth";
+import { conexionSupabase } from "../Estructura/supabase/supabase";
 
 const contextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
   // La lógica de consultar la b.d se carga desde el hook personalizado para no incluirla aquí, ya que no es su entorno.
   const { obtenerTodo, cargando } = useSupabase();
+  const { actualizarDato, setError } = useAuth();
 
   // Estados y valores que usará este componente para funcionar.
   const valorFiltroInicial = "";
@@ -15,6 +18,15 @@ const ProveedorProductos = ({ children }) => {
   const [valorFiltro, setValorFiltro] = useState(valorFiltroInicial);
   const [numProductos, setNumProductos] = useState(0);
   const [precioMedio, setPrecioMedio] = useState(0);
+
+  const datosProductoIniciales = {
+    nombre: "",
+    precio: "",
+    peso: "",
+    imagen: "",
+    descripcion: "",
+  };
+  const [datosProductos, setDatosProductos] = useState(datosProductoIniciales);
 
   // Obtiene datos de la b.d y usa el estado para guardar: 1. La lista Original, 2. La lista filtrada (que se usará para aplicar los filtros.)
   const cargarProductos = async () => {
@@ -102,6 +114,25 @@ const ProveedorProductos = ({ children }) => {
     setListaFiltrada(listaProductos);
   };
 
+  const anyadirProducto = async () => {
+    try {
+      const { data, error } = await conexionSupabase
+        .from("productos")
+        .insert([datosProductos]);
+
+      if (error){
+        throw error;
+      }
+
+      setDatosProductos(datosProductoIniciales);
+      cargarProductos();
+      setError("Producto Guardado con Exito :) !!!.")
+
+    } catch (error) {
+      setError("Ha ocurrido un error al guardar el producto: " + error.message);
+    }
+  };
+
   // Siempre que se carge el componente lo primero que hará es cargar los datos de la tabla de la b.d.
   useEffect(() => {
     cargarProductos();
@@ -121,6 +152,9 @@ const ProveedorProductos = ({ children }) => {
     ordenarPorNombre,
     ordenarPorPeso,
     ordenarPorPrecio,
+
+    datosProductos,
+    actualizarDato
   };
   return (
     <contextoProductos.Provider value={datos}>

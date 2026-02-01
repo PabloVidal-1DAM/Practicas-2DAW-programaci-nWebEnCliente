@@ -5,6 +5,7 @@ import Productos from '../Productos';
 import IniciarSesion from '../IniciarSesion';
 import CerrarSesion from "../CerrarSesion.jsx";
 import Registrarse from "../Registrarse.jsx";
+import AnyadirProducto from '../AnyadirProducto.jsx';
 
 const Rutas = () => {
   return (
@@ -15,6 +16,7 @@ const Rutas = () => {
         <Route path="/iniciar-sesion" element={<IniciarSesion />} />
         <Route path="/cerrar-sesion" element={<CerrarSesion />} />
         <Route path="/registrarse" element={<Registrarse />} />
+        <Route path='/productos/añadir' element={<AnyadirProducto />} />
     </Routes>
     </>
   )
