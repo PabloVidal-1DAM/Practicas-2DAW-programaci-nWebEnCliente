@@ -138,6 +138,29 @@ const ProveedorProductos = ({ children }) => {
     }
   };
 
+  const eliminarProducto = async (id) =>{
+    try{
+      const {data, error} = await conexionSupabase
+      .from("productos")
+      .delete()
+      .eq("id", id)
+
+      if(error){
+        throw error;
+      }
+      // Se quitan de los estados ese campo que se ha decidido eliminar para que se vea el cambio visual.
+      const nuevalista = listaProductos.filter((producto) =>{ return producto.id !== id })
+      const nuevalistaFiltrada = listaFiltrada.filter((producto) =>{ return producto.id !== id })
+      setListaProductos(nuevalista);
+      setListaFiltrada(nuevalistaFiltrada);
+
+      setError("Producto borrado correctamente :)")
+
+    }catch(error){
+      setError("Ha ocurrido un error al eliminar el producto: "+ error.message);
+    }
+  }
+
   // Siempre que se carge el componente lo primero que hará es cargar los datos de la tabla de la b.d.
   useEffect(() => {
     cargarProductos();
@@ -160,7 +183,8 @@ const ProveedorProductos = ({ children }) => {
 
     datosProductos,
     actualizarDatosProductos,
-    anyadirProducto
+    anyadirProducto,
+    eliminarProducto
   };
   return (
     <contextoProductos.Provider value={datos}>

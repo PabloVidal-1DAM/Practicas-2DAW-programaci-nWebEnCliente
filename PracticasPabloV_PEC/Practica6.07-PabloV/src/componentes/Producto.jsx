@@ -1,6 +1,8 @@
 import React from "react";
+import useProductos from "./hooks/useProductos";
 
 const Producto = ({ producto }) => {
+  const {eliminarProducto} = useProductos();
   return (
     <div key={producto.id} className="producto-card">
       <div className="producto-imagen">
@@ -22,7 +24,7 @@ const Producto = ({ producto }) => {
         <button className="btn-editar">
           <span>✏️</span> Editar
         </button>
-        <button className="btn-eliminar">
+        <button className="btn-eliminar" onClick={() =>{eliminarProducto(producto.id)}}>
           <span>🗑️</span> Eliminar
         </button>
       </div>
