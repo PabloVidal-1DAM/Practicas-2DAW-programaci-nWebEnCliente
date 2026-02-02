@@ -19,6 +19,8 @@ export const useSesion = () => {
   const [error, setError] = useState(erroresIniciales);
   const [sesionIniciada, setSesionIniciada] = useState(sesionInicial);
 
+  const [idioma, setIdioma] = useState("es-ES");
+
   const registrarse = async () => {
     try {
       const { data, error } = await conexionSupabase.auth.signUp({
@@ -120,7 +122,9 @@ export const useSesion = () => {
     cerrarSesion,
     obtenerInfoUsuario,
     actualizarDato,
-    navegar
+    navegar,
+    idioma,
+    setIdioma
 
   };
 }

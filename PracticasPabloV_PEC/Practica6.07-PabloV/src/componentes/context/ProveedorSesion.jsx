@@ -18,7 +18,9 @@ const ProveedorSesion = ({ children }) => {
     cerrarSesion,
     obtenerInfoUsuario,
     navegar,
-    actualizarDato
+    actualizarDato,
+    idioma,
+    setIdioma
   } = useSesion();
 
   const registrarUsuario = async () =>{
@@ -62,6 +64,8 @@ const ProveedorSesion = ({ children }) => {
     error,
     setError,
     actualizarDato,
+    idioma,
+    setIdioma
   };
 
   return (
