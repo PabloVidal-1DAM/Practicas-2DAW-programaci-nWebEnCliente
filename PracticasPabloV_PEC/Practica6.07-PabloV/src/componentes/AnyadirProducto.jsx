@@ -2,7 +2,8 @@ import React from "react";
 import useProductos from "./hooks/useProductos";
 
 const AnyadirProducto = () => {
-  const { datosProductos } = useProductos();
+  const { datosProductos, actualizarDatosProductos, anyadirProducto } =
+    useProductos();
   return (
     <div className="formulario">
       <h2>Añadir Producto</h2>
@@ -14,7 +15,20 @@ const AnyadirProducto = () => {
         placeholder="Nombre del Producto."
         value={datosProductos.nombre}
         onChange={(evento) => {
-          actualizarDato(evento);
+          actualizarDatosProductos(evento);
+        }}
+      />
+      <br />
+      <br />
+      <label htmlFor="peso">Peso: </label>
+      <input
+        type="number"
+        name="peso"
+        id="peso"
+        placeholder="300g..."
+        value={datosProductos.peso}
+        onChange={(evento) => {
+          actualizarDatosProductos(evento);
         }}
       />
       <br />
@@ -27,20 +41,45 @@ const AnyadirProducto = () => {
         placeholder="0,00€"
         value={datosProductos.precio}
         onChange={(evento) => {
-          actualizarDato(evento);
-        }}
-      /><br/><br/>
-      <label htmlFor="imagen">URL Imagen: </label>
-      <input
-        type="text"
-        name="imagen"
-        id="imagen"
-        placeholder="Https://...."
-        value={datosProductos.imagen}
-        onChange={(evento) => {
-          actualizarDato(evento);
+          actualizarDatosProductos(evento);
         }}
       />
+      <br />
+      <br />
+      <label htmlFor="url">URL Imagen: </label>
+      <input
+        type="text"
+        name="url"
+        id="url"
+        placeholder="Https://...."
+        value={datosProductos.url}
+        onChange={(evento) => {
+          actualizarDatosProductos(evento);
+        }}
+      />
+      <br />
+      <br />
+      <label htmlFor="descripcion">Descripcion: </label>
+      <input
+        type="text"
+        name="descripcion"
+        id="descripcion"
+        placeholder="Galletitas saladas..."
+        value={datosProductos.descripcion}
+        onChange={(evento) => {
+          actualizarDatosProductos(evento);
+        }}
+      />
+      <br />
+      <br />
+      <button
+        className="Guardar"
+        onClick={(evento) => {
+          anyadirProducto();
+        }}
+      >
+        Guardar Producto
+      </button>
     </div>
   );
 };

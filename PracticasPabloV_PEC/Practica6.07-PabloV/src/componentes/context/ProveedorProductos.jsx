@@ -8,7 +8,7 @@ const contextoProductos = createContext();
 const ProveedorProductos = ({ children }) => {
   // La lógica de consultar la b.d se carga desde el hook personalizado para no incluirla aquí, ya que no es su entorno.
   const { obtenerTodo, cargando } = useSupabase();
-  const { actualizarDato, setError } = useAuth();
+  const {setError} = useAuth();
 
   // Estados y valores que usará este componente para funcionar.
   const valorFiltroInicial = "";
@@ -21,12 +21,17 @@ const ProveedorProductos = ({ children }) => {
 
   const datosProductoIniciales = {
     nombre: "",
-    precio: "",
     peso: "",
-    imagen: "",
+    precio: "",
+    url: "",
     descripcion: "",
   };
   const [datosProductos, setDatosProductos] = useState(datosProductoIniciales);
+
+  const actualizarDatosProductos = (evento) =>{
+    const {name, value} = evento.target;
+    setDatosProductos({...datosProductos, [name]: value });
+  }
 
   // Obtiene datos de la b.d y usa el estado para guardar: 1. La lista Original, 2. La lista filtrada (que se usará para aplicar los filtros.)
   const cargarProductos = async () => {
@@ -154,7 +159,8 @@ const ProveedorProductos = ({ children }) => {
     ordenarPorPrecio,
 
     datosProductos,
-    actualizarDato
+    actualizarDatosProductos,
+    anyadirProducto
   };
   return (
     <contextoProductos.Provider value={datos}>

@@ -4,7 +4,7 @@ import Cabecera from "../src/componentes/Estructura/Cabecera.jsx";
 import Pie from "../src/componentes/Estructura/Pie.jsx";
 import Menu from "./componentes/Estructura/Menu.jsx";
 import SupabaseAcciones from "./componentes/Estructura/supabase/SupabaseAcciones.jsx";
-import Contenido from "../../Practica5.06-React-PabloV/src/componentes/Estructura/Contenido.jsx";
+import Contenido from "../../Practica6.07-PabloV/src/componentes/Estructura/Contenido.jsx";
 import ProveedorSesion from "./componentes/context/ProveedorSesion.jsx";
 import Rutas from "./componentes/Estructura/Rutas.jsx";
 import Cargando from "./componentes/Cargando.jsx"

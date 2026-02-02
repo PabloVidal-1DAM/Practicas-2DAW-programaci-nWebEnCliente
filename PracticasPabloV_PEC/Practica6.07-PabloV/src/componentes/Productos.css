@@ -147,3 +147,56 @@
     background-color: #e9ecef;
     transition: 0.3s;
 }
+
+/* Contenedor de los botones de la tarjeta */
+.acciones {
+    display: flex;
+    gap: 12px; /* Espacio entre los botones */
+    padding: 15px; /* Espacio para que no toquen los bordes de la tarjeta */
+    background-color: #f9f9f9; /* Un tono gris muy suave de fondo */
+    border-top: 1px solid #eee; /* Línea divisoria sutil */
+    margin-top: auto; /* Empuja las acciones al final si la tarjeta crece */
+}
+
+/* Estilo para los botones dentro de .acciones */
+.acciones button {
+    flex: 1; /* Para que ambos midan lo mismo */
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px; /* Bordes redondeados como en tus fotos */
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Botón Editar */
+.btn-editar {
+    background-color: white;
+    color: #003768;
+    border: 1px solid #d1d5db !important;
+}
+
+.btn-editar:hover {
+    background-color: #003768;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Botón Eliminar */
+.btn-eliminar {
+    background-color: white;
+    color: #e11d48;
+    border: 1px solid #fecdd3 !important;
+}
+
+.btn-eliminar:hover {
+    background-color: #e11d48;
+    color: white;
+    transform: translateY(-2px);
+}

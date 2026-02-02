@@ -18,6 +18,14 @@ const Producto = ({ producto }) => {
           <span className="precio">{producto.precio}€</span>
         </div>
       </div>
+      <div className="acciones">
+        <button className="btn-editar">
+          <span>✏️</span> Editar
+        </button>
+        <button className="btn-eliminar">
+          <span>🗑️</span> Eliminar
+        </button>
+      </div>
     </div>
   );
 };
