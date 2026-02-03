@@ -16,7 +16,6 @@ const useSupabase = () => {
         throw error;
       }
 
-      setCargando(false);
       return data;
       
     } catch (error) {
@@ -24,9 +23,71 @@ const useSupabase = () => {
         `Error al intentar obtener todos los datos de la BD: ${error.message}`,
       );
       return [];
+    }finally{
+      setCargando(false);
     }
   };
-  return { obtenerTodo, cargando };
+
+  // He añadido funciones genéricas para las demás acciones: Añadir, borrar y Modificar datos.
+  // Simplemente informan de si han podido hacer la acción con un true o false.
+  const insertarDato = async (tabla, objeto) =>{
+    setCargando(true);
+    try{
+      const {data,error} = await conexionSupabase.from(tabla).insert([objeto])
+
+      if(error){
+        throw error;
+      }
+
+      return true;
+
+    }catch(error){
+      setError(`Error al intentar insertar datos a la BD: ${error.message}`);
+      return false;
+    }finally{
+      setCargando(false);
+    }
+  }
+
+  const eliminarDato = async (tabla, id) =>{
+    setCargando(true);
+    try{
+      const {data,error} = await conexionSupabase.from(tabla).delete().eq("id", id);
+
+      if(error){
+        throw error;
+      }
+
+      return true;
+
+    }catch(error){
+      setError(`Error al intentar eliminar datos de la BD: ${error.message}`);
+      return false;
+    }finally{
+      setCargando(false);
+    }
+  }
+
+  const editarDato = async (tabla, id, objeto) =>{
+    setCargando(true);
+    try{
+      const {data,error} = await conexionSupabase.from(tabla).update(objeto).eq("id", id);
+
+      if(error){
+        throw error;
+      }
+
+      return true;
+
+    }catch(error){
+      setError(`Error al intentar modificar datos dela BD: ${error.message}`);
+      return false;
+    }finally{
+      setCargando(false);
+    }
+  }
+
+  return { obtenerTodo, insertarDato, eliminarDato, editarDato, cargando };
 };
 
 export default useSupabase;

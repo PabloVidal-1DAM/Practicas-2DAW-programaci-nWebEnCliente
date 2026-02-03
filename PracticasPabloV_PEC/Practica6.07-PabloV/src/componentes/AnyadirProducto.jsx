@@ -80,7 +80,7 @@ const AnyadirProducto = () => {
       <br />
       <button
         className="Guardar"
-        onClick={(evento) => {
+        onClick={() => {
             editando ?  modificarProducto() : anyadirProducto();
         }}
       >

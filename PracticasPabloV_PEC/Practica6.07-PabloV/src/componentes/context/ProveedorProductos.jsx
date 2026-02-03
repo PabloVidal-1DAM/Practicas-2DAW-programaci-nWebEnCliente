@@ -7,7 +7,8 @@ const contextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
   // La lógica de consultar la b.d se carga desde el hook personalizado para no incluirla aquí, ya que no es su entorno.
-  const { obtenerTodo, cargando } = useSupabase();
+  const { obtenerTodo, insertarDato, eliminarDato, editarDato, cargando } =
+    useSupabase();
   const { setError, navegar } = useAuth();
 
   // Estados y valores que usará este componente para funcionar.
@@ -32,7 +33,7 @@ const ProveedorProductos = ({ children }) => {
   const [datosProductos, setDatosProductos] = useState(datosProductoIniciales);
 
   const cargarDatosFormulario_editar = (producto) => {
-    navegar('/productos/añadir')
+    navegar("/productos/añadir");
     setEditando(true);
     setIdProducto(producto.id);
     setDatosProductos({
@@ -40,7 +41,7 @@ const ProveedorProductos = ({ children }) => {
       peso: producto.peso,
       precio: producto.precio,
       url: producto.url,
-      descripcion: producto.descripcion
+      descripcion: producto.descripcion,
     });
   };
 
@@ -135,79 +136,45 @@ const ProveedorProductos = ({ children }) => {
     setListaFiltrada(listaProductos);
   };
 
+  // Para las acciones del CRUD llamo a nuevas funciones que tiene el hook "useSupabase".
   const anyadirProducto = async () => {
-    try {
-      const { data, error } = await conexionSupabase
-        .from("productos")
-        .insert([datosProductos]);
+    const resultado = await insertarDato("productos", datosProductos);
 
-      if (error) {
-        throw error;
-      }
-
+    if(resultado){
       setDatosProductos(datosProductoIniciales);
-      cargarProductos();
-      setError("Producto Guardado con Exito :) !!!.");
-    } catch (error) {
-      setError("Ha ocurrido un error al guardar el producto: " + error.message);
+      await cargarProductos();
+      setError("Producto Guardado con Éxito :) !!!.");
     }
   };
 
   const eliminarProducto = async (id) => {
-    try {
-      const { data, error } = await conexionSupabase
-        .from("productos")
-        .delete()
-        .eq("id", id);
+    const resultado = await eliminarDato("productos", id);
 
-      if (error) {
-        throw error;
-      }
-      // Se quitan de los estados ese campo que se ha decidido eliminar para que se vea el cambio visual.
-      const nuevalista = listaProductos.filter((producto) => {
-        return producto.id !== id;
-      });
-      const nuevalistaFiltrada = listaFiltrada.filter((producto) => {
-        return producto.id !== id;
-      });
-      setListaProductos(nuevalista);
-      setListaFiltrada(nuevalistaFiltrada);
+    if(resultado){
+      const nuevaLista = listaProductos.filter((p) =>{return p.id !== id});
+       const nuevaListaFiltrada = listaFiltrada.filter((p) =>{return p.id !== id});
 
-      setError("Producto borrado correctamente :)");
-    } catch (error) {
-      setError(
-        "Ha ocurrido un error al eliminar el producto: " + error.message
-      );
+       setListaProductos(nuevaLista);
+       setListaFiltrada(nuevaListaFiltrada);
+       setError("Producto borrado correctamente :)");
     }
   };
 
-  const cancelarModoEditar = () =>{
+  const cancelarModoEditar = () => {
     setEditando(false);
     setIdProducto(null);
     setDatosProductos(datosProductoIniciales);
-  }
+  };
 
-  const modificarProducto = async() =>{
-    try{
-      const {data,error} = await conexionSupabase
-      .from("productos")
-      .update(datosProductos)
-      .eq("id", idProducto)
+  const modificarProducto = async () => {
+    const resultado = await editarDato("productos", idProducto, datosProductos);
 
-      if (error){
-        throw error;
-      }
-
+    if(resultado){
       cancelarModoEditar();
-      cargarProductos();
-      setError("Producto actualizado con exito :)");
-
-    }catch(error){
-      setError(
-        "Ha ocurrido un error al modificar el producto: "+ error.message
-      )
+      await cargarProductos();
+      setError("Producto actualizado con éxito :)");
     }
-  }
+  };
 
   // Siempre que se carge el componente lo primero que hará es cargar los datos de la tabla de la b.d.
   useEffect(() => {
@@ -236,7 +203,7 @@ const ProveedorProductos = ({ children }) => {
     modificarProducto,
     editando,
     cargarDatosFormulario_editar,
-    cancelarModoEditar
+    cancelarModoEditar,
   };
   return (
     <contextoProductos.Provider value={datos}>
