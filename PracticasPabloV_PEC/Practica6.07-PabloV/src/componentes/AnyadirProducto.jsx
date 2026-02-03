@@ -12,7 +12,7 @@ const AnyadirProducto = () => {
   } = useProductos();
   return (
     <div className="formulario">
-      <h2>{editando ? "Editar Producto" : "Añadir Producto"}</h2>
+      <h2>{editando ? "Editar Producto" : "Añadir Producto"}</h2> {/*Dependiendo de si se está en esta página por editar o añadir, cambiarán los títulos y botones*/}
       <label htmlFor="nombre">Nombre: </label>
       <input
         type="text"
@@ -81,7 +81,7 @@ const AnyadirProducto = () => {
       <button
         className="Guardar"
         onClick={() => {
-            editando ?  modificarProducto() : anyadirProducto();
+            editando ?  modificarProducto() : anyadirProducto(); {/*En este caso cambia la acción en sí, si se edita o se guarda el producto.*/}
         }}
       >
         {editando ? "Enviar cambios" : "Guardar Producto"}

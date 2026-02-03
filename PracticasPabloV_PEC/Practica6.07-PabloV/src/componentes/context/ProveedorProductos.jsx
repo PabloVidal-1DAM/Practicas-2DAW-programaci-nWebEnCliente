@@ -20,9 +20,6 @@ const ProveedorProductos = ({ children }) => {
   const [numProductos, setNumProductos] = useState(0);
   const [precioMedio, setPrecioMedio] = useState(0);
 
-  const [idProducto, setIdProducto] = useState("");
-  const [editando, setEditando] = useState(false);
-
   const datosProductoIniciales = {
     nombre: "",
     peso: "",
@@ -32,6 +29,12 @@ const ProveedorProductos = ({ children }) => {
   };
   const [datosProductos, setDatosProductos] = useState(datosProductoIniciales);
 
+  // Estados que se usarán para editar un producto en el formulario, por lo que se debe saber su id y si se está en este modo edición.
+  const [idProducto, setIdProducto] = useState("");
+  const [editando, setEditando] = useState(false);
+
+  // Función para cargar los datos del producto seleccionado en el formulario para editarlo, 
+  // para ello se setea el estado "datosProductos" del que está pendiente el formulario
   const cargarDatosFormulario_editar = (producto) => {
     navegar("/productos/añadir");
     setEditando(true);
@@ -45,6 +48,7 @@ const ProveedorProductos = ({ children }) => {
     });
   };
 
+  // Función que actualiza el estado que se encarga del formulario de los productos.
   const actualizarDatosProductos = (evento) => {
     const { name, value } = evento.target;
     setDatosProductos({ ...datosProductos, [name]: value });
@@ -137,6 +141,7 @@ const ProveedorProductos = ({ children }) => {
   };
 
   // Para las acciones del CRUD llamo a nuevas funciones que tiene el hook "useSupabase".
+  // Estas solo devuelven true o false para indicar si se ha podido hacer la acción.
   const anyadirProducto = async () => {
     const resultado = await insertarDato("productos", datosProductos);
 

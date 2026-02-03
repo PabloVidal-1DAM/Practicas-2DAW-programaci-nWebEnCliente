@@ -19,6 +19,7 @@ const Producto = ({ producto }) => {
           <span>
             <strong>Peso: {producto.peso}g</strong>
           </span>
+          {/*Se usa un estado que almacena el idioma (por defecto es es-ES) para formatear el precio al español y que aparezca con comas.*/}
           <span className="precio">
             {producto.precio.toLocaleString(idioma, {
               minimumFractionDigits: 2,
@@ -28,6 +29,7 @@ const Producto = ({ producto }) => {
           </span>
         </div>
       </div>
+      {/*Para borrar  y editar únicamente pordrá verlo el usuario que tenga sesión iniciada*/}
       {sesionIniciada && (
         <div className="acciones">
           <button className="btn-editar" onClick={() =>{
