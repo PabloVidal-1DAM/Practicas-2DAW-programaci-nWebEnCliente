@@ -2,11 +2,17 @@ import React from "react";
 import useProductos from "./hooks/useProductos";
 
 const AnyadirProducto = () => {
-  const { datosProductos, actualizarDatosProductos, anyadirProducto } =
-    useProductos();
+  const {
+    datosProductos,
+    actualizarDatosProductos,
+    anyadirProducto,
+    editando,
+    modificarProducto,
+    cancelarModoEditar,
+  } = useProductos();
   return (
     <div className="formulario">
-      <h2>Añadir Producto</h2>
+      <h2>{editando ? "Editar Producto" : "Añadir Producto"}</h2>
       <label htmlFor="nombre">Nombre: </label>
       <input
         type="text"
@@ -75,11 +81,18 @@ const AnyadirProducto = () => {
       <button
         className="Guardar"
         onClick={(evento) => {
-          anyadirProducto();
+            editando ?  modificarProducto() : anyadirProducto();
         }}
       >
-        Guardar Producto
+        {editando ? "Enviar cambios" : "Guardar Producto"}
       </button>
+      {editando && (
+        <>
+          <button onClick={cancelarModoEditar} style={{ backgroundColor: "#666" }}>
+            Cancelar
+          </button>
+        </>
+      )}
     </div>
   );
 };

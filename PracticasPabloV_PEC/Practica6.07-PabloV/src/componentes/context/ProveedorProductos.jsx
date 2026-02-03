@@ -8,7 +8,7 @@ const contextoProductos = createContext();
 const ProveedorProductos = ({ children }) => {
   // La lógica de consultar la b.d se carga desde el hook personalizado para no incluirla aquí, ya que no es su entorno.
   const { obtenerTodo, cargando } = useSupabase();
-  const {setError} = useAuth();
+  const { setError, navegar } = useAuth();
 
   // Estados y valores que usará este componente para funcionar.
   const valorFiltroInicial = "";
@@ -19,6 +19,9 @@ const ProveedorProductos = ({ children }) => {
   const [numProductos, setNumProductos] = useState(0);
   const [precioMedio, setPrecioMedio] = useState(0);
 
+  const [idProducto, setIdProducto] = useState("");
+  const [editando, setEditando] = useState(false);
+
   const datosProductoIniciales = {
     nombre: "",
     peso: "",
@@ -28,10 +31,23 @@ const ProveedorProductos = ({ children }) => {
   };
   const [datosProductos, setDatosProductos] = useState(datosProductoIniciales);
 
-  const actualizarDatosProductos = (evento) =>{
-    const {name, value} = evento.target;
-    setDatosProductos({...datosProductos, [name]: value });
-  }
+  const cargarDatosFormulario_editar = (producto) => {
+    navegar('/productos/añadir')
+    setEditando(true);
+    setIdProducto(producto.id);
+    setDatosProductos({
+      nombre: producto.nombre,
+      peso: producto.peso,
+      precio: producto.precio,
+      url: producto.url,
+      descripcion: producto.descripcion
+    });
+  };
+
+  const actualizarDatosProductos = (evento) => {
+    const { name, value } = evento.target;
+    setDatosProductos({ ...datosProductos, [name]: value });
+  };
 
   // Obtiene datos de la b.d y usa el estado para guardar: 1. La lista Original, 2. La lista filtrada (que se usará para aplicar los filtros.)
   const cargarProductos = async () => {
@@ -125,39 +141,71 @@ const ProveedorProductos = ({ children }) => {
         .from("productos")
         .insert([datosProductos]);
 
-      if (error){
+      if (error) {
         throw error;
       }
 
       setDatosProductos(datosProductoIniciales);
       cargarProductos();
-      setError("Producto Guardado con Exito :) !!!.")
-
+      setError("Producto Guardado con Exito :) !!!.");
     } catch (error) {
       setError("Ha ocurrido un error al guardar el producto: " + error.message);
     }
   };
 
-  const eliminarProducto = async (id) =>{
-    try{
-      const {data, error} = await conexionSupabase
-      .from("productos")
-      .delete()
-      .eq("id", id)
+  const eliminarProducto = async (id) => {
+    try {
+      const { data, error } = await conexionSupabase
+        .from("productos")
+        .delete()
+        .eq("id", id);
 
-      if(error){
+      if (error) {
         throw error;
       }
       // Se quitan de los estados ese campo que se ha decidido eliminar para que se vea el cambio visual.
-      const nuevalista = listaProductos.filter((producto) =>{ return producto.id !== id })
-      const nuevalistaFiltrada = listaFiltrada.filter((producto) =>{ return producto.id !== id })
+      const nuevalista = listaProductos.filter((producto) => {
+        return producto.id !== id;
+      });
+      const nuevalistaFiltrada = listaFiltrada.filter((producto) => {
+        return producto.id !== id;
+      });
       setListaProductos(nuevalista);
       setListaFiltrada(nuevalistaFiltrada);
 
-      setError("Producto borrado correctamente :)")
+      setError("Producto borrado correctamente :)");
+    } catch (error) {
+      setError(
+        "Ha ocurrido un error al eliminar el producto: " + error.message
+      );
+    }
+  };
+
+  const cancelarModoEditar = () =>{
+    setEditando(false);
+    setIdProducto(null);
+    setDatosProductos(datosProductoIniciales);
+  }
+
+  const modificarProducto = async() =>{
+    try{
+      const {data,error} = await conexionSupabase
+      .from("productos")
+      .update(datosProductos)
+      .eq("id", idProducto)
+
+      if (error){
+        throw error;
+      }
+
+      cancelarModoEditar();
+      cargarProductos();
+      setError("Producto actualizado con exito :)");
 
     }catch(error){
-      setError("Ha ocurrido un error al eliminar el producto: "+ error.message);
+      setError(
+        "Ha ocurrido un error al modificar el producto: "+ error.message
+      )
     }
   }
 
@@ -184,7 +232,11 @@ const ProveedorProductos = ({ children }) => {
     datosProductos,
     actualizarDatosProductos,
     anyadirProducto,
-    eliminarProducto
+    eliminarProducto,
+    modificarProducto,
+    editando,
+    cargarDatosFormulario_editar,
+    cancelarModoEditar
   };
   return (
     <contextoProductos.Provider value={datos}>

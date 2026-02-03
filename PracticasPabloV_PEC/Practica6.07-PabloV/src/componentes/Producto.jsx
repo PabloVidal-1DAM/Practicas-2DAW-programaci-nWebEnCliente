@@ -3,8 +3,8 @@ import useProductos from "./hooks/useProductos";
 import useAuth from "./hooks/useAuth";
 
 const Producto = ({ producto }) => {
-  const { eliminarProducto } = useProductos();
-  const { idioma, setIdioma, sesionIniciada } = useAuth();
+  const { eliminarProducto, cargarDatosFormulario_editar } = useProductos();
+  const { idioma, setIdioma, sesionIniciada} = useAuth();
   return (
     <div key={producto.id} className="producto-card">
       <div className="producto-imagen">
@@ -30,7 +30,9 @@ const Producto = ({ producto }) => {
       </div>
       {sesionIniciada && (
         <div className="acciones">
-          <button className="btn-editar">
+          <button className="btn-editar" onClick={() =>{
+            cargarDatosFormulario_editar(producto);
+          }}>
             <span>✏️</span> Editar
           </button>
           <button

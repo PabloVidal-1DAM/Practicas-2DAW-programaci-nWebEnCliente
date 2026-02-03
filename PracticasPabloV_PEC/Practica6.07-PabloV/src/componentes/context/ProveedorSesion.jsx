@@ -65,7 +65,8 @@ const ProveedorSesion = ({ children }) => {
     setError,
     actualizarDato,
     idioma,
-    setIdioma
+    setIdioma,
+    navegar
   };
 
   return (
