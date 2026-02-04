@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import useSupabase from "../hooks/useSupabase";
 import useAuth from "../hooks/useAuth";
-import { conexionSupabase } from "../Estructura/supabase/supabase";
 
 const contextoProductos = createContext();
 

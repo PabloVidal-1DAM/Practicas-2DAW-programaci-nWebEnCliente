@@ -7,9 +7,10 @@ import SupabaseAcciones from "./componentes/Estructura/supabase/SupabaseAcciones
 import Contenido from "../../Practica6.07-PabloV/src/componentes/Estructura/Contenido.jsx";
 import ProveedorSesion from "./componentes/context/ProveedorSesion.jsx";
 import Rutas from "./componentes/Estructura/Rutas.jsx";
-import Cargando from "./componentes/Cargando.jsx"
+import Cargando from "./componentes/Cargando.jsx";
 import ProveedorProductos from "./componentes/context/ProveedorProductos.jsx";
 import Errores from "./componentes/Errores.jsx";
+import ProveedorListaCompra from "./componentes/context/ProveedorListaCompra.jsx";
 
 function App() {
   return (
@@ -25,9 +26,11 @@ function App() {
 
           <Contenido>
             <ProveedorProductos>
-              <Cargando>
-                <Rutas />
-              </Cargando>
+              <ProveedorListaCompra>
+                <Cargando>
+                  <Rutas />
+                </Cargando>
+              </ProveedorListaCompra>
             </ProveedorProductos>
           </Contenido>
           <Errores />
