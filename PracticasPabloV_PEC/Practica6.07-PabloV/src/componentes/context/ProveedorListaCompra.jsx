@@ -15,7 +15,7 @@ const ProveedorListaCompra = ({ children }) => {
   } = useSupabase();
   const { setError, navegar } = useAuth();
 
-  const [listaCompra, setListaCompra] = useState();
+  const [listaCompra, setListaCompra] = useState([]);
 
   const datosListaCompraIniciales = {
     nombre: "",

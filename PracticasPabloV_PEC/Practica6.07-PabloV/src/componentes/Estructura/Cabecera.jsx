@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 const Cabecera = () => {
 
   const {usuario, sesionIniciada} = useAuth();
+  console.log(usuario);
 
   return (
     <div>

@@ -1,0 +1,60 @@
+/* Contenedor principal de todas las listas */
+.listas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* El "Botón Gigante" (Componente ListaCompra) */
+.lista {
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05), 0 6px 6px rgba(0,0,0,0.1);
+  border: 1px solid #e5e7eb;
+  padding: 0; /* Mantenemos padding 0 para que la imagen cubra arriba */
+}
+
+/* Efectos de interacción para que parezca un botón */
+.lista:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 55, 104, 0.15);
+  border-color: #003768;
+}
+
+.lista:active {
+  transform: scale(0.95);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* Imagen dentro del botón gigante */
+.lista img {
+  width: 100%;
+  height: 200px;
+  object-fit: fill;
+  border-bottom: 1px solid #f3f4f6;
+  transition: transform 0.5s ease;
+}
+
+.lista:hover img {
+  transform: scale(1.1);
+}
+
+/* Título de la lista */
+.lista h3 {
+  margin: 0;
+  padding: 20px;
+  font-size: 1.4rem;
+  color: #1f2937;
+  text-align: center;
+  width: 100%;
+  background-color: white;
+}
