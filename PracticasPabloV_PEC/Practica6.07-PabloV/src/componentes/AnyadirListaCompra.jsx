@@ -20,19 +20,6 @@ const AnyadirListaCompra = () => {
       />
       <br />
       <br />
-      <label htmlFor="usuario_id">Id de Usuario:</label>
-      <input
-        type="text"
-        name="usuario_id"
-        id="usuario_id"
-        placeholder="Id del usuario."
-        value={datosListaCompra.usuario_id}
-        onChange={(evento) => {
-          actualizarDatosListaCompra(evento);
-        }}
-      />
-      <br />
-      <br />
       <button
         className="Guardar"
         onClick={(evento) =>{guardarListaCompra()}}

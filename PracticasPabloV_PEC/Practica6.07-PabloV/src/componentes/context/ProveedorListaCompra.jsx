@@ -13,13 +13,13 @@ const ProveedorListaCompra = ({ children }) => {
     editarDato,
     cargando,
   } = useSupabase();
-  const { setError, navegar } = useAuth();
+  const { setError, usuario, navegar } = useAuth();
 
   const [listaCompra, setListaCompra] = useState([]);
+  const [listaSeleccionada, setListaSeleccionada] = useState(null);
 
   const datosListaCompraIniciales = {
     nombre: "",
-    usuario_id: "",
   };
 
   const [datosListaCompra, setDatosListaCompra] = useState(
@@ -50,25 +50,48 @@ const ProveedorListaCompra = ({ children }) => {
     }
   };
 
-  const guardarListaCompra = async (idProducto) => {
-    const respuesta = await insertarDato("listacompra", datosListaCompra);
+  const guardarListaCompra = async () => {
+    if (!usuario) {
+      setError("Debes de iniciar sesión para guardar una lista de la compra.");
+      return;
+    }
+
+    const objetoParaGuardar = {
+      ...datosListaCompra,
+      usuario_id: usuario.id,
+    };
+
+    const respuesta = await insertarDato("listacompra", objetoParaGuardar);
 
     if (respuesta) {
-      const nuevaListaInsertada = await obtenerRegistro(
-        "listacompra",
-        respuesta.data[0].id,
-      );
-
-      if (nuevaListaInsertada && idProducto) {
-        await insertarDato("itemslista", {
-          lista_id: nuevaLista.id,
-          producto_id: idProducto,
-          cantidad: 1, // porqué 1?????
-        });
-      }
       setDatosListaCompra(datosListaCompraIniciales);
       await cargarListaCompras();
       setError("Lista de la compra insertada correctamente :) !!!.");
+    }
+  };
+
+  const AnyadirProductoLista = async (idLista, idProducto) => {
+    const nuevoItem = {
+      lista_id: idLista,
+      producto_id: idProducto,
+      cantidad: 1,
+    };
+
+    const respuesta = await insertarDato("listacompra", nuevoItem);
+    if (respuesta) {
+      await cargarListaCompras();
+      setError("Producto insertado correctamente :) !!!.");
+    }
+  };
+
+  const eliminarProductoLista = async (idProducto) => {
+    const resultado = await eliminarDato("listacompra", idProducto);
+
+    if (resultado) {
+      await cargarListaCompras();
+      const listaActualizada = listaCompra.find((l) => l.id === listaId);
+      if (listaActualizada) setListaSeleccionada(listaActualizada);
+      setError("Producto eliminado de la lista correctamente :) !!!.");
     }
   };
 

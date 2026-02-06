@@ -58,8 +58,7 @@ const useSupabase = () => {
     try {
       const { data, error } = await conexionSupabase
         .from(tabla)
-        .insert([objeto])
-        .select();
+        .insert([objeto]);
 
       if (error) {
         throw error;
