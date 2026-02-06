@@ -38,6 +38,7 @@ const ProveedorListaCompra = ({ children }) => {
         .select(
           "nombre, usuario_id, itemslista( productos (nombre, peso, precio, url, descripcion), cantidad )",
         );
+
       if (error) throw error;
 
       setListaCompra(data);
@@ -96,11 +97,24 @@ const ProveedorListaCompra = ({ children }) => {
   };
 
   useEffect(() => {
-    cargarListaCompras();
-  }, []);
+    if(usuario){
+      cargarListaCompras();
+    }else{
+      console.log("se ha ido el usuario");
+      setListaCompra([]);
+      setListaSeleccionada(null);
+    }
+
+    return () =>{
+      setListaCompra([]);
+      setListaSeleccionada(null);
+    }
+    
+  }, [usuario]);
 
   const datos = {
     listaCompra,
+    listaSeleccionada,
     datosListaCompra,
 
     setError,
@@ -109,6 +123,8 @@ const ProveedorListaCompra = ({ children }) => {
     actualizarDatosListaCompra,
 
     guardarListaCompra,
+    eliminarProductoLista,
+    AnyadirProductoLista
   };
   return (
     <contextoListaCompra.Provider value={datos}>
