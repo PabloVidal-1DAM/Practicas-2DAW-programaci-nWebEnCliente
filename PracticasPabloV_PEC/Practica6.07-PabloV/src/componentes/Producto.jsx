@@ -4,7 +4,7 @@ import useAuth from "./hooks/useAuth";
 
 const Producto = ({ producto }) => {
   const { eliminarProducto, cargarDatosFormulario_editar } = useProductos();
-  const { idioma, setIdioma, sesionIniciada} = useAuth();
+  const { idioma, setIdioma, sesionIniciada, mensajeConfirmacion} = useAuth();
   return (
     <div key={producto.id} className="producto-card">
       <div className="producto-imagen">
@@ -40,7 +40,7 @@ const Producto = ({ producto }) => {
           <button
             className="btn-eliminar"
             onClick={() => {
-              eliminarProducto(producto.id);
+              mensajeConfirmacion(`¿Deseas borrar el producto ${producto.nombre} ?`, () => eliminarProducto(producto.id))
             }}
           >
             <span>🗑️</span> Eliminar

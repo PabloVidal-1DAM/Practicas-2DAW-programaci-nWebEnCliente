@@ -11,6 +11,7 @@ import Cargando from "./componentes/Cargando.jsx";
 import ProveedorProductos from "./componentes/context/ProveedorProductos.jsx";
 import Errores from "./componentes/Errores.jsx";
 import ProveedorListaCompra from "./componentes/context/ProveedorListaCompra.jsx";
+import Confirmacion from "./componentes/Confirmacion.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <ProveedorListaCompra>
                 <Cargando>
                   <Rutas />
+                  <Confirmacion />
                 </Cargando>
               </ProveedorListaCompra>
             </ProveedorProductos>

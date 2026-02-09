@@ -5,7 +5,6 @@ import { conexionSupabase } from "../Estructura/supabase/supabase.js";
 const contextoSesion = createContext();
 
 const ProveedorSesion = ({ children }) => {
-
   const {
     usuario,
     datosSesion,
@@ -20,23 +19,45 @@ const ProveedorSesion = ({ children }) => {
     navegar,
     actualizarDato,
     idioma,
-    setIdioma
+    setIdioma,
   } = useSesion();
 
-  const registrarUsuario = async () =>{
+  // será gastado por todos aquellos componentes que tengan que usar al componente "Confirmacion.jsx"
+  const [AccionConfirmacion, setAccionConfirmacion] = useState(false);
+  const [mensajeAccion, setMensajeAccion] = useState("");
+  const [funcionConfirmacion, setFuncionConfirmacion] = useState(null);
+
+  const mensajeConfirmacion = (mensaje, callback) => {
+    setMensajeAccion(mensaje);
+    setFuncionConfirmacion(() => callback);
+    setAccionConfirmacion(true);
+  };
+
+  const cerrarMensaje = () => {
+    setAccionConfirmacion(false);
+    setMensajeAccion("");
+    setFuncionConfirmacion(null);
+  };
+
+  const confirmarMensaje = () => {
+    if (funcionConfirmacion) {
+      funcionConfirmacion();
+    }
+    cerrarMensaje();
+  };
+
+  const registrarUsuario = async () => {
     await registrarse();
-  }
+  };
 
-  const logearUsuario = async() =>{
+  const logearUsuario = async () => {
     await iniciarSesion();
-  }
+  };
 
-  const cerrarSesionUsuario = async() =>{
+  const cerrarSesionUsuario = async () => {
     await cerrarSesion();
     setSesionIniciada(false);
-  }
-
-
+  };
 
   useEffect(() => {
     // Función que se hará siempre que se carge el componente y estará atenta a cualquier cambio en la base de datos de usuarios.
@@ -66,7 +87,13 @@ const ProveedorSesion = ({ children }) => {
     actualizarDato,
     idioma,
     setIdioma,
-    navegar
+    navegar,
+
+    AccionConfirmacion,   
+    mensajeAccion,        
+    mensajeConfirmacion,  
+    cerrarMensaje,        
+    confirmarMensaje
   };
 
   return (
