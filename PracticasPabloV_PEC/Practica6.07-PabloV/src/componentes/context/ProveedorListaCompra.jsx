@@ -26,29 +26,14 @@ const ProveedorListaCompra = ({ children }) => {
     datosListaCompraIniciales,
   );
 
+  const cargarListaCompras = async() =>{
+    const listas = await obtenerTodo("listacompra");
+    setListaCompra(listas);
+  }
+
   const actualizarDatosListaCompra = (evento) => {
     const { name, value } = evento.target;
     setDatosListaCompra({ ...datosListaCompra, [name]: value });
-  };
-
-  const cargarListaCompras = async () => {
-    try {
-      const { data, error } = await conexionSupabase
-        .from("listacompra")
-        .select(
-          "nombre, usuario_id, itemslista( productos (nombre, peso, precio, url, descripcion), cantidad )",
-        );
-
-      if (error) throw error;
-
-      setListaCompra(data);
-      console.log(data);
-    } catch (error) {
-      setError(
-        "Ha ocurrido un error al intentar cargar las listas de la BD: " +
-          error.message,
-      );
-    }
   };
 
   const guardarListaCompra = async () => {
@@ -100,7 +85,6 @@ const ProveedorListaCompra = ({ children }) => {
     if(usuario){
       cargarListaCompras();
     }else{
-      console.log("se ha ido el usuario");
       setListaCompra([]);
       setListaSeleccionada(null);
     }

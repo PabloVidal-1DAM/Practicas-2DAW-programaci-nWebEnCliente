@@ -177,6 +177,7 @@ const ProveedorProductos = ({ children }) => {
       cancelarModoEditar();
       await cargarProductos();
       setError("Producto actualizado con éxito :)");
+      navegar("/productos");
     }
   };
 

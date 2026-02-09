@@ -7,22 +7,27 @@ const useSupabase = () => {
   const [cargando, setCargando] = useState(false);
   const { setError } = useAuth();
 
-  const obtenerTodo = async (tabla) => {
+  // Función genérica que sirve para hacer una consulta a los campos que se quieran (incluidos multitabla) y/o obtener todos los registros de una tabla.
+  // Ambas acciones se realizarán dependiendo de si se rellena accion con los datos a traer o se deja vacío (selecciona todos los campos).
+  const obtenerTodo = async (tabla, accion = "*") => {
     setCargando(true);
     try {
-      const { data, error } = await conexionSupabase.from(tabla).select("*");
+      const { data, error } = await conexionSupabase
+        .from(tabla)
+        .select(
+          accion
+        );
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
-      return data;
+      setListaCompra(data);
+      console.log(data);
     } catch (error) {
       setError(
-        `Error al intentar obtener todos los datos de la BD: ${error.message}`,
+        "Ha ocurrido un error al intentar cargar las listas de la BD: " +
+          error.message,
       );
-      return [];
-    } finally {
+    }finally{
       setCargando(false);
     }
   };
