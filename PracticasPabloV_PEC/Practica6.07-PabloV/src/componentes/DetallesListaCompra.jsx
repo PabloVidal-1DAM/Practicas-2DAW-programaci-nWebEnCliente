@@ -1,18 +1,34 @@
 import React from 'react'
 import useContextListaCompra from "./hooks/useContextListaCompra"
 import useAuth from './hooks/useAuth';
+import "./DetallesListaCompra.css";
 
 const DetallesListaCompra = () => {
   const {
     listaSeleccionada,
     eliminarProductoLista,
-    borrarTodaLaLista
+    borrarTodaLaLista,
+    navegar
   } = useContextListaCompra();
 
-  const {mensajeConfirmacion, setError} = useAuth();
+  const {mensajeConfirmacion} = useAuth();
+
+  const calcularPesoTotal = () =>{
+
+  }
+
+  const calcularPrecioTotal = () =>{
+
+  }
+
   return (
     <>
-    {!listaSeleccionada ? setError("No has seleccionado una lista, Vuelve atrás y pincha sobre una lista para ver sus detalles.") :
+    {!listaSeleccionada.itemslista ? 
+    <div className='listaVacía'>
+      <h2>La lista "{listaSeleccionada.nombre}" esta vacía</h2>
+      <p>Añade productos para empezar a verlos aquí.</p>
+      <button onClick={() =>navegar("/productos")}>Pulsa Aquí</button>
+    </div> :
      <div>
       
      </div>}

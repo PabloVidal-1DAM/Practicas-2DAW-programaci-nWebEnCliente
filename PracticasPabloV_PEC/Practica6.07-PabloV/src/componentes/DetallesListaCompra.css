@@ -1,0 +1,65 @@
+/* Contenedor del mensaje de vacío */
+.listaVacía {
+  background-color: #f9fafb; /* Un gris muy suave */
+  border: 2px dashed #cbd5e1; /* Borde discontinuo elegante */
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Efecto hover sutil en la tarjeta */
+.listaVacía:hover {
+  border-color: #94a3b8;
+  background-color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+/* El título H2 */
+.listaVacía h2 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* El texto descriptivo P */
+.listaVacía p {
+  color: #64748b;
+  margin: 0;
+  font-size: 1rem;
+  max-width: 80%;
+  line-height: 1.5;
+}
+
+/* El botón de acción */
+.listaVacía button {
+  margin-top: 1rem;
+  background-color: #003768; /* Tu color corporativo */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(0, 55, 104, 0.2);
+}
+
+.listaVacía button:hover {
+  background-color: #004e93;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px rgba(0, 55, 104, 0.3);
+}
+
+.listaVacía button:active {
+  transform: translateY(0);
+}

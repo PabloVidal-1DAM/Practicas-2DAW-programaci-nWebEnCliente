@@ -7,8 +7,8 @@ const ListaCompras = () => {
     const {listaCompra} = useContextListaCompra();
   return (
     <div className='listas'>
-      {listaCompra.length > 0 ? listaCompra.map((lista, i) =>{
-        return <ListaCompra key={i} lista={lista} />
+      {listaCompra.length > 0 ? listaCompra.map((lista) =>{
+        return <ListaCompra key={lista.id} lista={lista} />
       })
        : "No hay listas de la compra que mostrar"}
     </div>

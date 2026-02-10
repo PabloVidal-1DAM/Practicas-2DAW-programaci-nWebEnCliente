@@ -48,6 +48,10 @@
   transform: scale(1.1);
 }
 
+.lista:hover div{
+  cursor: pointer;
+}
+
 /* Título de la lista */
 .lista h3 {
   margin: 0;

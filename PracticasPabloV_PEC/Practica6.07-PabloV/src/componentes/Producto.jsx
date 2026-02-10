@@ -1,10 +1,12 @@
 import React from "react";
 import useProductos from "./hooks/useProductos";
 import useAuth from "./hooks/useAuth";
+import useContextListaCompra from "./hooks/useContextListaCompra";
 
 const Producto = ({ producto }) => {
   const { eliminarProducto, cargarDatosFormulario_editar } = useProductos();
-  const { idioma, setIdioma, sesionIniciada, mensajeConfirmacion} = useAuth();
+  const { idioma, setIdioma, sesionIniciada, mensajeConfirmacion } = useAuth();
+  const { listaSeleccionada } = useContextListaCompra();
   return (
     <div key={producto.id} className="producto-card">
       <div className="producto-imagen">
@@ -32,19 +34,38 @@ const Producto = ({ producto }) => {
       {/*Para borrar  y editar únicamente pordrá verlo el usuario que tenga sesión iniciada*/}
       {sesionIniciada && (
         <div className="acciones">
-          <button className="btn-editar" onClick={() =>{
-            cargarDatosFormulario_editar(producto);
-          }}>
+          <button
+            className="btn-editar"
+            onClick={() => {
+              cargarDatosFormulario_editar(producto);
+            }}
+          >
             <span>✏️</span> Editar
           </button>
           <button
             className="btn-eliminar"
             onClick={() => {
-              mensajeConfirmacion(`¿Deseas borrar el producto ${producto.nombre} ?`, () => eliminarProducto(producto.id))
+              mensajeConfirmacion(
+                `¿Deseas borrar el producto ${producto.nombre} ?`,
+                () => eliminarProducto(producto.id),
+              );
             }}
           >
             <span>🗑️</span> Eliminar
           </button>
+          {listaSeleccionada && (
+            <button
+              className="boton-añadir"
+              onClick={() => {
+                mensajeConfirmacion(
+                  `¿Deseas añadir "${producto.nombre}" a la lista "${listaSeleccionada.nombre}" ?`,
+                  () => console.log("por añadir"),
+                );
+              }}
+            >
+              Añadir
+            </button>
+          )}
         </div>
       )}
     </div>

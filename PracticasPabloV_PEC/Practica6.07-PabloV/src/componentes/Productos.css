@@ -142,6 +142,13 @@
     color: rgb(0, 55, 104); /* El azul de tu App */
 }
 
+.listaActual{
+    color: rgb(0, 55, 104);;
+    font-weight: bold;
+    font-style: italic;
+    margin-left: 15px;
+}
+
 /* Opcional: Un pequeño efecto cuando hay muchos productos */
 .resumen-productos:hover {
     background-color: #e9ecef;
