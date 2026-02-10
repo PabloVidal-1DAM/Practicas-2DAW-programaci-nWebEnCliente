@@ -26,10 +26,33 @@ const ProveedorListaCompra = ({ children }) => {
     datosListaCompraIniciales,
   );
 
-  const cargarListaCompras = async() =>{
-    const listas = await obtenerTodo("listacompra");
+  const cargarListaCompras = async () => {
+    const listas = await obtenerTodo(
+      "listacompra",
+      `
+          id, nombre, usuario_id, created_at,
+          itemslista (
+            id, cantidad,
+            productos ( id, nombre, peso, precio, url )
+          )
+        `,
+    );
     setListaCompra(listas);
-  }
+    console.log(listas);
+
+    if (listaSeleccionada) {
+      // ... buscamos esa misma lista dentro de los datos NUEVOS que acaban de llegar
+      const listaActualizada = listas.find(
+        (lista) => lista.id === listaSeleccionada.id,
+      );
+
+      // Si la encontramos, actualizamos lo que ve el usuario.
+      // Así, si acaba de añadir un producto, aparecerá justo después.
+      if (listaActualizada) {
+        setListaSeleccionada(listaActualizada);
+      }
+    }
+  };
 
   const actualizarDatosListaCompra = (evento) => {
     const { name, value } = evento.target;
@@ -63,42 +86,45 @@ const ProveedorListaCompra = ({ children }) => {
       cantidad: 1,
     };
 
-    const respuesta = await insertarDato("listacompra", nuevoItem);
+    const respuesta = await insertarDato("itemslista", nuevoItem);
     if (respuesta) {
       await cargarListaCompras();
       setError("Producto insertado correctamente :) !!!.");
     }
   };
 
-  const eliminarProductoLista = async (idProducto) => {
-    const resultado = await eliminarDato("listacompra", idProducto);
+  const eliminarProductoLista = async (idItemLista) => {
+    const resultado = await eliminarDato("itemslista", idItemLista);
 
     if (resultado) {
       await cargarListaCompras();
-      const listaActualizada = listaCompra.find((l) => l.id === listaId);
-      if (listaActualizada) setListaSeleccionada(listaActualizada);
       setError("Producto eliminado de la lista correctamente :) !!!.");
     }
   };
 
-  useEffect(() => {
-    if(usuario){
-      cargarListaCompras();
-    }else{
-      setListaCompra([]);
-      setListaSeleccionada(null);
-    }
+  const borrarTodaLaLista = async (idLista) => {
+    const resultado = await eliminarDato("listacompra", idLista);
 
-    return () =>{
+    if (resultado) {
+      setListaSeleccionada(null);
+      await cargarListaCompras();
+      setError("Lista borrada");
+    }
+  };
+
+  useEffect(() => {
+    if (usuario) {
+      cargarListaCompras();
+    } else {
       setListaCompra([]);
       setListaSeleccionada(null);
     }
-    
   }, [usuario]);
 
   const datos = {
     listaCompra,
     listaSeleccionada,
+    setListaSeleccionada,
     datosListaCompra,
 
     setError,
@@ -108,7 +134,8 @@ const ProveedorListaCompra = ({ children }) => {
 
     guardarListaCompra,
     eliminarProductoLista,
-    AnyadirProductoLista
+    borrarTodaLaLista,
+    AnyadirProductoLista,
   };
   return (
     <contextoListaCompra.Provider value={datos}>

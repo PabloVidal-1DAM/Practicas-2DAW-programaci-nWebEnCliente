@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useSupabase = () => {
   // Hook personalizado que contiene funcion genérica para traer todo lo de cualquier tabla de la base de datos.
   const [cargando, setCargando] = useState(false);
-  const { setError } = useAuth();
+  const { setError, usuario } = useAuth();
 
   // Función genérica que sirve para hacer una consulta a los campos que se quieran (incluidos multitabla) y/o obtener todos los registros de una tabla.
   // Ambas acciones se realizarán dependiendo de si se rellena accion con los datos a traer o se deja vacío (selecciona todos los campos).
@@ -20,8 +20,8 @@ const useSupabase = () => {
 
       if (error) throw error;
 
-      setListaCompra(data);
-      console.log(data);
+      return data;
+
     } catch (error) {
       setError(
         "Ha ocurrido un error al intentar cargar las listas de la BD: " +
@@ -38,7 +38,7 @@ const useSupabase = () => {
       const { data, error } = await conexionSupabase
         .from(tabla)
         .select("*")
-        .eq(id)
+        .eq("id", id)
         .single(); // Single hace que devuelva un objeto, y no un array de estos.
 
       if (error) {
