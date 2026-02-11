@@ -13,16 +13,15 @@ const DetallesListaCompra = () => {
 
   const { mensajeConfirmacion } = useAuth();
 
-  const items = listaSeleccionada?.itemslista || [];
+  const items = listaSeleccionada.itemslista;
   const existeLista = !!listaSeleccionada; // true si existe, false si es null
   const hayItems = items.length > 0;
 
   const calcularPesoTotal = () => {
-    if (!listaSeleccionada || !listaSeleccionada.itemslista) return 0;
     let totalPeso = 0;
     items.forEach((item) => {
-      const peso = parseInt(item.productos.peso) || 0;
-      const cantidad = item.cantidad || 0;
+      const peso = parseInt(item.productos.peso);
+      const cantidad = item.cantidad;
 
       totalPeso += peso * cantidad;
     });
@@ -35,8 +34,8 @@ const DetallesListaCompra = () => {
 
     items.forEach((item) => {
       // Protección extra con ?.
-      const precio = Number(item.productos?.precio) || 0;
-      const cantidad = item.cantidad || 0;
+      const precio = Number(item.productos.precio);
+      const cantidad = item.cantidad;
       totalPrecio += precio * cantidad;
     });
 
@@ -48,8 +47,8 @@ const DetallesListaCompra = () => {
   const necesitaCoche = pesoFinal > 8; //El coche se necesita solo cuando es 8kg en adelante.
 
   return (
-<>
-      {/* CONDICIÓN 1: ¿Existe la lista? */}
+    <div className="contenedor-principal">
+      {/* Si el usuario recarga la página y deja de seleccionarse la lista, se muestra solo este div pequeño para volver atrás. */}
       {!existeLista ? (
         <div className="mensaje-error">
           <p>⚠️ No hay ninguna lista seleccionada.</p>
@@ -58,39 +57,80 @@ const DetallesListaCompra = () => {
           </button>
         </div>
       ) : (
-        /* SÍ EXISTE LA LISTA. CONDICIÓN 2: ¿Está vacía? */
+        /* Si existe, pero no tiene productos añadidos, se le dice al usuario de ir a el componente "<Productos>" a añadirlos.*/
         <>
           {!hayItems ? (
             <div className="listaVacía">
               <h2>La lista "{listaSeleccionada.nombre}" está vacía</h2>
               <p>Añade productos para empezar a verlos aquí.</p>
-              <button onClick={() => navegar("/productos")}>Ir a Productos</button>
+              <button onClick={() => navegar("/productos")}>
+                Ir a Productos
+              </button>
             </div>
           ) : (
-            /* CONDICIÓN 3: TIENE DATOS -> MOSTRAR RESUMEN */
-            <div>
-              <h3>Resumen de la lista</h3>
-              <p>Precio Total: <strong>{precioFinal.toFixed(2)} €</strong></p>
-              <p>Peso Total: <strong>{pesoFinal.toFixed(2)} kg</strong></p>
+            /* Aquí es ya cuando ya tiene chicha que mostrar */
+            <div className="detalle-contenido">
+              <h3 className="titulo-seccion">Resumen de la lista</h3>
 
-              {necesitaCoche ? (
-                  <p style={{color: 'red'}}>🚗 Coge el coche</p> 
-              ) : (
-                  <p style={{color: 'green'}}>🚶 Ve andando</p>
-              )}
-              
-              {/* Aquí puedes pintar los items */}
-              {items.map(item => (
-                 <div key={item.id}>
-                    {item.productos?.nombre} - {item.cantidad} uds.
-                    <button onClick={() => eliminarProductoLista(item.id)}>X</button>
-                 </div>
-              ))}
+              <div className="resumen-dashboard">
+                <div className="card-dato">
+                  <span className="label">Precio Total</span>
+                  <strong className="dato">{precioFinal.toFixed(2)} €</strong>
+                </div>
+
+                <div className="card-dato">
+                  <span className="label">Peso Total</span>
+                  <strong className="dato">{pesoFinal.toFixed(2)} kg</strong>
+                  <div
+                    className={`badge-transporte ${necesitaCoche ? "bg-rojo" : "bg-verde"}`}
+                  >
+                    {necesitaCoche ? "🚗 Coge el coche" : "🚶 Ve andando"}
+                  </div>
+                </div>
+              </div>
+
+              {/* Se recorren los objetos que contiene esa lista, con la opción de borrarlos si lo desea el usuario. */}
+              <div className="lista-items-grid">
+                {items.map((item) => (
+                  <div key={item.id} className="item-fila">
+                    <div className="info-producto">
+                      <span className="nombre-producto">
+                        {item.productos?.nombre}
+                      </span>
+                      <span className="badge-cantidad">
+                        {item.cantidad} uds.
+                      </span>
+                    </div>
+                    <button
+                      className="btn-borrar-item"
+                      onClick={() => {
+                        mensajeConfirmacion(
+                          `¿Deseas borrar "${item.productos.nombre}" ?`,
+                          () => {
+                            eliminarProductoLista(item.id);
+                          },
+                        );
+                      }}
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="zona-anadir-mas">
+                <h3>O si lo deseas, puedes añadir más productos.</h3>
+                <button
+                  className="btn-seguir-comprando"
+                  onClick={() => navegar("/productos")}
+                >
+                  Pulsa Aquí
+                </button>
+              </div>
             </div>
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

@@ -18,6 +18,8 @@ const Productos = () => {
     <div className="AccionesPrincipalesApp">
       <h2 className="titulo-seccion">Catálogo de Productos</h2>
 
+      {/*Si el usuario ha seleccionado una lista y ha sido navegado a esta página, se le hace saber que está añadiendo productos.*/}
+      {/*Además, en cualquier momento puede dejar de añadir y volver a las listas.*/}
       { listaSeleccionada && <><p>Añadiendo productos a: 
         <span className="listaActual">{listaSeleccionada.nombre}</span></p>
         <button onClick={() =>{volverAListas();}}>Dejar de Añadir</button></>}

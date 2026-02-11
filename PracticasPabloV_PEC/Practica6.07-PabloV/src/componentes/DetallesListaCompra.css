@@ -1,65 +1,236 @@
-/* Contenedor del mensaje de vacío */
+/* --- CONTENEDOR PRINCIPAL --- */
+.contenedor-principal {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- ESTILOS DE LISTA VACÍA (Los que ya tenías mejorados) --- */
 .listaVacía {
-  background-color: #f9fafb; /* Un gris muy suave */
-  border: 2px dashed #cbd5e1; /* Borde discontinuo elegante */
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
   border-radius: 16px;
-  padding: 3rem 2rem;
+  padding: 3rem;
   text-align: center;
-  margin: 2rem auto;
-  max-width: 500px;
+  margin-top: 2rem;
+  color: #64748b;
+}
+
+.listaVacía h2 { color: #334155; margin-bottom: 10px; }
+
+.listaVacía button {
+  margin-top: 15px;
+  background-color: #003768;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.listaVacía button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+/* --- CABECERA --- */
+.cabecera-detalle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 15px;
+}
+
+.cabecera-detalle h2 { color: #003768; margin: 0; }
+
+.contador-items {
+  background: #e2e8f0;
+  color: #475569;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* --- RESUMEN (TARJETAS SUPERIORES) --- */
+.resumen-dashboard {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card-dato {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
 }
 
-/* Efecto hover sutil en la tarjeta */
-.listaVacía:hover {
-  border-color: #94a3b8;
-  background-color: #fff;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-}
-
-/* El título H2 */
-.listaVacía h2 {
-  font-size: 1.5rem;
-  color: #1e293b;
-  margin: 0;
-  font-weight: 700;
-}
-
-/* El texto descriptivo P */
-.listaVacía p {
+.card-dato .label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
   color: #64748b;
-  margin: 0;
-  font-size: 1rem;
-  max-width: 80%;
-  line-height: 1.5;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-/* El botón de acción */
-.listaVacía button {
-  margin-top: 1rem;
-  background-color: #003768; /* Tu color corporativo */
+.card-dato .dato {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 5px 0;
+}
+
+.badge-transporte {
+  margin-top: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.bg-verde { background-color: #dcfce7; color: #166534; }
+.bg-rojo { background-color: #fee2e2; color: #991b1b; }
+
+/* --- LISTA DE ITEMS --- */
+.titulo-seccion {
+  color: #334155;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.lista-items-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-fila {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.item-fila:hover {
+  transform: translateX(5px);
+  border-left: 5px solid #003768; /* Efecto visual bonito al pasar ratón */
+}
+
+.info-producto {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nombre-producto {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.meta-producto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.badge-cantidad {
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #334155;
+}
+
+.precio-item {
+  color: #059669; /* Verde dinero */
+  font-weight: bold;
+}
+
+/* --- BOTONES --- */
+.btn-borrar-item {
+  background: white;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.2rem;
+}
+
+.btn-borrar-item:hover {
+  background: #ef4444;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+  .resumen-dashboard {
+    flex-direction: column;
+  }
+}
+
+/* Contenedor para la zona inferior */
+.zona-anadir-mas {
+  margin-top: 40px;      /* Separación con la lista de arriba */
+  margin-bottom: 20px;   /* Separación con el final de la página */
+  text-align: center;    /* Centramos todo */
+  padding-top: 20px;
+  border-top: 1px dashed #e2e8f0; /* Una línea sutil para separar secciones */
+}
+
+.zona-anadir-mas h3 {
+  color: #64748b;        /* Un gris elegante, no negro puro */
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Estilo del botón (Consistente con tu App) */
+.btn-seguir-comprando {
+  background-color: #003768; /* Tu azul corporativo */
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 12px 30px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-  box-shadow: 0 4px 6px -1px rgba(0, 55, 104, 0.2);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 55, 104, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre texto e icono si lo pones */
 }
 
-.listaVacía button:hover {
+.btn-seguir-comprando:hover {
   background-color: #004e93;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px -1px rgba(0, 55, 104, 0.3);
+  transform: translateY(-2px); /* Se eleva un poquito al pasar el ratón */
+  box-shadow: 0 6px 12px rgba(0, 55, 104, 0.3);
 }
 
-.listaVacía button:active {
+.btn-seguir-comprando:active {
   transform: translateY(0);
 }

@@ -62,3 +62,41 @@
   width: 100%;
   background-color: white;
 }
+
+/* Aseguramos que la tarjeta sea referencia para el posicionamiento absoluto */
+.lista {
+  position: relative; /* Importante */
+  /* ... tus otros estilos de la tarjeta ... */
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.lista:hover {
+  transform: translateY(-5px);
+}
+
+/* El botón de la basura flotante */
+.btn-eliminar-lista {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white; /* Fondo blanco para que se vea sobre la imagen */
+  border: 1px solid #fee2e2;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10; /* Para que quede por encima de la imagen */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  font-size: 1.2rem;
+}
+
+.btn-eliminar-lista:hover {
+  background-color: #ef4444;
+  color: white;
+  transform: scale(1.1);
+}

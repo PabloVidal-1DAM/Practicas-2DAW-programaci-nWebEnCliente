@@ -21,11 +21,13 @@ const ProveedorListaCompra = ({ children }) => {
   const datosListaCompraIniciales = {
     nombre: "",
   };
-
+  // Estado que controlará el formulario para añadir listas de la compra.
   const [datosListaCompra, setDatosListaCompra] = useState(
     datosListaCompraIniciales,
   );
 
+  // Usa la función genérica de traer datos para hacer una consulta multitabla, 
+  // que trae la lista de la compra con sus productos dentro (si tiene).
   const cargarListaCompras = async () => {
     const listas = await obtenerTodo(
       "listacompra",
@@ -38,15 +40,14 @@ const ProveedorListaCompra = ({ children }) => {
         `,
     );
     setListaCompra(listas);
-    console.log(listas);
 
     if (listaSeleccionada) {
-      // ... buscamos esa misma lista dentro de los datos NUEVOS que acaban de llegar
+      // Busca esa misma lista dentro de los datos NUEVOS que acaban de llegar de la base de datos.
       const listaActualizada = listas.find(
         (lista) => lista.id === listaSeleccionada.id,
       );
 
-      // Si la encontramos, actualizamos lo que ve el usuario.
+      // Si se encuentra, se actualiza lo que ve el usuario.
       // Así, si acaba de añadir un producto, aparecerá justo después.
       if (listaActualizada) {
         setListaSeleccionada(listaActualizada);
@@ -60,11 +61,9 @@ const ProveedorListaCompra = ({ children }) => {
   };
 
   const guardarListaCompra = async () => {
-    if (!usuario) {
-      setError("Debes de iniciar sesión para guardar una lista de la compra.");
-      return;
-    }
 
+    // Se crea un nuevo objeto que contiene todo lo anterior del estado de las listas de la compra, y el id de usuario
+    // que ha creado en ese momento la lista, accediendo al estado del proveedor de sesion.
     const objetoParaGuardar = {
       ...datosListaCompra,
       usuario_id: usuario.id,
@@ -80,6 +79,7 @@ const ProveedorListaCompra = ({ children }) => {
   };
 
   const AnyadirProductoLista = async (idLista, idProducto, cantidad) => {
+    // Con lo que se pasa a la función se crea un objeto JSON para pasarselo a la función genérica de insertar datos.
     const nuevoItem = {
       lista_id: idLista,
       producto_id: idProducto,
@@ -93,6 +93,7 @@ const ProveedorListaCompra = ({ children }) => {
     }
   };
 
+  // Para eliminar existe la de eliminar un solo producto (por su id) y cargarse la lista entera.
   const eliminarProductoLista = async (idItemLista) => {
     const resultado = await eliminarDato("itemslista", idItemLista);
 

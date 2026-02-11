@@ -50,12 +50,14 @@ const Producto = ({ producto }) => {
             onClick={() => {
               mensajeConfirmacion(
                 `¿Deseas borrar el producto ${producto.nombre} ?`,
-                () => eliminarProducto(producto.id),
+                () => eliminarProducto(producto.id)
               );
             }}
           >
             <span>🗑️</span> Eliminar
           </button>
+          {/*Si el usuario ha seleccionado una lista para añadir productos, se añaden nuevas cosas a cada carta del producto.*/}
+          {/*Como la cantidad a añadir y un botón para añadir el producto a la lista seleccionada.*/}
           {listaSeleccionada && (
             <>
               <label htmlFor="cantidad" className="label_cantidad">Cantidad: </label>
