@@ -11,10 +11,9 @@ const DetallesListaCompra = () => {
     navegar,
   } = useContextListaCompra();
 
-  const { mensajeConfirmacion } = useAuth();
+  const { mensajeConfirmacion, idioma } = useAuth();
 
-  const items = listaSeleccionada.itemslista;
-  const existeLista = !!listaSeleccionada; // true si existe, false si es null
+  const items = listaSeleccionada?.itemslista || []; //Si el usuario recarga la página, se hace un array vacío para evitar que pete.
   const hayItems = items.length > 0;
 
   const calcularPesoTotal = () => {
@@ -49,7 +48,7 @@ const DetallesListaCompra = () => {
   return (
     <div className="contenedor-principal">
       {/* Si el usuario recarga la página y deja de seleccionarse la lista, se muestra solo este div pequeño para volver atrás. */}
-      {!existeLista ? (
+      {!listaSeleccionada ? (
         <div className="mensaje-error">
           <p>⚠️ No hay ninguna lista seleccionada.</p>
           <button onClick={() => navegar("/listaCompra")}>
@@ -75,12 +74,12 @@ const DetallesListaCompra = () => {
               <div className="resumen-dashboard">
                 <div className="card-dato">
                   <span className="label">Precio Total</span>
-                  <strong className="dato">{precioFinal.toFixed(2)} €</strong>
+                  <strong className="dato">{precioFinal.toLocaleString(idioma, {minimumFractionDigits: 2, maximumFractionDigits: 2})} €</strong>
                 </div>
 
                 <div className="card-dato">
                   <span className="label">Peso Total</span>
-                  <strong className="dato">{pesoFinal.toFixed(2)} kg</strong>
+                  <strong className="dato">{pesoFinal.toLocaleString(idioma, {minimumFractionDigits: 2, maximumFractionDigits: 2})} kg</strong>
                   <div
                     className={`badge-transporte ${necesitaCoche ? "bg-rojo" : "bg-verde"}`}
                   >
