@@ -79,11 +79,11 @@ const ProveedorListaCompra = ({ children }) => {
     }
   };
 
-  const AnyadirProductoLista = async (idLista, idProducto) => {
+  const AnyadirProductoLista = async (idLista, idProducto, cantidad) => {
     const nuevoItem = {
       lista_id: idLista,
       producto_id: idProducto,
-      cantidad: 1,
+      cantidad: cantidad,
     };
 
     const respuesta = await insertarDato("itemslista", nuevoItem);

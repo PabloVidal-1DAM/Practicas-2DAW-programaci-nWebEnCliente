@@ -24,8 +24,8 @@ const Productos = () => {
 
       <div className="productos-grid">
         {listaFiltrada.length > 0 ? (
-          listaFiltrada.map((producto, i) => (
-            <Producto key={i} producto ={producto} />
+          listaFiltrada.map((producto) => (
+            <Producto key={producto.id} producto ={producto} />
           ))
         ) : (
           <p>No hay productos disponibles actualmente.</p>

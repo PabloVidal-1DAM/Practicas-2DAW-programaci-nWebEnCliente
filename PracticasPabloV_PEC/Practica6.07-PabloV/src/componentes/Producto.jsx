@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState} from "react";
 import useProductos from "./hooks/useProductos";
 import useAuth from "./hooks/useAuth";
 import useContextListaCompra from "./hooks/useContextListaCompra";
@@ -6,7 +6,10 @@ import useContextListaCompra from "./hooks/useContextListaCompra";
 const Producto = ({ producto }) => {
   const { eliminarProducto, cargarDatosFormulario_editar } = useProductos();
   const { idioma, setIdioma, sesionIniciada, mensajeConfirmacion } = useAuth();
-  const { listaSeleccionada } = useContextListaCompra();
+  const { listaSeleccionada, AnyadirProductoLista} = useContextListaCompra();
+
+  const [cantidad, setCantidad] = useState(1); // El estado debe ser local para que al cambiar la cantidad de un producto no se cambien los demás.
+
   return (
     <div key={producto.id} className="producto-card">
       <div className="producto-imagen">
@@ -54,17 +57,21 @@ const Producto = ({ producto }) => {
             <span>🗑️</span> Eliminar
           </button>
           {listaSeleccionada && (
-            <button
-              className="boton-añadir"
-              onClick={() => {
-                mensajeConfirmacion(
-                  `¿Deseas añadir "${producto.nombre}" a la lista "${listaSeleccionada.nombre}" ?`,
-                  () => console.log("por añadir"),
-                );
-              }}
-            >
-              Añadir
-            </button>
+            <>
+              <label htmlFor="cantidad" className="label_cantidad">Cantidad: </label>
+              <input type="number" id="cantidad" name="cantidad" min="1" value={cantidad} onChange={(e) =>{ setCantidad(parseInt(e.target.value))}} />
+              <button
+                className="boton-añadir"
+                onClick={() => {
+                  mensajeConfirmacion(
+                    `¿Deseas añadir ${cantidad} "${producto.nombre}" a la lista "${listaSeleccionada.nombre}" ?`,
+                    () => AnyadirProductoLista(listaSeleccionada.id, producto.id, cantidad), 
+                  );
+                }}
+              >
+                Añadir
+              </button>
+            </>
           )}
         </div>
       )}

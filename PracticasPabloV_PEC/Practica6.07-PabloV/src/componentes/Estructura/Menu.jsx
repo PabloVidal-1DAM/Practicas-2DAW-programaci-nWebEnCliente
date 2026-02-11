@@ -13,12 +13,12 @@ const Menu = () => {
         <Link to={"/productos"} className="botonNav">
           Ver Productos
         </Link>
-        <Link to={"/listaCompra"} className="botonNav">
-          Ver Listas de la Compra
-        </Link>
         {/* Si el usuario no inicia sesión, solo puede ver los productos de la tabla, pero NO añadir nuevos. */}
         {sesionIniciada && (
           <>
+            <Link to={"/listaCompra"} className="botonNav">
+              Ver Listas de la Compra
+            </Link>
             <Link to={"/productos/añadir"} className="botonNav">
               Añadir Producto
             </Link>

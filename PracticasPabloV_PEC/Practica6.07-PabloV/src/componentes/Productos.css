@@ -158,11 +158,12 @@
 /* Contenedor de los botones de la tarjeta */
 .acciones {
     display: flex;
-    gap: 12px; /* Espacio entre los botones */
-    padding: 15px; /* Espacio para que no toquen los bordes de la tarjeta */
-    background-color: #f9f9f9; /* Un tono gris muy suave de fondo */
-    border-top: 1px solid #eee; /* Línea divisoria sutil */
-    margin-top: auto; /* Empuja las acciones al final si la tarjeta crece */
+    flex-wrap: wrap; /* <--- IMPORTANTE: Permite que los elementos bajen de línea */
+    gap: 12px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+    margin-top: auto;
 }
 
 /* Estilo para los botones dentro de .acciones */
@@ -206,4 +207,71 @@
     background-color: #e11d48;
     color: white;
     transform: translateY(-2px);
+}
+
+/* --- NUEVOS ESTILOS PARA LA ZONA DE CANTIDAD --- */
+
+/* El contenedor que envuelve el label, input y botón de añadir */
+.zona-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin-top: 5px; /* Un poco de aire con los botones de arriba */
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb; /* Una línea sutil para separar acciones */
+}
+
+/* El texto "Cant:" */
+.zona-cantidad label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+/* El input numérico */
+.zona-cantidad input[type="number"] {
+    width: 60px; /* Ancho fijo para que no sea enorme */
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.zona-cantidad input[type="number"]:focus {
+    border-color: rgb(0, 55, 104); /* Color corporativo al pulsar */
+}
+
+.label_cantidad{
+    color: rgb(0, 55, 104);
+}
+
+/* El botón de AÑADIR específico */
+.boton-añadir {
+    background-color: #10b981; /* Verde esmeralda para acción positiva */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    flex-grow: 1; /* Ocupa el resto del espacio disponible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.boton-añadir:hover {
+    background-color: #059669; /* Verde más oscuro */
+    transform: translateY(-1px);
+}
+
+.boton-añadir:active {
+    transform: translateY(0);
 }
