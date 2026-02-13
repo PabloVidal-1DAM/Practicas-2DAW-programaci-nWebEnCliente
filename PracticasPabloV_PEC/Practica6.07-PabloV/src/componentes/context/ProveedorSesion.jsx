@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import useSesion from "../hooks/useSesion.js";
 import { conexionSupabase } from "../Estructura/supabase/supabase.js";
+import useSupabase from "../hooks/useSupabase.js";
 
 const contextoSesion = createContext();
 
@@ -22,10 +23,15 @@ const ProveedorSesion = ({ children }) => {
     setIdioma,
   } = useSesion();
 
+  const { obtenerTodo } = useSupabase();
+
   // será gastado por todos aquellos componentes que tengan que usar al componente "Confirmacion.jsx"
   const [AccionConfirmacion, setAccionConfirmacion] = useState(false);
   const [mensajeAccion, setMensajeAccion] = useState("");
   const [funcionConfirmacion, setFuncionConfirmacion] = useState(null);
+
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
 
   const mensajeConfirmacion = (mensaje, callback) => {
     setMensajeAccion(mensaje);
@@ -59,6 +65,19 @@ const ProveedorSesion = ({ children }) => {
     setSesionIniciada(false);
   };
 
+  const traerRolesUsuarios = async () => {
+    try {
+      const usuarios = await obtenerTodo("roles", "id, correo, rol");
+      if (usuarios) {
+        setUsuarios(usuarios);
+      }
+    } catch (error) {
+      setError(
+        `Ha ocurrido un error al traer a los usuarios de la BD: ${error.message}`,
+      );
+    }
+  };
+
   useEffect(() => {
     // Función que se hará siempre que se carge el componente y estará atenta a cualquier cambio en la base de datos de usuarios.
     const subscripcion = conexionSupabase.auth.onAuthStateChange(
@@ -73,6 +92,8 @@ const ProveedorSesion = ({ children }) => {
         }
       },
     );
+
+    traerRolesUsuarios();
   }, []);
 
   const datos = {
@@ -89,11 +110,14 @@ const ProveedorSesion = ({ children }) => {
     setIdioma,
     navegar,
 
-    AccionConfirmacion,   
-    mensajeAccion,        
-    mensajeConfirmacion,  
-    cerrarMensaje,        
-    confirmarMensaje
+    AccionConfirmacion,
+    mensajeAccion,
+    mensajeConfirmacion,
+    cerrarMensaje,
+    confirmarMensaje,
+
+    usuarios,
+    usuarioSeleccionado,
   };
 
   return (

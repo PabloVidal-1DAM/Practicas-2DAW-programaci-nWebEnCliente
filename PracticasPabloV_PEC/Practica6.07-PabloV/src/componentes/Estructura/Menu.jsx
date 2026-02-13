@@ -25,6 +25,9 @@ const Menu = () => {
             <Link to={"/listaCompra/añadir"} className="botonNav">
               Añadir Lista de la Compra
             </Link>
+            <Link to={"/usuarios"} className="botonNav">
+              Ver roles de Usuarios
+            </Link>
           </>
         )}
       </nav>

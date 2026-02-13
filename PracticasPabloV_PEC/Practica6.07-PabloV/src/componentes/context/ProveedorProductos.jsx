@@ -55,11 +55,16 @@ const ProveedorProductos = ({ children }) => {
 
   // Obtiene datos de la b.d y usa el estado para guardar: 1. La lista Original, 2. La lista filtrada (que se usará para aplicar los filtros.)
   const cargarProductos = async () => {
+    try{
     const productos = await obtenerTodo("productos");
     setListaProductos(productos);
     sacarDatosExtra(productos);
 
     setListaFiltrada(productos);
+    } catch(error){
+       setError(`Ha ocurrido un error al cargar los productos de la BD: ${error.message}`);
+    }
+
   };
 
   // En base a lo que devuelve la b.d, se hacen calculos para sacar datos como el precio medio o la cantidad de productos que se han sacado de la b.d.
@@ -142,6 +147,7 @@ const ProveedorProductos = ({ children }) => {
   // Para las acciones del CRUD llamo a nuevas funciones que tiene el hook "useSupabase".
   // Estas solo devuelven true o false para indicar si se ha podido hacer la acción.
   const anyadirProducto = async () => {
+    try{
     const resultado = await insertarDato("productos", datosProductos);
 
     if(resultado){
@@ -149,9 +155,14 @@ const ProveedorProductos = ({ children }) => {
       await cargarProductos();
       setError("Producto Guardado con Éxito :) !!!.");
     }
+    } catch(error){
+      setError(`Ha ocurrido un error al añadir un producto a la BD: ${error.message}`);
+    }
+
   };
 
   const eliminarProducto = async (id) => {
+    try{
     const resultado = await eliminarDato("productos", id);
 
     if(resultado){
@@ -162,6 +173,10 @@ const ProveedorProductos = ({ children }) => {
        setListaFiltrada(nuevaListaFiltrada);
        setError("Producto borrado correctamente :)");
     }
+    } catch(error){
+      setError(`Ha ocurrido un error al eliminar un producto de la BD: ${error.message}`);
+    }
+
   };
 
   const cancelarModoEditar = () => {

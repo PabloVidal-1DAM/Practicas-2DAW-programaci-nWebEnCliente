@@ -26,20 +26,27 @@ const ProveedorListaCompra = ({ children }) => {
     datosListaCompraIniciales,
   );
 
-  // Usa la función genérica de traer datos para hacer una consulta multitabla, 
+  // Usa la función genérica de traer datos para hacer una consulta multitabla,
   // que trae la lista de la compra con sus productos dentro (si tiene).
   const cargarListaCompras = async () => {
-    const listas = await obtenerTodo(
-      "listacompra",
-      `
+    try {
+      const listas = await obtenerTodo(
+        "listacompra",
+        `
           id, nombre, usuario_id, created_at,
           itemslista (
             id, cantidad,
             productos ( id, nombre, peso, precio, url )
           )
         `,
-    );
-    setListaCompra(listas);
+      );
+      setListaCompra(listas);
+    } catch (error) {
+      setError(
+        "Ha ocurrido un error al intentar cargar las listas de la BD: " +
+          error.message,
+      );
+    }
 
     if (listaSeleccionada) {
       // Busca esa misma lista dentro de los datos NUEVOS que acaban de llegar de la base de datos.
@@ -61,9 +68,9 @@ const ProveedorListaCompra = ({ children }) => {
   };
 
   const guardarListaCompra = async () => {
-
     // Se crea un nuevo objeto que contiene todo lo anterior del estado de las listas de la compra, y el id de usuario
     // que ha creado en ese momento la lista, accediendo al estado del proveedor de sesion.
+    try{
     const objetoParaGuardar = {
       ...datosListaCompra,
       usuario_id: usuario.id,
@@ -76,10 +83,14 @@ const ProveedorListaCompra = ({ children }) => {
       await cargarListaCompras();
       setError("Lista de la compra insertada correctamente :) !!!.");
     }
+  }catch(error){
+    setError(`Error al intentar guardar la lista de la compra: ${error.message} .`);
+  }
   };
 
   const AnyadirProductoLista = async (idLista, idProducto, cantidad) => {
     // Con lo que se pasa a la función se crea un objeto JSON para pasarselo a la función genérica de insertar datos.
+    try{
     const nuevoItem = {
       lista_id: idLista,
       producto_id: idProducto,
@@ -91,19 +102,27 @@ const ProveedorListaCompra = ({ children }) => {
       await cargarListaCompras();
       setError("Producto insertado correctamente :) !!!.");
     }
+  }catch(error){
+    setError(`Error al intentar añadir un producto a la lista de la compra: ${error.message} .`);
+  }
   };
 
   // Para eliminar existe la de eliminar un solo producto (por su id) y cargarse la lista entera.
   const eliminarProductoLista = async (idItemLista) => {
+    try{
     const resultado = await eliminarDato("itemslista", idItemLista);
 
     if (resultado) {
       await cargarListaCompras();
       setError("Producto eliminado de la lista correctamente :) !!!.");
     }
+  }catch(error){
+    setError(`Error al intentar eliminar un producto de la lista de la compra: ${error.message}`);
+  }
   };
 
   const borrarTodaLaLista = async (idLista) => {
+    try{
     const resultado = await eliminarDato("listacompra", idLista);
 
     if (resultado) {
@@ -111,6 +130,9 @@ const ProveedorListaCompra = ({ children }) => {
       await cargarListaCompras();
       setError("Lista borrada");
     }
+  }catch(error){
+    setError(`Error al intentar borrar la lista de la Base de Datos: ${error.message}`);
+  }
   };
 
   useEffect(() => {

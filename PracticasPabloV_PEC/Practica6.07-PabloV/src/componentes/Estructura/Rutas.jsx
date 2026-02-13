@@ -9,6 +9,7 @@ import AnyadirProducto from '../AnyadirProducto.jsx';
 import AnyadirListaCompra from '../AnyadirListaCompra.jsx';
 import ListaCompras from '../ListaCompras.jsx';
 import DetallesListaCompra from '../DetallesListaCompra.jsx';
+import Usuarios from '../Usuarios.jsx';
 
 const Rutas = () => {
   return (
@@ -23,6 +24,7 @@ const Rutas = () => {
         <Route path='/listaCompra' element={<ListaCompras />} />
         <Route path='/listaCompra/añadir' element={<AnyadirListaCompra />} />
         <Route path='listaCompra/detalles' element={<DetallesListaCompra />} />
+        <Route path='/usuarios' element={<Usuarios />} />
     </Routes>
     </>
   )
