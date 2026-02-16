@@ -23,7 +23,7 @@ const ProveedorSesion = ({ children }) => {
     setIdioma,
   } = useSesion();
 
-  const { obtenerTodo } = useSupabase();
+  const { obtenerTodo, editarDato } = useSupabase();
 
   // será gastado por todos aquellos componentes que tengan que usar al componente "Confirmacion.jsx"
   const [AccionConfirmacion, setAccionConfirmacion] = useState(false);
@@ -78,6 +78,20 @@ const ProveedorSesion = ({ children }) => {
     }
   };
 
+  const cambiarRolUsuario = async (idUsuario, rol) => {
+    try {
+      const objeto = {
+        rol
+      }
+      const resultado = await editarDato("roles", idUsuario, objeto);
+      if (resultado) {
+        setError(`El rol se ha cambiado correctamente.`);
+      }
+    } catch (error) {
+      setError(`Ha ocurrido un error al cambiar el rol al usuario: ${error.message}`);
+    }
+  };
+
   useEffect(() => {
     // Función que se hará siempre que se carge el componente y estará atenta a cualquier cambio en la base de datos de usuarios.
     const subscripcion = conexionSupabase.auth.onAuthStateChange(
@@ -118,6 +132,7 @@ const ProveedorSesion = ({ children }) => {
 
     usuarios,
     usuarioSeleccionado,
+    cambiarRolUsuario
   };
 
   return (

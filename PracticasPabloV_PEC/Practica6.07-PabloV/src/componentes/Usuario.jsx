@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAuth from "./hooks/useAuth";
 
 const Usuario = ({ usuario }) => {
-  const { actualizarDato, mensajeConfirmacion, usuario } = useAuth();
+  const { cambiarRolUsuario, mensajeConfirmacion} = useAuth();
 
   const [rolSeleccionado, setRolSeleccionado] = useState(usuario.rol);
   const rolCambiado = rolSeleccionado !== usuario.rol // Cuando el rol que viene de la base de datos cambie, se mostrará el boton para guardar cambios.
@@ -31,10 +31,8 @@ const Usuario = ({ usuario }) => {
             <option value="administrador">Administrador</option>
           </select>
           {rolCambiado && 
-          <button className="btn-guardar-rol" onClick={mensajeConfirmacion(`¿Seguro que quieres guardar los cambios de rol de ${usuario.correo} a ${rolSeleccionado}?`, 
-            async () =>{
-                await actualizarDato("roles", usuario.id)
-            }
+          <button className="btn-guardar-rol" onClick={ () => mensajeConfirmacion(`¿Seguro que quieres guardar los cambios de rol de ${usuario.correo} a ${rolSeleccionado}?`, 
+            () =>{ cambiarRolUsuario(usuario.id, rolSeleccionado)}
           )}>
             Guardar Cambios
         </button>}
