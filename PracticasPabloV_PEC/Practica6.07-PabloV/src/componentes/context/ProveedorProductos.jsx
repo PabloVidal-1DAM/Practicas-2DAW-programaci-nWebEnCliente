@@ -186,6 +186,7 @@ const ProveedorProductos = ({ children }) => {
   };
 
   const modificarProducto = async () => {
+    try{
     const resultado = await editarDato("productos", idProducto, datosProductos);
 
     if(resultado){
@@ -193,6 +194,9 @@ const ProveedorProductos = ({ children }) => {
       await cargarProductos();
       setError("Producto actualizado con éxito :)");
       navegar("/productos");
+    }
+    }catch(error){
+      setError(`Ha ocurrido un error al modificar el producto: ${error.message}`);
     }
   };
 

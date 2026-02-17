@@ -11,19 +11,14 @@ const useSupabase = () => {
     setCargando(true);
     let datos = null;
     try {
-      const { data, error } = await conexionSupabase
-        .from(tabla)
-        .select(
-          accion
-        );
+      const { data, error } = await conexionSupabase.from(tabla).select(accion);
 
       if (error) throw error;
 
-      return datos = data;
-
+      return (datos = data);
     } catch (error) {
       throw error;
-    }finally{
+    } finally {
       setCargando(false);
     }
   };
@@ -42,7 +37,7 @@ const useSupabase = () => {
         throw error;
       }
 
-      return datos = data;
+      return (datos = data);
     } catch (error) {
       throw error;
     } finally {
@@ -54,17 +49,25 @@ const useSupabase = () => {
   // Simplemente informan de si han podido hacer la acción con un true o false.
   const insertarDato = async (tabla, objeto) => {
     setCargando(true);
-    let resultado = false;
+    let resultado = null;
     try {
       const { data, error } = await conexionSupabase
         .from(tabla)
-        .insert([objeto]);
+        .insert([objeto])
+        .select();
 
+      // Posibles errores de sintaxis.
       if (error) {
         throw error;
       }
 
-      return resultado = true;
+      // Errores de permisos de RLS, ya que si no la acción se hace aunque no se inserte nada y al usuario se le da falso feedback.
+      if (!data || data.length === 0) {
+        throw new Error("No tienes permisos de RLS para insertar estos datos.");
+      }
+
+      resultado = data;
+      return resultado;
     } catch (error) {
       throw error;
     } finally {
@@ -74,18 +77,26 @@ const useSupabase = () => {
 
   const eliminarDato = async (tabla, id) => {
     setCargando(true);
-    let resultado = false;
+    let resultado = null;
     try {
       const { data, error } = await conexionSupabase
         .from(tabla)
         .delete()
-        .eq("id", id);
+        .eq("id", id)
+        .select();
 
+      // Posibles errores de sintaxis.
       if (error) {
         throw error;
       }
 
-      return resultado = true;
+      // Errores de permisos de RLS, ya que si no la acción se hace aunque no borre nada y al usuario se le da falso feedback.
+      if (!data || data.length === 0) {
+        throw new Error("No tienes permisos de RLS para eliminar estos datos.");
+      }
+
+      resultado = data;
+      return resultado;
     } catch (error) {
       throw error;
     } finally {
@@ -100,13 +111,21 @@ const useSupabase = () => {
       const { data, error } = await conexionSupabase
         .from(tabla)
         .update(objeto)
-        .eq("id", id);
+        .eq("id", id)
+        .select();
 
+      // Posibles errores de sintaxis.
       if (error) {
         throw error;
       }
 
-      return resultado = true;
+      // Errores de permisos de RLS, ya que si no la acción se hace aunque no borre nada y al usuario se le da falso feedback.
+      if (!data || data.length === 0) {
+        throw new Error("No tienes permisos de RLS para editar estos datos.");
+      }
+
+      resultado = data;
+      return resultado;
     } catch (error) {
       throw error;
     } finally {
@@ -114,7 +133,14 @@ const useSupabase = () => {
     }
   };
 
-  return { obtenerTodo, obtenerRegistro, insertarDato, eliminarDato, editarDato, cargando };
+  return {
+    obtenerTodo,
+    obtenerRegistro,
+    insertarDato,
+    eliminarDato,
+    editarDato,
+    cargando,
+  };
 };
 
 export default useSupabase;
