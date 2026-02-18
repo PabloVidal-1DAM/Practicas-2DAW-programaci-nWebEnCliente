@@ -11,7 +11,7 @@ const Usuarios = () => {
 
       <div className="usuarios-grid">
         {usuarios.map((usuario) => (
-          <Usuario key={usuario.id} usuario={usuario} />
+          <Usuario key={usuario.id_rol} usuario={usuario} />
         ))}
       </div>
     </div>

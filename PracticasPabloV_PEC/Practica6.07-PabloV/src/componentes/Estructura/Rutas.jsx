@@ -10,6 +10,7 @@ import AnyadirListaCompra from '../AnyadirListaCompra.jsx';
 import ListaCompras from '../ListaCompras.jsx';
 import DetallesListaCompra from '../DetallesListaCompra.jsx';
 import Usuarios from '../Usuarios.jsx';
+import Perfil from '../Perfil.jsx';
 
 const Rutas = () => {
   return (
@@ -25,6 +26,7 @@ const Rutas = () => {
         <Route path='/listaCompra/añadir' element={<AnyadirListaCompra />} />
         <Route path='listaCompra/detalles' element={<DetallesListaCompra />} />
         <Route path='/usuarios' element={<Usuarios />} />
+        <Route path='/perfil' element={<Perfil />} />
     </Routes>
     </>
   )

@@ -1,0 +1,130 @@
+/* Contenedor principal centrado */
+.perfil-wrapper {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- ZONA 1: TARJETA VISUAL --- */
+.perfil-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.perfil-header-bg {
+  height: 100px;
+  background: linear-gradient(90deg, #0f172a, #334155); /* Azul oscuro elegante */
+}
+
+.perfil-avatar-container {
+  margin-top: -60px; /* Hace que la foto suba y pise el fondo */
+  display: flex;
+  justify-content: center;
+}
+
+.perfil-avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid white;
+  object-fit: cover;
+  background-color: #f1f5f9;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.perfil-info {
+  padding: 20px 25px 30px;
+}
+
+.perfil-info h2 {
+  margin: 10px 0 5px;
+  color: #1e293b;
+  font-size: 1.8rem;
+}
+
+.perfil-desc {
+  color: #64748b;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* --- ZONA 2: FORMULARIO --- */
+.perfil-form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.perfil-form-container h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #334155;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box; /* Importante para que el padding no rompa el ancho */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group small {
+  display: block;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.btn-guardar-perfil {
+  width: 100%;
+  background-color: #0f172a; /* Botón oscuro */
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-guardar-perfil:hover {
+  background-color: #334155;
+}
+
+.btn-guardar-perfil:active {
+  transform: scale(0.98);
+}

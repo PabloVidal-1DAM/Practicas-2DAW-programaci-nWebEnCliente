@@ -18,6 +18,17 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.botonNav {
+  background-color: rgba(255, 255, 255, 0.1); /* Un toque más moderno */
+  border: 1px solid white;
+  color: white;
+  font-size: 13px;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -39,4 +50,27 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* --- NUEVO PARA LA CABECERA --- */
+
+header {
+  display: flex;             /* Convierte el header en una caja flexible */
+  justify-content: space-between; /* Empuja el contenido a los extremos (Izquierda <-> Derecha) */
+  align-items: center;       /* Centra verticalmente los elementos */
+  width: 100%;               /* Asegura que ocupe todo el ancho */
+  margin-bottom: 2rem;       /* Da un poco de aire antes de que empiece la app */
+}
+
+/* Ajuste opcional para el título: le quitamos el margen por defecto para que centre bien */
+.h1_css {
+  margin: 0;
+  text-align: left;
+}
+
+/* Si aparece el texto de bienvenida, le damos un margen para que respire */
+header p {
+  margin: 0 15px;
+  color: #ccc; /* Un color gris suave para que no compita con el título */
+  font-size: 0.9rem;
 }

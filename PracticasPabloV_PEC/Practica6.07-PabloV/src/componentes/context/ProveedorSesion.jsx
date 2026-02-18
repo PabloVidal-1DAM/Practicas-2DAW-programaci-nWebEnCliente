@@ -67,7 +67,7 @@ const ProveedorSesion = ({ children }) => {
 
   const traerRolesUsuarios = async () => {
     try {
-      const usuarios = await obtenerTodo("roles", "id, correo, rol");
+      const usuarios = await obtenerTodo("roles", "id_rol, correo, rol");
       if (usuarios) {
         setUsuarios(usuarios);
       }
@@ -99,16 +99,14 @@ const ProveedorSesion = ({ children }) => {
       (event, session) => {
         if (session) {
           setSesionIniciada(true);
-
           obtenerInfoUsuario();
+          traerRolesUsuarios();
         } else {
           navegar("/iniciar-sesion");
           setSesionIniciada(false);
         }
       }, []
     );
-
-    traerRolesUsuarios();
   }, []);
 
   const datos = {

@@ -23,15 +23,15 @@ const useSupabase = () => {
     }
   };
 
-  const obtenerRegistro = async (tabla, id) => {
+  const obtenerRegistro = async (tabla, columna = "id", id) => {
     setCargando(true);
     let datos = null;
     try {
       const { data, error } = await conexionSupabase
         .from(tabla)
         .select("*")
-        .eq("id", id)
-        .single(); // Single hace que devuelva un objeto, y no un array de estos.
+        .eq(columna, id)
+        .maybeSingle(); // Single hace que devuelva un objeto, y no un array de estos.
 
       if (error) {
         throw error;
@@ -104,14 +104,14 @@ const useSupabase = () => {
     }
   };
 
-  const editarDato = async (tabla, id, objeto) => {
+  const editarDato = async (tabla, columna = "id", id, objeto) => {
     setCargando(true);
     let resultado = false;
     try {
       const { data, error } = await conexionSupabase
         .from(tabla)
         .update(objeto)
-        .eq("id", id)
+        .eq(columna, id)
         .select();
 
       // Posibles errores de sintaxis.

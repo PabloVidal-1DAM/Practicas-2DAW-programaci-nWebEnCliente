@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useAuth from "./hooks/useAuth";
+import useContextPerfil from "./hooks/useContextPerfil";
 
 const Usuario = ({ usuario }) => {
-  const { cambiarRolUsuario, mensajeConfirmacion} = useAuth();
+  const { cambiarRolUsuario, mensajeConfirmacion } = useAuth();
 
   const [rolSeleccionado, setRolSeleccionado] = useState(usuario.rol);
-  const rolCambiado = rolSeleccionado !== usuario.rol // Cuando el rol que viene de la base de datos cambie, se mostrará el boton para guardar cambios.
+  const rolCambiado = rolSeleccionado !== usuario.rol; // Cuando el rol que viene de la base de datos cambie, se mostrará el boton para guardar cambios.
+
+  const { obtenerFotoUsuario } = useContextPerfil();
+  const [imagen, setImagen] = useState("https://i.pinimg.com/736x/76/4d/59/764d59d32f61f0f91dec8c442ab052c5.jpg");
+
+  const obtenerImagen = async () => {
+    const imagen = await obtenerFotoUsuario(usuario.id_rol);
+    if (imagen) {
+      setImagen(imagen);
+    }
+  };
+
+  useEffect(() => {
+    obtenerImagen();
+  }, [usuario.id]);
+  console.log(usuario);
+
   return (
     <div className="usuario-card">
       {/* 1. Avatar decorativo */}
       <div className="usuario-avatar">
-        <img src="https://i.pinimg.com/736x/76/4d/59/764d59d32f61f0f91dec8c442ab052c5.jpg"></img>
+        <img src={imagen}></img>
       </div>
 
       {/* 2. Correo */}
@@ -30,12 +47,21 @@ const Usuario = ({ usuario }) => {
             <option value="usuario">Usuario</option>
             <option value="administrador">Administrador</option>
           </select>
-          {rolCambiado && 
-          <button className="btn-guardar-rol" onClick={ () => mensajeConfirmacion(`¿Seguro que quieres guardar los cambios de rol de ${usuario.correo} a ${rolSeleccionado}?`, 
-            () =>{ cambiarRolUsuario(usuario.id, rolSeleccionado)}
-          )}>
-            Guardar Cambios
-        </button>}
+          {rolCambiado && (
+            <button
+              className="btn-guardar-rol"
+              onClick={() =>
+                mensajeConfirmacion(
+                  `¿Seguro que quieres guardar los cambios de rol de ${usuario.correo} a ${rolSeleccionado}?`,
+                  () => {
+                    cambiarRolUsuario(usuario.id, rolSeleccionado);
+                  },
+                )
+              }
+            >
+              Guardar Cambios
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -21,9 +21,10 @@ const ProveedorPerfil = ({children}) => {
       if (!usuario){
         return null;
       }
-      const perfil = await obtenerRegistro("perfiles",usuario.id);
+      const perfil = await obtenerRegistro("perfiles","id_usuario", usuario.id);
       if(perfil){
         setPerfil(perfil);
+        setDatosPerfil(perfil);
         setError(`Perfil cargado correctamente.`);
       }
     }catch(error){
@@ -38,7 +39,7 @@ const ProveedorPerfil = ({children}) => {
 
   const editarDatosPerfil = async () =>{
     try{
-      const respuesta = await editarDato("perfiles", usuario.id, datosPerfil);
+      const respuesta = await editarDato("perfiles", "id_usuario", usuario.id, datosPerfil);
       if(respuesta){
         traerPerfilUsuario();
         setDatosPerfil(datosPerfilIniciales);
@@ -49,11 +50,24 @@ const ProveedorPerfil = ({children}) => {
     }
   }
 
-  useEffect(() =>{
-    traerPerfilUsuario();
-  }, [usuario])
+  const obtenerFotoUsuario = async (idUsuario) =>{
+    try{
+    const respuesta = await obtenerRegistro("perfiles", "id_usuario", idUsuario);
+    if(respuesta){
+      return respuesta.foto;
+    }}catch(error){
+      setError(`Ha ocurrido un error al intentar obtener las fotos de usuario: ${editarDato.message}.`);
+      return null;
+    }
+  }
 
-const datos = {perfil, datosPerfil, actualizarDatosPerfil, editarDatosPerfil};
+  useEffect(() =>{
+    if(usuario && usuario.id){
+      traerPerfilUsuario();
+    }
+  }, [usuario]);
+
+const datos = {perfil, datosPerfil, actualizarDatosPerfil, editarDatosPerfil, obtenerFotoUsuario};
   return (
     <contextoPerfiles.Provider value={datos}>
         {children}
