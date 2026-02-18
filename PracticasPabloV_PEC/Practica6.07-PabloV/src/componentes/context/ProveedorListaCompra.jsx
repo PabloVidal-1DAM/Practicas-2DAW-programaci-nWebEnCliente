@@ -81,6 +81,7 @@ const ProveedorListaCompra = ({ children }) => {
       if (respuesta) {
         setDatosListaCompra(datosListaCompraIniciales);
         await cargarListaCompras();
+        navegar("/listaCompra");
         setError("Lista de la compra insertada correctamente :) !!!.");
       }
     } catch (error) {

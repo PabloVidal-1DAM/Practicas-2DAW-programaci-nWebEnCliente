@@ -153,6 +153,7 @@ const ProveedorProductos = ({ children }) => {
     if(resultado){
       setDatosProductos(datosProductoIniciales);
       await cargarProductos();
+      navegar("/productos");
       setError("Producto Guardado con Éxito :) !!!.");
     }
     } catch(error){
