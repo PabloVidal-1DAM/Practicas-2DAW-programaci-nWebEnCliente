@@ -12,6 +12,7 @@ import ProveedorProductos from "./componentes/context/ProveedorProductos.jsx";
 import Errores from "./componentes/Errores.jsx";
 import ProveedorListaCompra from "./componentes/context/ProveedorListaCompra.jsx";
 import Confirmacion from "./componentes/Confirmacion.jsx";
+import ProveedorPerfil from "./componentes/context/ProveedorPerfil.jsx";
 
 function App() {
   return (
@@ -28,10 +29,12 @@ function App() {
           <Contenido>
             <ProveedorProductos>
               <ProveedorListaCompra>
-                <Cargando>
-                  <Rutas />
-                  <Confirmacion />
-                </Cargando>
+                <ProveedorPerfil>
+                  <Cargando>
+                    <Rutas />
+                    <Confirmacion />
+                  </Cargando>
+                </ProveedorPerfil>
               </ProveedorListaCompra>
             </ProveedorProductos>
           </Contenido>
