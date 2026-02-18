@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Menu.css";
 import useAuth from "../hooks/useAuth";
 const Menu = () => {
-  const { sesionIniciada } = useAuth();
+  const { sesionIniciada, esAdmin } = useAuth();
   return (
     <>
       <nav>
@@ -19,15 +19,21 @@ const Menu = () => {
             <Link to={"/listaCompra"} className="botonNav">
               Ver Listas de la Compra
             </Link>
-            <Link to={"/productos/añadir"} className="botonNav">
-              Añadir Producto
-            </Link>
-            <Link to={"/listaCompra/añadir"} className="botonNav">
-              Añadir Lista de la Compra
-            </Link>
-            <Link to={"/usuarios"} className="botonNav">
-              Ver roles de Usuarios
-            </Link>
+            {esAdmin() && (
+              <Link to={"/productos/añadir"} className="botonNav">
+                Añadir Producto
+              </Link>
+            )}
+            {!esAdmin() && (
+              <Link to={"/listaCompra/añadir"} className="botonNav">
+                Añadir Lista de la Compra
+              </Link>
+            )}
+            {esAdmin() && (
+              <Link to={"/usuarios"} className="botonNav">
+                Ver roles de Usuarios
+              </Link>
+            )}
           </>
         )}
       </nav>

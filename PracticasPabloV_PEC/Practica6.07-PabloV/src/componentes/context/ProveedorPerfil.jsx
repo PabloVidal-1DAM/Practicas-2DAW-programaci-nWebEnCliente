@@ -56,7 +56,7 @@ const ProveedorPerfil = ({children}) => {
     if(respuesta){
       return respuesta.foto;
     }}catch(error){
-      setError(`Ha ocurrido un error al intentar obtener las fotos de usuario: ${editarDato.message}.`);
+      setError(`Ha ocurrido un error al intentar obtener las fotos de usuario: ${error.message}.`);
       return null;
     }
   }

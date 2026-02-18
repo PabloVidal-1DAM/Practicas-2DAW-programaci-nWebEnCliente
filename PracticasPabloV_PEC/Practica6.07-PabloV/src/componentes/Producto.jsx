@@ -1,12 +1,13 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import useProductos from "./hooks/useProductos";
 import useAuth from "./hooks/useAuth";
 import useContextListaCompra from "./hooks/useContextListaCompra";
 
 const Producto = ({ producto }) => {
   const { eliminarProducto, cargarDatosFormulario_editar } = useProductos();
-  const { idioma, setIdioma, sesionIniciada, mensajeConfirmacion } = useAuth();
-  const { listaSeleccionada, AnyadirProductoLista} = useContextListaCompra();
+  const { idioma, setIdioma, sesionIniciada, mensajeConfirmacion, esAdmin } =
+    useAuth();
+  const { listaSeleccionada, AnyadirProductoLista } = useContextListaCompra();
 
   const [cantidad, setCantidad] = useState(1); // El estado debe ser local para que al cambiar la cantidad de un producto no se cambien los demás.
 
@@ -37,37 +38,57 @@ const Producto = ({ producto }) => {
       {/*Para borrar  y editar únicamente pordrá verlo el usuario que tenga sesión iniciada*/}
       {sesionIniciada && (
         <div className="acciones">
-          <button
-            className="btn-editar"
-            onClick={() => {
-              cargarDatosFormulario_editar(producto);
-            }}
-          >
-            <span>✏️</span> Editar
-          </button>
-          <button
-            className="btn-eliminar"
-            onClick={() => {
-              mensajeConfirmacion(
-                `¿Deseas borrar el producto ${producto.nombre} ?`,
-                () => eliminarProducto(producto.id)
-              );
-            }}
-          >
-            <span>🗑️</span> Eliminar
-          </button>
+          {esAdmin() && (
+            <>
+              <button
+                className="btn-editar"
+                onClick={() => {
+                  cargarDatosFormulario_editar(producto);
+                }}
+              >
+                <span>✏️</span> Editar
+              </button>
+              <button
+                className="btn-eliminar"
+                onClick={() => {
+                  mensajeConfirmacion(
+                    `¿Deseas borrar el producto ${producto.nombre} ?`,
+                    () => eliminarProducto(producto.id),
+                  );
+                }}
+              >
+                <span>🗑️</span> Eliminar
+              </button>{" "}
+            </>
+          )}
           {/*Si el usuario ha seleccionado una lista para añadir productos, se añaden nuevas cosas a cada carta del producto.*/}
           {/*Como la cantidad a añadir y un botón para añadir el producto a la lista seleccionada.*/}
-          {listaSeleccionada && (
+          {listaSeleccionada && !esAdmin() && (
             <>
-              <label htmlFor="cantidad" className="label_cantidad">Cantidad: </label>
-              <input type="number" id="cantidad" name="cantidad" min="1" value={cantidad} onChange={(e) =>{ setCantidad(parseInt(e.target.value))}} />
+              <label htmlFor="cantidad" className="label_cantidad">
+                Cantidad:{" "}
+              </label>
+              <input
+                type="number"
+                id="cantidad"
+                name="cantidad"
+                min="1"
+                value={cantidad}
+                onChange={(e) => {
+                  setCantidad(parseInt(e.target.value));
+                }}
+              />
               <button
                 className="boton-añadir"
                 onClick={() => {
                   mensajeConfirmacion(
                     `¿Deseas añadir ${cantidad} "${producto.nombre}" a la lista "${listaSeleccionada.nombre}" ?`,
-                    () => AnyadirProductoLista(listaSeleccionada.id, producto.id, cantidad), 
+                    () =>
+                      AnyadirProductoLista(
+                        listaSeleccionada.id,
+                        producto.id,
+                        cantidad,
+                      ),
                   );
                 }}
               >

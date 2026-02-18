@@ -23,7 +23,7 @@ const ProveedorSesion = ({ children }) => {
     setIdioma,
   } = useSesion();
 
-  const { obtenerTodo, editarDato } = useSupabase();
+  const { obtenerTodo, editarDato, obtenerRegistro } = useSupabase();
 
   // será gastado por todos aquellos componentes que tengan que usar al componente "Confirmacion.jsx"
   const [AccionConfirmacion, setAccionConfirmacion] = useState(false);
@@ -32,6 +32,7 @@ const ProveedorSesion = ({ children }) => {
 
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
+  const [rol, setRol] = useState(null);
 
   const mensajeConfirmacion = (mensaje, callback) => {
     setMensajeAccion(mensaje);
@@ -63,6 +64,7 @@ const ProveedorSesion = ({ children }) => {
   const cerrarSesionUsuario = async () => {
     await cerrarSesion();
     setSesionIniciada(false);
+    setRol(null);
   };
 
   const traerRolesUsuarios = async () => {
@@ -78,20 +80,39 @@ const ProveedorSesion = ({ children }) => {
     }
   };
 
+  const traerRolUsuario = async (idUsuario) => {
+    try {
+      const rol = await obtenerRegistro("roles", "id_rol", idUsuario);
+      if (rol) {
+        setRol(rol.rol);
+      }
+    } catch (error) {
+      setError(
+        `Error al intentar traer el rol de un usuario: ${error.message}`,
+      );
+    }
+  };
+
   const cambiarRolUsuario = async (idUsuario, rol) => {
     try {
       const objeto = {
-        rol
-      }
+        rol,
+      };
       const resultado = await editarDato("roles", idUsuario, objeto);
       await traerRolesUsuarios();
       if (resultado) {
         setError(`El rol se ha cambiado correctamente.`);
       }
     } catch (error) {
-      setError(`Ha ocurrido un error al cambiar el rol al usuario: ${error.message}`);
+      setError(
+        `Ha ocurrido un error al cambiar el rol al usuario: ${error.message}`,
+      );
     }
   };
+
+  const esAdmin = () =>{
+    if (rol === 'administrador') return true;
+  }
 
   useEffect(() => {
     // Función que se hará siempre que se carge el componente y estará atenta a cualquier cambio en la base de datos de usuarios.
@@ -101,11 +122,13 @@ const ProveedorSesion = ({ children }) => {
           setSesionIniciada(true);
           obtenerInfoUsuario();
           traerRolesUsuarios();
+          traerRolUsuario(session.user.id);
         } else {
           navegar("/iniciar-sesion");
           setSesionIniciada(false);
         }
-      }, []
+      },
+      [],
     );
   }, []);
 
@@ -116,6 +139,7 @@ const ProveedorSesion = ({ children }) => {
     cerrarSesionUsuario,
     sesionIniciada,
     usuario,
+    esAdmin,
     error,
     setError,
     actualizarDato,
@@ -131,7 +155,7 @@ const ProveedorSesion = ({ children }) => {
 
     usuarios,
     usuarioSeleccionado,
-    cambiarRolUsuario
+    cambiarRolUsuario,
   };
 
   return (

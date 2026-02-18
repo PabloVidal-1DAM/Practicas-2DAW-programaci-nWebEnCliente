@@ -234,3 +234,40 @@
 .btn-seguir-comprando:active {
   transform: translateY(0);
 }
+
+/* Botón para volver atrás (al final de la página) */
+.btnVolverAtras {
+  display: block;                /* Necesario para poder usar margin auto */
+  margin: 3rem auto 1rem auto;   /* Margen superior grande para separar del contenido, centrado horizontalmente */
+  padding: 12px 30px;            /* Relleno cómodo */
+  background-color: #64748b;     /* Un gris azulado (Slate) elegante y neutro */
+  color: white;
+  border: none;
+  border-radius: 50px;           /* Bordes muy redondeados (estilo píldora) */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: all 0.3s ease;     /* Transición suave para el hover */
+}
+
+/* Efecto al pasar el ratón */
+.btnVolverAtras:hover {
+  background-color: #475569;     /* Un tono más oscuro */
+  transform: translateY(-2px);   /* Se eleva un poquito */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* La sombra crece */
+}
+
+/* Efecto al hacer clic */
+.btnVolverAtras:active {
+  transform: translateY(0);      /* Vuelve a su sitio */
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste para móviles: que ocupe más ancho para ser fácil de pulsar */
+@media (max-width: 600px) {
+  .btnVolverAtras {
+    width: 80%;       /* Ocupa casi todo el ancho */
+    margin-top: 2rem; /* Un poco menos de margen arriba */
+  }
+}

@@ -187,7 +187,7 @@ const ProveedorProductos = ({ children }) => {
 
   const modificarProducto = async () => {
     try{
-    const resultado = await editarDato("productos", idProducto, datosProductos);
+    const resultado = await editarDato("productos", "id", idProducto, datosProductos);
 
     if(resultado){
       cancelarModoEditar();

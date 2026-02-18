@@ -11,7 +11,7 @@ const DetallesListaCompra = () => {
     navegar,
   } = useContextListaCompra();
 
-  const { mensajeConfirmacion, idioma } = useAuth();
+  const { mensajeConfirmacion, idioma, esAdmin } = useAuth();
 
   const items = listaSeleccionada?.itemslista || []; //Si el usuario recarga la página, se hace un array vacío para evitar que pete.
   const hayItems = items.length > 0;
@@ -61,10 +61,18 @@ const DetallesListaCompra = () => {
           {!hayItems ? (
             <div className="listaVacía">
               <h2>La lista "{listaSeleccionada.nombre}" está vacía</h2>
-              <p>Añade productos para empezar a verlos aquí.</p>
-              <button onClick={() => navegar("/productos")}>
-                Ir a Productos
-              </button>
+              {!esAdmin() ? (
+                <>
+                  <p>Añade productos para empezar a verlos aquí.</p>
+                  <button onClick={() => navegar("/productos")}>
+                    Ir a Productos
+                  </button>
+                </>
+              ) : (
+                <button onClick={() => navegar("/listaCompra")}>
+                  Volver Atrás
+                </button>
+              )}
             </div>
           ) : (
             /* Aquí es ya cuando ya tiene chicha que mostrar */
@@ -74,12 +82,24 @@ const DetallesListaCompra = () => {
               <div className="resumen-dashboard">
                 <div className="card-dato">
                   <span className="label">Precio Total</span>
-                  <strong className="dato">{precioFinal.toLocaleString(idioma, {minimumFractionDigits: 2, maximumFractionDigits: 2})} €</strong>
+                  <strong className="dato">
+                    {precioFinal.toLocaleString(idioma, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}{" "}
+                    €
+                  </strong>
                 </div>
 
                 <div className="card-dato">
                   <span className="label">Peso Total</span>
-                  <strong className="dato">{pesoFinal.toLocaleString(idioma, {minimumFractionDigits: 2, maximumFractionDigits: 2})} kg</strong>
+                  <strong className="dato">
+                    {pesoFinal.toLocaleString(idioma, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}{" "}
+                    kg
+                  </strong>
                   <div
                     className={`badge-transporte ${necesitaCoche ? "bg-rojo" : "bg-verde"}`}
                   >
@@ -100,34 +120,46 @@ const DetallesListaCompra = () => {
                         {item.cantidad} uds.
                       </span>
                     </div>
-                    <button
-                      className="btn-borrar-item"
-                      onClick={() => {
-                        mensajeConfirmacion(
-                          `¿Deseas borrar "${item.productos.nombre}" ?`,
-                          () => {
-                            eliminarProductoLista(item.id);
-                          },
-                        );
-                      }}
-                    >
-                      🗑️
-                    </button>
+                    {!esAdmin() && (
+                      <button
+                        className="btn-borrar-item"
+                        onClick={() => {
+                          mensajeConfirmacion(
+                            `¿Deseas borrar "${item.productos.nombre}" ?`,
+                            () => {
+                              eliminarProductoLista(item.id);
+                            },
+                          );
+                        }}
+                      >
+                        🗑️
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
-              <div className="zona-anadir-mas">
-                <h3>O si lo deseas, puedes añadir más productos.</h3>
-                <button
-                  className="btn-seguir-comprando"
-                  onClick={() => navegar("/productos")}
-                >
-                  Pulsa Aquí
-                </button>
-              </div>
+              {!esAdmin() && (
+                <div className="zona-anadir-mas">
+                  <h3>O si lo deseas, puedes añadir más productos.</h3>
+                  <button
+                    className="btn-seguir-comprando"
+                    onClick={() => navegar("/productos")}
+                  >
+                    Pulsa Aquí
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </>
+      )}
+      {hayItems && (
+        <button
+          className="btnVolverAtras"
+          onClick={() => navegar("/listaCompra")}
+        >
+          Volver
+        </button>
       )}
     </div>
   );

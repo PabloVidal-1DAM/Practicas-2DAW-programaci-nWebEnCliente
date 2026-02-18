@@ -21,7 +21,6 @@ const Usuario = ({ usuario }) => {
   useEffect(() => {
     obtenerImagen();
   }, [usuario.id]);
-  console.log(usuario);
 
   return (
     <div className="usuario-card">
