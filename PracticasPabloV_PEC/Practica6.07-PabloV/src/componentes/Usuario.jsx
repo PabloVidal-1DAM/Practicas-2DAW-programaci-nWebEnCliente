@@ -53,7 +53,7 @@ const Usuario = ({ usuario }) => {
                 mensajeConfirmacion(
                   `¿Seguro que quieres guardar los cambios de rol de ${usuario.correo} a ${rolSeleccionado}?`,
                   () => {
-                    cambiarRolUsuario(usuario.id, rolSeleccionado);
+                    cambiarRolUsuario(usuario.id_rol, rolSeleccionado);
                   },
                 )
               }

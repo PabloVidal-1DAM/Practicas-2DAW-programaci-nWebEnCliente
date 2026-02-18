@@ -98,7 +98,7 @@ const ProveedorSesion = ({ children }) => {
       const objeto = {
         rol,
       };
-      const resultado = await editarDato("roles", idUsuario, objeto);
+      const resultado = await editarDato("roles", "id_rol", idUsuario, objeto);
       await traerRolesUsuarios();
       if (resultado) {
         setError(`El rol se ha cambiado correctamente.`);
