@@ -30,8 +30,9 @@ const ProveedorSesion = ({ children }) => {
   const [mensajeAccion, setMensajeAccion] = useState("");
   const [funcionConfirmacion, setFuncionConfirmacion] = useState(null);
 
+  // Estado usado exclusivamente para traer a los roles de todos los usuarios.
   const [usuarios, setUsuarios] = useState([]);
-  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
+  // Este, por otra parte, hace lo mismo pero con el rol del usuario de la sesión.
   const [rol, setRol] = useState(null);
 
   const mensajeConfirmacion = (mensaje, callback) => {
@@ -110,6 +111,7 @@ const ProveedorSesion = ({ children }) => {
     }
   };
 
+  /*Con esta función es posible ocultar y/o mostrar las partes de la aplicación que pueda ver el administrador. */
   const esAdmin = () =>{
     if (rol === 'administrador') return true;
   }
@@ -119,6 +121,10 @@ const ProveedorSesion = ({ children }) => {
     const subscripcion = conexionSupabase.auth.onAuthStateChange(
       (event, session) => {
         if (session) {
+          /*Cada vez que exista una sesión ocurre lo siguiente:
+          1. Obtiene la info de ese usuario y se deja constancia de que se ha iniciado sesión.
+          2. Se traen los roles de todos los usuarios de la base de datos y se guardan en un estado.
+          3. Se trae el rol de la sesion del usuario (para la función de esAdmin).*/
           setSesionIniciada(true);
           obtenerInfoUsuario();
           traerRolesUsuarios();
@@ -154,7 +160,6 @@ const ProveedorSesion = ({ children }) => {
     confirmarMensaje,
 
     usuarios,
-    usuarioSeleccionado,
     cambiarRolUsuario,
   };
 

@@ -13,6 +13,57 @@ import Usuarios from '../Usuarios.jsx';
 import Perfil from '../Perfil.jsx';
 
 const Rutas = () => {
+
+  /*1.0: Función para crear un perfil al crear una sesión el usuario. */
+
+  /*create or replace function public.crearperfil()
+    returns trigger as $$
+    begin
+      insert into public.perfiles(id_usuario, foto, "nombreCompleto", descripcion)
+      values (new.id, new.raw_user_meta_data->>'full_name', '', '' );
+      return new;
+    end;
+    $$ language plpgsql security definer; 
+    
+    Trigger que lanza la función: 
+      create or replace trigger usuariocrearperfil
+        after insert on auth.users
+        for each row execute procedure public.crearperfil();
+  */
+
+  /*2.0: Función para crear el rol al crear una sesión al usuario.*/
+
+  /*create or replace function public.insertarRol()
+    returns trigger as $$
+    begin
+      insert into public.roles (id_rol, correo, rol)
+      values (new.id, new.email, 'usuario');
+      return new;
+    end;
+    $$ language plpgsql security definer;
+
+    Trigger que lanza la función:
+      create or replace trigger alCrearUsuario
+      after insert on auth.users
+      for each row execute procedure public.insertarrol();
+  */
+
+  /*3.0: Función para sacar si el usuario es admin o no (devuelve un booleano): */
+
+  /*create or replace function public.soyAdmin()
+    returns boolean as $$
+    begin
+    return exists(
+      select 1
+      from public.roles
+      where id_rol = auth.uid()
+      and rol = 'administrador'
+    );
+    end;
+$$ language plpgsql security definer set search_path = public;auth*/
+
+
+
   return (
     <>
     <Routes>
