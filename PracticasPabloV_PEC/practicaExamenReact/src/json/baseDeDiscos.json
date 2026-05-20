@@ -1,0 +1,41 @@
+{
+  "discograficas": [
+    {
+      "id": "1",
+      "nombre": "Sony Music",
+      "sede": "Nueva York"
+    },
+    {
+      "id": "2",
+      "nombre": "Virgin Records",
+      "sede": "Londres"
+    },
+    {
+      "id": "3",
+      "nombre": "Sub Pop",
+      "sede": "Seattle"
+    }
+  ],
+  "interpretes": [
+    {
+      "id": "1",
+      "nombre": "Rosalía",
+      "genero": "Urbano/Flamenco",
+      "discograficaId": "1"
+    },
+    {
+      "id": "2",
+      "nombre": "Daft Punk",
+      "genero": "Electrónica",
+      "discograficaId": "2"
+    },
+    {
+      "id": "3",
+      "nombre": "Nirvana",
+      "genero": "Grunge",
+      "discograficaId": "3"
+    }
+  ],
+  "discos": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}
