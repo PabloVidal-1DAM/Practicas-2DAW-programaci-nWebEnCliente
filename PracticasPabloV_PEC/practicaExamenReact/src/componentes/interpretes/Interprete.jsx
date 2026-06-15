@@ -23,6 +23,7 @@ const Interprete = ({ interprete }) => {
       </p>
 
       <button onClick={() =>{borrarItem(`/interpretes/${interprete.id}`)}}>Borrar</button>
+      <button style={{marginLeft: "20px"}} onClick={ () =>{navegar(`/interpretes/${interprete.id}`)}}>Modificar</button>
     </div>
   );
 };

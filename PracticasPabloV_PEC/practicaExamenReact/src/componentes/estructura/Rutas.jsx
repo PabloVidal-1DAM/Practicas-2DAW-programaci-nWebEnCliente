@@ -30,10 +30,12 @@ const Rutas = () => {
         <Route path='/interpretes' element={<Interpretes />} />
         <Route path='/interprete/:id' element={<InterpreteDetalle />} />
         <Route path='/interprete/añadir' element={<FormularioInterprete />} />
+        <Route path='/interpretes/:id' element={<FormularioInterprete />} />
 
         <Route path='/discos' element={<Discos />} />
         <Route path='/disco/:id' element={<DiscoDetalle />} />
         <Route path='/discos/añadir' element={<FormularioDisco />} />
+        <Route path='/discos/:id' element={<FormularioDisco />} />
 
         <Route path='*' element={<h2>Error 404: Página no encontrada</h2>} />
     </Routes>

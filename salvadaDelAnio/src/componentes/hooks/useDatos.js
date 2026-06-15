@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-const useAPI = () => {
+const useDatos = () => {
+  const direccionLocal = "http://localhost:3000/";
+
   const [cargando, setCargando] = useState(false);
-  const [errorGlobal, setErrorGlobal] = useState(null);
+  const [error, setError] = useState(null);
 
   const construirHeader = () => {
     return {
@@ -10,42 +12,42 @@ const useAPI = () => {
     };
   };
 
-  const obtenerDatos = async (endpoint, id = "") => {
+  const traerDatos = async (endpoint, id) => {
+    const ruta = id
+      ? `${direccionLocal}${endpoint}/${id}`
+      : `${direccionLocal}${endpoint}`;
     try {
       setCargando(true);
-      const url = id
-        ? `${endpoint}/${id}`
-        : `${endpoint}`;
-
-      const respuesta = await fetch(url, {
+      const respuesta = await fetch(ruta, {
         method: "GET",
         headers: construirHeader(),
       });
 
       if (!respuesta.ok) {
         throw new Error(
-          `Ha ocurrido un error al obtener datos de la API: ${respuesta.status}`,
+          `Ha ocurrido un error al traer datos: ${respuesta.status}`,
         );
       }
 
       const datos = await respuesta.json();
       return datos;
     } catch (error) {
-      setErrorGlobal(error.message);
+      setError(error.message);
       throw error;
     } finally {
       setCargando(false);
     }
   };
 
-  const enviarDatos = async (endpoint, cuerpo) => {
+  const enviarDatos = async (endpoint, datos) => {
     try {
       setCargando(true);
+      const URL = `${direccionLocal}${endpoint}`;
 
-      const respuesta = await fetch(endpoint, {
+      const respuesta = await fetch(URL, {
         method: "POST",
         headers: construirHeader(),
-        body: JSON.stringify(cuerpo),
+        body: JSON.stringify(datos),
       });
 
       if (!respuesta.ok) {
@@ -57,32 +59,34 @@ const useAPI = () => {
       const datos = await respuesta.json();
       return datos;
     } catch (error) {
-      setErrorGlobal(error.message);
+      setError(error.message);
       throw error;
     } finally {
       setCargando(false);
     }
   };
 
-  const modificarDatos = async (endpoint, cuerpo) => {
+  const modificarDatos = async (endpoint, datos) => {
     try {
       setCargando(true);
-      const respuesta = await fetch(endpoint, {
+      const URL = `${endpoint}${datos}`;
+
+      const respuesta = await fetch(URL, {
         method: "PUT",
         headers: construirHeader(),
-        body: JSON.stringify(cuerpo),
+        body: JSON.stringify(datos),
       });
 
       if (!respuesta.ok) {
         throw new Error(
-          `Han ocurrido error al modificar datos: ${respuesta.status}`,
+          `Ha ocurrido un error al modificar datos: ${respuesta.status}`,
         );
       }
 
       const datos = await respuesta.json();
       return datos;
     } catch (error) {
-      setErrorGlobal(error.message);
+      setError(error.message);
       throw error;
     } finally {
       setCargando(false);
@@ -92,36 +96,38 @@ const useAPI = () => {
   const borrarDatos = async (endpoint) => {
     try {
       setCargando(true);
+      const URL = `${direccionLocal}${endpoint}`;
 
-      const respuesta = await fetch(endpoint, {
+      const respuesta = await fetch(URL, {
         method: "DELETE",
-        headers: construirHeader()
+        headers: construirHeader(),
       });
 
-      if(!respuesta.ok){
+      if (!respuesta.ok) {
         throw new Error(
-          `Ha habido un error al borrar datos: ${respuesta.status}`
+          `Ha ocurrido un nuevo error al borrar datos: ${respuesta.status}`,
         );
       }
 
       const datos = await respuesta.json();
       return datos;
     } catch (error) {
-      setErrorGlobal(error.status);
+      setError(error.message);
       throw error;
     } finally {
       setCargando(false);
     }
   };
 
-  return {
-    obtenerDatos,
+  export {
+    cargando,
+    error,
+    
+    traerDatos,
     enviarDatos,
     modificarDatos,
     borrarDatos,
-    cargando,
-    errorGlobal,
   };
 };
 
-export default useAPI;
+export default useDatos;

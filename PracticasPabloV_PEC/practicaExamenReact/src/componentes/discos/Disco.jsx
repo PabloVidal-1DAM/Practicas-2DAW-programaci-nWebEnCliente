@@ -1,24 +1,26 @@
-import React from 'react'
-import useContextCatalogo from '../hook/useContextCatalogo'
+import React from "react";
+import useContextCatalogo from "../hook/useContextCatalogo";
 
-const Disco = ({disco}) => {
-
-  const {interpretes,navegar, borrarItem} = useContextCatalogo();
+const Disco = ({disco}) =>{
+  const {interpretes, borrarItem, modificarItem, navegar } = useContextCatalogo();
 
   const interpreteEncontrado = interpretes.find((interprete) =>{
-    return interprete.id === disco.interpreteId;
-  });
+    return interprete.id === disco.interpreteId
+  })
 
   return (
-    <div id={disco.id}>
-      <h3>{disco.titulo}</h3>
-      <p><strong>Año:</strong>{disco.anyo}</p>
+  <>
+    <h3>{disco.titulo}</h3>
 
-      <p><strong>Artista:</strong>{ interpreteEncontrado ? interpreteEncontrado.nombre : 'Desconocido'}</p>
+    <p><strong>Año: </strong>{disco.anyo}</p>
 
-      <button onClick={() =>{borrarItem(`/discos/${disco.id}`);}}>Borrar</button>
-    </div>
-  )
+    <p><strong>Interprete:</strong>{disco.interpreteId ? interpreteEncontrado.nombre : "Desconocido"}</p>
+
+    <button style={{marginTop: "5px"}} onClick={() =>{borrarItem(`discos/${disco.id}`)}}>Borrar Elemento</button>
+    
+    <button style={{marginLeft: "20px"}} onClick={() =>{navegar(`/discos/${disco.id}`)}}>Modificar Elemento</button>
+  </>
+  );
 }
 
-export default Disco
+export default Disco;

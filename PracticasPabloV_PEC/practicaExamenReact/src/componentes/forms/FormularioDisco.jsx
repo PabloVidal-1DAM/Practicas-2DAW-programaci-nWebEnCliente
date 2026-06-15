@@ -1,91 +1,88 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import useContextCatalogo from "../hook/useContextCatalogo";
+import { useParams } from "react-router-dom";
 
-const FormularioDisco = () => {
+const FormularioDisco = () =>{
+  const {anyadirItem, modificarItem, navegar, interpretes, discos} = useContextCatalogo();
+
+  const {id} = useParams();
+
   const valoresIniciales = {
     titulo: "",
     anyo: "",
-    interpreteId: "",
+    interpreteId: ""
   };
-
   const [nuevoDisco, setNuevoDisco] = useState(valoresIniciales);
 
-  const [erroresForm, setErroresForm] = useState({});
+  useEffect(() =>{
+    if (id){
+      const discoEncontrado = discos.find((disco) =>{
+        return disco.id === id
+      });
 
-  const { interpretes, anyadirItem, navegar } = useContextCatalogo();
-
-  const actualizarDato = (evento) => {
-    const { name, value } = evento.target;
-    setNuevoDisco({ ...nuevoDisco, [name]: value });
-  };
-
-  const validarFormularioDiscos = () => {
-    let erroresTemporales = {};
-
-    if (!nuevoDisco.titulo.trim()) {
-      erroresTemporales.titulo = "El título es obligatorio.";
+      discoEncontrado && setNuevoDisco(discoEncontrado);
     }
+  }, [id, discos])
 
-    const anyoActual = new Date().getFullYear();
-    if (nuevoDisco.anyo < 1900 || nuevoDisco.anyo > anyoActual) {
-      erroresTemporales.anyo = `El año debe estar entre 1900 y ${anyoActual}.`;
-    }
+  const [erroresFormulario, setErroresFormulario] = useState({});
 
-    if (!nuevoDisco.interpreteId) {
-      erroresTemporales.interpreteId = "Debes seleccionar un interprete";
-    }
+  
 
-    setErroresForm(erroresTemporales);
+  const actualizarDato = (evento) =>{
+    const {name, value} = evento.target;
+    setNuevoDisco({...nuevoDisco, [name]: value});
+  }
 
-    return Object.keys(erroresTemporales.length === 0);
-  };
+  const actualizarDatoCheck = (evento) =>{
+    const {name, value, checked} = evento.target;
+    setNuevoDisco({...nuevoDisco, [name]: checked ? value : ""});
+  }
+  // función para validar.
 
-  const manejarEnvio = async (evento) => {
-    evento.preventDefault();
-    if (validarFormularioDiscos()) {
-      try {
-        await anyadirItem(`discos`, nuevoDisco);
-
-        alert("Disco Añadido correctamente!");
-        setNuevoDisco(valoresIniciales);
-        navegar("/discos");
-      } catch (error) {
-        console.log("falló el guardado", error);
+  const manejarEnvio = async(evento) =>{
+    try{
+      evento.preventDefault();
+      if(id){
+        await modificarItem(`discos/${id}`, nuevoDisco);
+        alert("Disco modificado correctamente!");
+      }else{
+        await anyadirItem('discos', nuevoDisco);
+        alert("Disco añadido correctamente!");
       }
+    
+
+      setNuevoDisco(valoresIniciales);
+      navegar('/discos');
+    }catch(error){
+      console.log("Error al enviar el formulario: ", error);
     }
-  };
-  return (
-    <div>
-        <h2>Añadir un nuevo disco</h2>
-      <form noValidate>
+  }
 
-            <label htmlFor="titulo">Título del disco:</label>
-            <input type="text" name="titulo" value={nuevoDisco.titulo} onChange={actualizarDato} />
-            {erroresForm.titulo && <span style={"color: red"}>{erroresForm.titulo}</span>}
+  return(
+  <form noValidate onSubmit={manejarEnvio}>
 
-            <label htmlFor="anyo">Año del disco:</label>
-            <input type="date" name="anyo" value={nuevoDisco.anyo} onChange={actualizarDato} />
-            {erroresForm.anyo && <span style={{color: "red"}}>{erroresForm.anyo}</span>}
+    <label htmlFor="titulo">Introduce el Título: </label>
+    <input type="text" name="titulo" value={nuevoDisco.titulo} onChange={actualizarDato} />
+    {/*{erroresFormulario.titulo ? <span style={{color: "red"}}>{erroresFormulario.titulo}</span>}*/}
 
-            <label htmlFor="idInterprete">Selecciona el id del interprete</label>
-            {interpretes.map((interprete) =>{
-             return <div key={interprete.id}>
-                        <input 
-                            type="radio" 
-                            name="interpreteId" 
-                            value={interprete.id} 
-                            checked={nuevoDisco.interpreteId === interprete.id}
-                            onChange={actualizarDato} 
-                        />
-                        <span style={{marginLeft: "5px"}}>{interprete.nombre}</span>
-                    </div>
-            })}
-            {erroresForm.interpreteId && <span style={{color: "red"}}>{erroresForm.interpreteId}</span>}
+    <br />
+    <label htmlFor="anyo">Introduce el Año: </label>
+    <input type="date" name="anyo" value={nuevoDisco.anyo} onChange={actualizarDato} />
+    {/*{erroresFormulario.anyo ? <span style={{color: "red"}}>{erroresFormulario.anyo}</span>*/}
 
-            <button type="submit" style={{marginTop: "5px"}} onClick={manejarEnvio}>Enviar datos</button>
-      </form>
-    </div>
+    <br />
+    <label htmlFor="interpreteId">Selecciona el Interprete: </label>
+    {interpretes.map((interprete) =>{
+      return <div key={interprete.id}>
+        <input type="checkbox" value={interprete.id} name="interpreteId" onChange={actualizarDatoCheck} checked={nuevoDisco.interpreteId === interprete.id} />
+        <span style={{marginLeft: "5px"}}>{interprete.nombre}</span>
+      </div>
+    })}
+    {/*{erroresFormulario.interpreteId ? <span style={{color: "red"}}>{erroresFormulario.interpreteId}</span>}*/}
+
+    <button type="submit" style={{marginTop: "10px"}}>Enviar datos</button>
+  </form>
   );
-};
+}
 
 export default FormularioDisco;

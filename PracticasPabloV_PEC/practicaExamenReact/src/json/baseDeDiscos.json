@@ -36,6 +36,79 @@
       "discograficaId": "3"
     }
   ],
-  "discos": [],
+  "discos": [
+    {
+      "id": "1",
+      "titulo": "Marshalls",
+      "anyo": "21/05/2026",
+      "interpreteId": "2"
+    },
+    {
+      "id": "2",
+      "titulo": "Marshaloso",
+      "anyo": "21/05/20336",
+      "interpreteId": "1"
+    },
+    {
+      "id": "4",
+      "titulo": "Cacahuetehhhhhh",
+      "anyo": "19/03/2005",
+      "interpreteId": "1"
+    },
+    {
+      "titulo": "Los cangelitis",
+      "anyo": "2005-03-19",
+      "interpreteId": "3",
+      "id": "blpxuRpPRCg"
+    },
+    {
+      "titulo": "Los marshalotes graciosos",
+      "anyo": "2004-03-19",
+      "interpreteId": "1",
+      "id": "wEZ9aPOP9YU"
+    },
+    {
+      "id": "vO2DPQSPa70",
+      "titulo": "Marshalls",
+      "anyo": "21/05/2026",
+      "interpreteId": "2"
+    },
+    {
+      "id": "HN_FL0Ye6xs",
+      "titulo": "Marshaloso6",
+      "anyo": "52025-02-25",
+      "interpreteId": "1"
+    },
+    {
+      "id": "kYirgzntbqY",
+      "titulo": "Marshaloso2",
+      "anyo": "21/05/20336",
+      "interpreteId": "1"
+    },
+    {
+      "id": "HOuhIO0ejBQ",
+      "titulo": "Marshaloso1",
+      "anyo": "52025-02-25",
+      "interpreteId": "1"
+    },
+    {
+      "id": "yp2mLW6wK20",
+      "titulo": "Marshaloso3",
+      "anyo": "52025-02-25",
+      "interpreteId": "1"
+    },
+    {
+      "id": "7ptROiBsq08",
+      "titulo": "Marshaloso4",
+      "anyo": "52025-02-25",
+      "interpreteId": "1"
+    },
+    {
+      "id": "9utyA82KTh4",
+      "titulo": "Marshaloso5",
+      "anyo": "52025-02-25",
+      "interpreteId": "1"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

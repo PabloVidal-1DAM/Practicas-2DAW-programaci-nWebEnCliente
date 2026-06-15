@@ -1,0 +1,8 @@
+.cabecera_principal {
+    text-align: left;
+    border: 1px rgb(132, 132, 132) solid;
+    border-radius: 10px;
+    margin: 1%;
+    padding: 3%;
+    width: 98%;
+}

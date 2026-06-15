@@ -23,7 +23,7 @@ const useSupabase = () => {
     }
   };
 
-  const obtenerRegistro = async (tabla, columna = "id", id) => {
+  const obtenerRegistro = async (tabla, columna, id) => {
     setCargando(true);
     let datos = null;
     try {
@@ -104,7 +104,7 @@ const useSupabase = () => {
     }
   };
 
-  const editarDato = async (tabla, columna = "id", id, objeto) => {
+  const editarDato = async (tabla, columna, id, objeto) => {
     setCargando(true);
     let resultado = false;
     try {

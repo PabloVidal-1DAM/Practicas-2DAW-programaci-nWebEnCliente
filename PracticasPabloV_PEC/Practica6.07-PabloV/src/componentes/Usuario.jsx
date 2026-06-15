@@ -5,6 +5,8 @@ import useContextPerfil from "./hooks/useContextPerfil";
 const Usuario = ({ usuario }) => {
   const { cambiarRolUsuario, mensajeConfirmacion } = useAuth();
 
+  /*Estos estados son exclusivos de este componente para evitar que todos los usuarios compartan el mismo estado. 
+  Con esto me he quitado problemas como seleccionar el select y cambiarlo para un usuario, pero que se cambiase en todos.*/
   const [rolSeleccionado, setRolSeleccionado] = useState(usuario.rol);
   const rolCambiado = rolSeleccionado !== usuario.rol; // Cuando el rol que viene de la base de datos cambie, se mostrará el boton para guardar cambios.
 
@@ -19,20 +21,19 @@ const Usuario = ({ usuario }) => {
   };
 
   useEffect(() => {
+    /*Por cada usuario cargado, se obtiene su imágen de su perfil para mostrarla en el html de abajo. */
     obtenerImagen();
   }, [usuario.id]);
 
   return (
     <div className="usuario-card">
-      {/* 1. Avatar decorativo */}
+      {/* Se usa el estado que guarda la imágen del usuario que se obtiene de la función. */}
       <div className="usuario-avatar">
         <img src={imagen}></img>
       </div>
 
-      {/* 2. Correo */}
       <div className="usuario-correo">{usuario.correo}</div>
 
-      {/* 3. Rol con estilo de etiqueta */}
       <div className="zona-edicion-rol">
         <label className="label-rol">Rol Actual:</label>
         <div className="input-group">

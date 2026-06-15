@@ -8,7 +8,7 @@ const Perfil = () => {
   return (
     <div className="perfil-wrapper">
       
-      {/* --- ZONA 1: VISTA PREVIA (Lo que ven los demás) --- */}
+      {/* Zona de información general del perfil: */}
       <div className="perfil-card">
         <div className="perfil-header-bg"></div>
         
@@ -21,17 +21,16 @@ const Perfil = () => {
         </div>
 
         <div className="perfil-info">
-          {/* Mostramos 'Nombre de Usuario' si el campo está vacío */}
           <h2>{perfil.nombreCompleto || "Nombre de Usuario"}</h2>
           
-          {/* Mostramos un texto gris si no hay descripción */}
+          {/* Si el usuario no pone descripción, se muestra un texto que informa de ello. */}
           <p className="perfil-desc">
             {perfil.descripcion || <span style={{fontStyle:'italic', color:'#94a3b8'}}>Sin descripción...</span>}
           </p>
         </div>
       </div>
 
-      {/* --- ZONA 2: FORMULARIO DE EDICIÓN --- */}
+      {/*Zona del formulario para editar datos del perfil:*/}
       <div className="perfil-form-container">
         <h3>Editar Perfil</h3>
         

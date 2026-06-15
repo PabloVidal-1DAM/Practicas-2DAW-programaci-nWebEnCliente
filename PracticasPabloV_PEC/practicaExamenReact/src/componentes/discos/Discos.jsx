@@ -1,32 +1,26 @@
-import React from 'react'
-import Disco from "../discos/Disco"
-import useContextCatalogo from "../hook/useContextCatalogo"
+import React from "react";
+import useContextCatalogo from "../hook/useContextCatalogo";
+import Disco from "../discos/Disco";
 
-const Discos = () => {
-  const {discos, cargando, errorGlobal} = useContextCatalogo();
+const Discos = () =>{
+  const {discos, errorGlobal, cargando} = useContextCatalogo();
   return (
+  <>
+    {errorGlobal ? <div style={{color: "red"}}>Existen errores:{errorGlobal}</div> : 
+
+    cargando ? <div>Cargando componente...</div> :
+
+    discos.length === 0 ? <div>No hay discos que mostrar</div> :
+
     <div>
-      {errorGlobal ? (
-        <div style={{ color: 'red' }}>Existen Errores: {errorGlobal}</div>
-      ):
-      
-      cargando ? (
-        <div>Cargando discos...</div>
-      ) : 
-
-      discos.length === 0 ? (
-        <h2>No existen Discos todavía.</h2>
-      ): 
-      (
-      <>
-        <h2>Catalogo de Discos</h2>
-        {discos.map((disco) =>{
-          return <Disco key={disco.id} disco={disco} />
-        })}
-      </>
-      )}
+      <h2>Catalogo de discos</h2>
+      {discos.map((disco) =>{
+        return <Disco key={disco.id} disco={disco}/>
+      })}
     </div>
+    }
+  </>
   );
-}
+};
 
-export default Discos
+export default Discos;
