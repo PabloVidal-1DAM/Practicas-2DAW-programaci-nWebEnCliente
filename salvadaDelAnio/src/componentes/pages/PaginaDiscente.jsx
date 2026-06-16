@@ -1,13 +1,8 @@
 import React from "react";
-import useContextDiscentes from "../hooks/useContextDiscentes"
+import Discentes from "./Discentes";
 
-const PaginaDiscente = () =>{
-    const {discentes} = useContextDiscentes();
-    console.log(discentes);
- return (
- <>
- </>
-);
-}
+const PaginaDiscente = () => {
+  return <Discentes />
+};
 
 export default PaginaDiscente;

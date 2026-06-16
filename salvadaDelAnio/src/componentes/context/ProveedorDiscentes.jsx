@@ -26,7 +26,7 @@ const ProveedorDiscentes = ({ children }) => {
     cargarDiscentes();
   }, []);
 
-  const datos = { discentes, cargando, errores, cargarDiscentes };
+  const datos = { discentes, cargando, error, cargarDiscentes };
 
   return (
     <contextoDiscentes.Provider value={datos}>

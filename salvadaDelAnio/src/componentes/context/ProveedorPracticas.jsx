@@ -4,7 +4,7 @@ import useDatos from "../hooks/useDatos";
 const contextoPracticas = createContext();
 const ProveedorPracticas = ({children}) =>{
     const {traerDatos, enviarDatos, modificarDatos, borrarDatos, cargando, error} = useDatos();
-    const [practicas, setPracticas] = useState();
+    const [practicas, setPracticas] = useState([]);
 
     const cargarPracticas = async() =>{
         try{
