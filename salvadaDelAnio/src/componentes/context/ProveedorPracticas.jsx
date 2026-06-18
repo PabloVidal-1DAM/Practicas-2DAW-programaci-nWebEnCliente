@@ -15,11 +15,20 @@ const ProveedorPracticas = ({children}) =>{
         }
     }
 
+    const obtenerPracticasPorMatricula = async(idMatricula) =>{
+        try{
+            return traerDatos(`practicas?matriculaId=${idMatricula}`)
+        }catch(error){
+            console.log("Ha ocurrido un error al obtener las practicas de la matricula: ", error);
+            throw error;
+        }
+    }
+
     useEffect(() =>{
         cargarPracticas();
     }, [])
 
-    const datos = {practicas, cargarPracticas, cargando, error};
+    const datos = {practicas, cargarPracticas, cargando, error, obtenerPracticasPorMatricula};
     return (
         <contextoPracticas.Provider value={datos}>
             {children}

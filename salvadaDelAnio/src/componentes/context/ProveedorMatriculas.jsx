@@ -15,11 +15,20 @@ const ProveedorMatriculas = ({ children }) => {
         }
     }
 
+    const obtenerMatriculaPorDiscente = async(idDiscente) =>{
+      try{
+        return await traerDatos(`matriculas?discenteId=${idDiscente}`);
+      }catch(error){
+        console.log("Error al obtener las matriculas por discente: ", error);
+        throw error
+      }
+    }
+
     useEffect(() =>{
         cargarMatriculas();
     }, []);
 
-  const datos = {matriculas, cargarMatriculas, error, cargando};
+  const datos = {matriculas, cargarMatriculas, error, cargando, obtenerMatriculaPorDiscente};
   return (
     <contextoMatriculas.Provider value={datos}>
       {children}

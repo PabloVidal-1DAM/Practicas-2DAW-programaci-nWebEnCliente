@@ -15,11 +15,20 @@ const ProveedorModulos = ({ children }) => {
         }
     }
 
+    const obtenerModuloPorId = async(id) =>{
+      try{
+        return await traerDatos(`modulos/${id}`)
+      }catch(error){
+        console.log("Error al obtener el modulo: ", error);
+        throw error;
+      }
+    }
+
     useEffect(() =>{
         cargarModulos();
     }, [])
 
-  const datos = {modulos, cargarModulos, cargando, error};
+  const datos = {modulos, cargarModulos, cargando, error, obtenerModuloPorId};
   return (
     <contextoModulos.Provider value={datos}>
       {children}
