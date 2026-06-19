@@ -19,8 +19,8 @@ const ProveedorMatriculas = ({ children }) => {
       try{
         return await traerDatos(`matriculas?discenteId=${idDiscente}`);
       }catch(error){
-        console.log("Error al obtener las matriculas por discente: ", error);
-        throw error
+        console.log("Ha ocurrido un error al obtener la matricula: ", error);
+        throw error;
       }
     }
 

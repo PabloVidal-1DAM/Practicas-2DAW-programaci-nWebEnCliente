@@ -19,7 +19,7 @@ const ProveedorModulos = ({ children }) => {
       try{
         return await traerDatos(`modulos/${id}`)
       }catch(error){
-        console.log("Error al obtener el modulo: ", error);
+        console.log("Ha ocurrido un error al obtener el modulo por id: ", error);
         throw error;
       }
     }

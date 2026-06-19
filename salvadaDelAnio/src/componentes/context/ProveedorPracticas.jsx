@@ -17,9 +17,9 @@ const ProveedorPracticas = ({children}) =>{
 
     const obtenerPracticasPorMatricula = async(idMatricula) =>{
         try{
-            return traerDatos(`practicas?matriculaId=${idMatricula}`)
+            return await traerDatos(`practicas?matriculaId=${idMatricula}`);
         }catch(error){
-            console.log("Ha ocurrido un error al obtener las practicas de la matricula: ", error);
+            console.log("Ha ocurrido un error al traer las practicas de la matricula: ", error);
             throw error;
         }
     }
