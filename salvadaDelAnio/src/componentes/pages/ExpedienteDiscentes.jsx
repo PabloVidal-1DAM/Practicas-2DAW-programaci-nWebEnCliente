@@ -1,98 +1,72 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useContextMatriculas from "../hooks/useContextMatrículas";
 import useContextModulos from "../hooks/useContextModulos";
 import useContextPracticas from "../hooks/useContextPracticas";
 
-const ExpedienteDiscentes = () => {
-  const { id } = useParams();
+const ExpedienteDiscentes = () =>{
+  const {id} = useParams();
+  const [expedienteFinal, setExpedienteFinal] = useState([]);
 
-  const [expedienteCompleto, setExpedienteCompleto] = useState([]);
-  const [cargandoExpediente, setCargandoExpediente] = useState(false);
+  const {obtenerMatriculaPorDiscente} = useContextMatriculas();
+  const {obtenerModuloPorId} = useContextModulos();
+  const {obtenerPracticasPorMatricula} = useContextPracticas();
 
-  const { obtenerMatriculaPorDiscente } = useContextMatriculas();
-  const { obtenerModuloPorId } = useContextModulos();
-  const { obtenerPracticasPorMatricula } = useContextPracticas();
+  const cargarExpediente = async() =>{
+    const matriculas=  await obtenerMatriculaPorDiscente(id);
+    
+    const promesas = matriculas.map(async(matricula) =>{
+      const [modulo, practicas] = await Promise.allSettled([
+        obtenerModuloPorId(matricula.moduloId),
+        obtenerPracticasPorMatricula(matricula.id)
+      ]);
 
-  const constuirExpediente = async () => {
-    setCargandoExpediente(true);
-    try {
-      const matriculasAlumno = await obtenerMatriculaPorDiscente(id);
+      const moduloLimpio = modulo.status === "fulfilled" ? modulo.value : null;
+      const practicasLimpias = practicas.status === "fulfilled" ? practicas.value : [];
 
-      const promesas = matriculasAlumno.map(async (matricula) => {
-        const [modulo, practicas] = await Promise.allSettled([
-          obtenerModuloPorId(matricula.moduloId),
-          obtenerPracticasPorMatricula(matricula.id),
-        ]);
+      let media = 0;
+      const sumaTotal = practicasLimpias.reduce((acumulador, practica) => acumulador + practica.nota, 0);
+      media = sumaTotal / practicasLimpias.length;
 
-        const moduloLimpio =
-          modulo.status === "fulfilled" ? modulo.value : null;
-        const practicasLimpias =
-          practicas.status === "fulfilled" ? practicas.value : [];
+      return{
+        modulo: moduloLimpio,
+        media: media.toFixed(1),
+        practicas: practicasLimpias
+      }
+    });
 
-        let media = 0;
-        const sumaTotal = practicasLimpias.reduce(
-          (acumulador, practica) => acumulador + practica.nota,
-          0,
-        );
-        media = sumaTotal / practicasLimpias.length;
+    const resultadoFinal = await Promise.allSettled(promesas);
+    const expedienteFinal = resultadoFinal.filter((resultado) =>{
+      return resultado.status === "fulfilled"
+    }).map((resultado) =>{
+      return resultado.value
+    });
+    console.log(expedienteFinal);
+    setExpedienteFinal(expedienteFinal);
+  }
 
-        return {
-          modulo: moduloLimpio,
-          media: media.toFixed(1),
-          practicas: practicasLimpias,
-        };
-      });
-
-      const resultadoFinal = await Promise.allSettled(promesas);
-      const expediente = resultadoFinal
-        .filter((resultado) => resultado.status === "fulfilled")
-        .map((resultado) => resultado.value);
-
-      setExpedienteCompleto(expediente);
-
-      console.log(expediente);
-    } catch (error) {
-      console.log("Ha ocurrido un error al crear el expediente: ", error);
-    } finally {
-      setCargandoExpediente(false);
-    }
-  };
-
-  useEffect(() => {
-    if (id) {
-      constuirExpediente();
+  useEffect(() =>{
+    if(id){
+      cargarExpediente();
     }
   }, [id]);
-  return (
+
+  return(
     <>
-      {cargandoExpediente ? (
-        <div>Cargando Expediente, porfavor espera...</div>
-      ) : (
-        <div>
-          <h2>Expediente del Alumno</h2>
-          <br />
-          {expedienteCompleto.map((item, i) => {
-            return (
-              <div key={i}>
-                <h3>Modulo: {item.modulo.nombre}</h3>
-                <p>
-                  Nota media:{" "}
-                  <span style={{ color: "blue" }}>{item.media}</span>
-                </p>
-                <h4 style={{ color: "green" }}>Practicas:</h4>
-                <ul>
-                  {item.practicas.map((practica) => {
-                    return <li key={practica.id}>{practica.titulo} - {practica.nota}</li>;
-                  })}
-                </ul>
-              </div>
-            );
+    <h3>Expediente Completo</h3>
+    {expedienteFinal.map((expediente, i) =>{
+      return <div key={i}>
+        <p><span style={{color: "orange"}}>Modulo: </span>{expediente.modulo.nombre}</p>
+        <h3>Practicas</h3>
+        <ul>
+          {expediente.practicas.map((practica) =>{
+            return <li key={practica.id}>{practica.titulo}</li>
           })}
-        </div>
-      )}
+        </ul>
+      </div>
+    })}
     </>
   );
-};
+}
 
 export default ExpedienteDiscentes;

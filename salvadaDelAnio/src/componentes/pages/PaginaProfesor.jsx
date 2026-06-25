@@ -2,7 +2,9 @@ import React from "react";
 import FormularioNotas from "./FormularioNotas";
 
 const  PaginaProfesor = () =>{
-    <FormularioNotas />
+    return(
+       <FormularioNotas />
+    );
 }
 
 export default PaginaProfesor;

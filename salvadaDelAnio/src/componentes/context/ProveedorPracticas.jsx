@@ -19,7 +19,17 @@ const ProveedorPracticas = ({children}) =>{
         try{
             return await traerDatos(`practicas?matriculaId=${idMatricula}`);
         }catch(error){
-            console.log("Ha ocurrido un error al traer las practicas de la matricula: ", error);
+            console.log("Error al cargar las practicas por matriculas: ", error);
+            throw error;
+        }
+    }
+
+    const modificarPractica = async(practicaModificada) =>{
+        try{
+            await modificarDatos(`practicas/${practicaModificada.id}`, practicaModificada);
+            await cargarPracticas();
+        }catch(error){
+            console.log("Error al modificar la practica: ", error);
             throw error;
         }
     }
@@ -28,7 +38,7 @@ const ProveedorPracticas = ({children}) =>{
         cargarPracticas();
     }, [])
 
-    const datos = {practicas, cargarPracticas, cargando, error, obtenerPracticasPorMatricula};
+    const datos = {practicas, cargarPracticas, cargando, error, obtenerPracticasPorMatricula, modificarPractica};
     return (
         <contextoPracticas.Provider value={datos}>
             {children}

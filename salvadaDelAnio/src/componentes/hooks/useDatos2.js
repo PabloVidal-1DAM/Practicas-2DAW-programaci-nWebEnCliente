@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-const useDatos = () => {
+const useDatos2 = () => {
   const [cargando, setCargando] = useState(false);
   const [errores, setErrores] = useState(null);
-
   const direccionLocal = "http://localhost:3000";
 
   const construirHeader = () => {
@@ -18,13 +17,14 @@ const useDatos = () => {
       const URL = id
         ? `${direccionLocal}/${endpoint}/${id}`
         : `${direccionLocal}/${endpoint}`;
+
       const respuesta = await fetch(URL, {
-        headers: construirHeader(),
         method: "GET",
+        headers: construirHeader(),
       });
 
       if (!respuesta.ok) {
-        throw new Error(`Error al traer datos: ${respuesta.status}`);
+        throw new Error(`Error al traer datos: , ${respuesta.status}`);
       }
 
       const datos = await respuesta.json();
@@ -41,14 +41,15 @@ const useDatos = () => {
     try {
       setCargando(true);
       const URL = `${direccionLocal}/${endpoint}`;
+
       const respuesta = await fetch(URL, {
-        headers: construirHeader(),
         method: "POST",
+        headers: construirHeader(),
         body: JSON.stringify(cuerpo),
       });
 
       if (!respuesta.ok) {
-        throw new Error(`Error al enviar datos: ${respuesta.status}`);
+        throw new Error(`Error al enviar datos: , ${respuesta.status}`);
       }
 
       const datos = await respuesta.json();
@@ -65,14 +66,15 @@ const useDatos = () => {
     try {
       setCargando(true);
       const URL = `${direccionLocal}/${endpoint}`;
+
       const respuesta = await fetch(URL, {
-        headers: construirHeader(),
         method: "PUT",
+        headers: construirHeader(),
         body: JSON.stringify(cuerpo),
       });
 
       if (!respuesta.ok) {
-        throw new Error(`Error al modificar datos: ${respuesta.status}`);
+        throw new Error(`Error al modificar datos: , ${respuesta.status}`);
       }
 
       const datos = await respuesta.json();
@@ -85,17 +87,18 @@ const useDatos = () => {
     }
   };
 
-    const borrarDatos = async (endpoint) => {
+  const borrarDatos = async (endpoint) => {
     try {
       setCargando(true);
       const URL = `${direccionLocal}/${endpoint}`;
+
       const respuesta = await fetch(URL, {
-        headers: construirHeader(),
         method: "DELETE",
+        headers: construirHeader(),
       });
 
       if (!respuesta.ok) {
-        throw new Error(`Error al borrar datos: ${respuesta.status}`);
+        throw new Error(`Error al borrar datos: , ${respuesta.status}`);
       }
 
       const datos = await respuesta.json();
@@ -107,10 +110,8 @@ const useDatos = () => {
       setCargando(false);
     }
   };
-
-  
 
   return {traerDatos, enviarDatos, modificarDatos, borrarDatos, cargando, errores};
 };
 
-export default useDatos;
+export default useDatos2;

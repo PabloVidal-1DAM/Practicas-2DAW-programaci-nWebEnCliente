@@ -1,64 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useContextDiscentes from "../hooks/useContextDiscentes";
+import useContextPracticas from "../hooks/useContextPracticas";
+import useContextMatriculas from "../hooks/useContextMatrículas";
+import useContextModulos from "../hooks/useContextModulos";
 
-const FormularioNotas = () => {
+const FormularioNotas = () =>{
 
-    // no sé como hacer para que se llegue hasta el formulario para poder modificar la nota, 
-    // así que tristemente voy a optar por hacer el formulario aquí directamente.
+  const {discentes} = useContextDiscentes();
+  const [idDiscente, setIdDiscente] = useState("");
+  const [idPractica, setIdPractica] = useState("");
+  const [practicas, setPracticas] = useState([]);
 
-    const { modulos, practicas, discentes, anyadirItem} = useContextDiscentes();
-    const valoresIniciales = {
-        siglas: "",
-        nombre: "",
-        horas: "",
-        docenteId: ""
-    };
-    const [nuevoModulo, setNuevoModulo] = useState(valoresIniciales);
-    const [erroresFormulario, setErroresFormulario] = useState({});
+  const valoresInciales = {nota: ""}
+  const [formulario, setFormulario] = useState(valoresInciales);
+  const [erroresFormulario, setErroresFormulario] = useState({});
 
-    const actualizarDatos = (evento) => {
-        const { name, value } = evento;
-        nuevoModulo({...nuevoModulo, [name]: value});
+  const {modificarPractica, obtenerPracticasPorMatricula} = useContextPracticas();
+
+  const {obtenerMatriculaPorDiscente} = useContextMatriculas();
+  const {obtenerModuloPorId} = useContextModulos();
+
+  const actualizarDato = (evento) =>{
+    const {name, value} = evento.target;
+    setFormulario({...formulario, [name]: value});
+  }
+
+  const verificarFormulario = () =>{
+    let erroresLocales = {};
+    if(formulario.nota < 0 || formulario.nota > 10){
+      erroresLocales.nota = "La nota debe tener un rango del 0-10"
     }
+    setErroresFormulario(erroresLocales);
+    return Object.keys(erroresLocales).length === 0;
+  }
 
-    const verificarFormulario = () =>{
-        const erroresLocales = {};
-        if (nuevoModulo.horas in Range(0,10)){
-            erroresLocales.horas = "Las horas deben ser mayores de 10."
-            setErroresFormulario(erroresLocales.horas);
+  const manejarFormulario = async(evento) =>{
+    evento.preventDefault();
+    try{
+      if(verificarFormulario()){
+        const practicaEncontrada = practicas.find((practica) =>{
+          return practica.id === idPractica
+        });
+        const cuerpo = {
+          ...practicaEncontrada,
+          nota: formulario.nota
         }
-
-        return Object.keys(erroresLocales.length === 0);
+        await modificarPractica(cuerpo);
+        alert("Practica modificada.")
+      }
+    }catch(error){
+      console.log("Error al manejar el formulario: ", error)
     }
+  }
 
-    const manejarFormulario = async(evento) =>{
-        evento.preventDefault();
-
-        if(verificarFormulario){
-            await anyadirItem('modulos', nuevoModulo);
-            alert("Nuevo Modulo Insertado Correctamente!.");
-        }
-
+  useEffect(() =>{
+    if(!idDiscente){
+      return;
     }
+    const cargarPracticas = async() =>{
+      const matriculas = await obtenerMatriculaPorDiscente(idDiscente);
+      const promesas = matriculas.map(async(matricula) =>{
+        const [modulo, practicas] = await Promise.allSettled([
+          obtenerModuloPorId(matricula.moduloId),
+          obtenerPracticasPorMatricula(matricula.id)
+        ]);
 
-    return (
-        <>
-            <form noValidate onSubmit={manejarFormulario}>
-                <label htmlFor="siglas">Introduce las siglas del módulo: </label>
-                <input type="text" name="siglas" value={nuevoModulo.siglas} onChange={actualizarDatos} />
+      const moduloLimpio = modulo.status === "fulfilled" ? modulo.value : null;
+      const practicasLimpias = practicas.status === "fulfilled" ? practicas.value : [];
 
-                <label htmlFor="nombre">Introduce el nombre del módulo: </label>
-                <input type="text" name="nombre" value={nuevoModulo.nombre} />
+      return{
+        practicasLimpias
+      }
+      });
 
-                <label htmlFor="horas">Introduce el número de horas: </label>
-                <input type="number" name="horas" value={nuevoModulo.horas} />
-                {erroresFormulario.horas && <span style={{color: "red"}}>{erroresFormulario.horas}</span>}
+      const resultadoFinal = await Promise.allSettled(promesas);
+      const practicas = resultadoFinal.filter((resultado) =>{
+        return resultado.status === "fulfilled"
+      }).map((resultado) =>{
+        return resultado.value
+      }).flat();
+      console.log(practicas);
+      setPracticas(practicas);
+    }
+    cargarPracticas();
+  }, [idDiscente])
 
-                <button type="submit" style={{marginTop: "20px"}}>Enviar Datos</button>
-
-            </form>
-        </>
-    );
+  return (
+    <>
+    <h2>Formulario de Notas</h2>
+    <label>Seleciona un discente: </label>
+    <select value={idDiscente} onChange={(e) =>{setIdDiscente(e.target.value)}}>
+      {discentes.map((discente) =>{
+        return <option key={discente.id} value={discente.id}>{discente.nombre}</option>
+      })}
+    </select>
+    </>
+  );
 }
 
-export default FormularioNotas
+export default FormularioNotas;

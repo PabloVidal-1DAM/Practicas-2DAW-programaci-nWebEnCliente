@@ -1,7 +1,6 @@
 import React from "react";
 import "./Cabecera.css";
 import Menu from "../pages/Menu";
-
 const Cabecera = () => {
   return (
     <>
